@@ -1,0 +1,555 @@
+/* 
+ * CashVers Modern Minimal Design
+ * A clean, contemporary design system for the landing page
+ */
+
+/* ========================================
+   BASE & RESET
+   ======================================== */
+
+.landing-page {
+    background: #FFFFFF !important;
+    color: #1A1A1A !important;
+    font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+.landing-page::before {
+    display: none;
+}
+
+/* Override dark background for landing */
+body:has(.landing-page) {
+    background: #FFFFFF !important;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.nav-modern {
+    background: #FFFFFF;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.nav-modern .navbar-brand {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A1A !important;
+    text-decoration: none;
+}
+
+.nav-modern .nav-link-modern {
+    color: #666666;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-modern .nav-link-modern:hover {
+    color: #E9213D;
+}
+
+.nav-btn-modern {
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.nav-btn-signin {
+    color: #E9213D;
+    border: 2px solid #E9213D;
+    background: transparent;
+    margin-right: 12px;
+}
+
+.nav-btn-signin:hover {
+    background: #E9213D;
+    color: #FFFFFF;
+}
+
+.nav-btn-signup {
+    background: #E9213D;
+    color: #FFFFFF;
+    border: 2px solid #E9213D;
+}
+
+.nav-btn-signup:hover {
+    background: #C71D34;
+    border-color: #C71D34;
+}
+
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
+.hero-modern {
+    min-height: calc(100vh - 76px);
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+    background: linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-modern::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 80%;
+    height: 150%;
+    background: radial-gradient(circle, rgba(233, 33, 61, 0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-modern .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title-modern {
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 24px;
+    color: #1A1A1A;
+    letter-spacing: -0.02em;
+}
+
+.hero-title-modern .highlight {
+    color: #E9213D;
+    display: inline-block;
+}
+
+.hero-subtitle-modern {
+    font-size: clamp(18px, 2vw, 22px);
+    line-height: 1.6;
+    color: #666666;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+/* ========================================
+   BUTTONS & CTA
+   ======================================== */
+
+.cta-button-modern {
+    display: inline-flex;
+    align-items: center;
+    padding: 18px 40px;
+    background: #E9213D;
+    color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(233, 33, 61, 0.25);
+    border: none;
+}
+
+.cta-button-modern:hover {
+    background: #C71D34;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(233, 33, 61, 0.35);
+    color: #FFFFFF;
+}
+
+/* ========================================
+   STATISTICS
+   ======================================== */
+
+.stats-modern {
+    padding: 80px 0;
+    background: #FFFFFF;
+}
+
+.stat-card-modern {
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 16px;
+    padding: 40px 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.stat-card-modern:hover {
+    border-color: #E9213D;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+}
+
+.stat-icon-modern {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, #E9213D 0%, #C71D34 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}
+
+.stat-value-modern {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1A1A1A;
+    margin-bottom: 8px;
+}
+
+.stat-label-modern {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.4;
+}
+
+/* ========================================
+   SECTIONS
+   ======================================== */
+
+.section-modern {
+    padding: 100px 0;
+}
+
+.section-title-modern {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #1A1A1A;
+    text-align: center;
+    letter-spacing: -0.02em;
+}
+
+.section-subtitle-modern {
+    font-size: 18px;
+    color: #666666;
+    text-align: center;
+    margin-bottom: 60px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ========================================
+   FEATURE CARDS
+   ======================================== */
+
+.feature-card-modern {
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 16px;
+    padding: 40px 30px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.feature-card-modern:hover {
+    border-color: #E9213D;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+}
+
+.feature-card-modern h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 20px 0 16px;
+    color: #1A1A1A;
+}
+
+.feature-card-modern p {
+    color: #666666;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* ========================================
+   HOW IT WORKS - STEPS
+   ======================================== */
+
+.step-number-modern {
+    width: 64px;
+    height: 64px;
+    background: linear-gradient(135deg, #E9213D 0%, #C71D34 100%);
+    color: #FFFFFF;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 auto 20px;
+}
+
+.step-card-modern {
+    text-align: center;
+    padding: 20px;
+}
+
+.step-card-modern h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 16px;
+    color: #1A1A1A;
+}
+
+/* ========================================
+   PAYMENT METHODS
+   ======================================== */
+
+.payment-methods-modern {
+    background: #FAFAFA;
+    padding: 80px 0;
+}
+
+.payment-card-modern {
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-card-modern:hover {
+    border-color: #E9213D;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.payment-card-modern img {
+    max-width: 120px;
+    max-height: 60px;
+    object-fit: contain;
+}
+
+/* ========================================
+   FAQ
+   ======================================== */
+
+.faq-modern {
+    background: #FFFFFF;
+}
+
+.faq-item-modern {
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item-modern:hover {
+    border-color: #E9213D;
+}
+
+.faq-question-modern {
+    padding: 24px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #1A1A1A;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFFFFF;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.faq-answer-modern {
+    padding: 0 30px 24px;
+    color: #666666;
+    line-height: 1.6;
+}
+
+/* ========================================
+   ABOUT SECTION
+   ======================================== */
+
+.about-section-modern {
+    background: linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%);
+    padding: 100px 0;
+}
+
+.about-content-modern {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content-modern p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #666666;
+    margin-bottom: 20px;
+}
+
+.brand-highlight {
+    color: #E9213D;
+    font-weight: 600;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.footer-modern {
+    background: #FAFAFA;
+    border-top: 1px solid #E8E8E8;
+    padding: 60px 0 30px;
+    margin-top: auto;
+    margin-left: 0 !important;
+    width: 100% !important;
+}
+
+.footer-modern .footer-brand {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1A1A1A;
+    text-decoration: none;
+    display: inline-block;
+    margin-bottom: 16px;
+}
+
+.footer-modern .footer-description {
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 400px;
+}
+
+.footer-modern .footer-links a {
+    color: #666666;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.footer-modern .footer-links a:hover {
+    color: #E9213D;
+}
+
+.footer-modern .social-link {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: #FFFFFF;
+    border: 1px solid #E8E8E8;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.footer-modern .social-link:hover {
+    border-color: #E9213D;
+    background: #E9213D;
+}
+
+.footer-modern .social-link:hover img {
+    filter: brightness(0) invert(1);
+}
+
+.footer-modern .copyright {
+    color: #999999;
+    font-size: 14px;
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #E8E8E8;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .hero-modern {
+        padding: 80px 0 60px;
+        text-align: center;
+    }
+
+    .hero-subtitle-modern {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .section-modern {
+        padding: 60px 0;
+    }
+
+    .payment-methods-modern {
+        padding: 60px 0;
+    }
+
+    .stat-card-modern {
+        margin-bottom: 20px;
+    }
+
+    .nav-modern .nav-link-modern {
+        padding: 12px 0;
+    }
+
+    .footer-modern {
+        padding: 40px 0 20px;
+        text-align: center;
+    }
+
+    .footer-modern .footer-description {
+        margin: 0 auto;
+    }
+}
+
+/* ========================================
+   UTILITIES
+   ======================================== */
+
+.text-gradient {
+    background: linear-gradient(135deg, #E9213D 0%, #C71D34 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Animation utilities */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+

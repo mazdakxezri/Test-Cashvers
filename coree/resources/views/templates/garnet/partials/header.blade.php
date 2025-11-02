@@ -12,8 +12,12 @@
     href="{{ asset('assets/' . $activeTemplate . '/css/bootstrap.min.css') }}?v={{ config('app.version') }}" />
 <link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/style.min.css') }}?v={{ config('app.version') }}" />
+@if(request()->routeIs('home'))
+<link rel="stylesheet"
+    href="{{ asset('assets/' . $activeTemplate . '/css/modern-minimal.css') }}?v={{ config('app.version') }}" />
+@endif
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap"
     rel="stylesheet" />
