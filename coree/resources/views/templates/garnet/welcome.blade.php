@@ -7,6 +7,7 @@
 @section('landing-content')
     <!-- Hero Section -->
     <section class="hero-modern">
+        <div class="decorative-dots"></div>
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6">
@@ -23,7 +24,7 @@
                 </div>
                 <div class="col-lg-6 d-none d-lg-block text-center">
                     <img src="{{ asset('assets/' . $activeTemplate . '/images/landing-device.png') }}"
-                        class="img-fluid" alt="Device" style="max-width: 400px;">
+                        class="img-fluid" alt="Device" style="max-width: 400px; position: relative; z-index: 10;">
                 </div>
             </div>
         </div>

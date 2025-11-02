@@ -42,6 +42,7 @@ body:has(.landing-page) {
     font-weight: 700;
     color: #1A1A1A !important;
     text-decoration: none;
+    font-family: 'Audiowide', sans-serif !important;
 }
 
 .nav-modern .nav-link-modern {
@@ -116,6 +117,58 @@ body:has(.landing-page) {
     pointer-events: none;
 }
 
+.hero-modern::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -10%;
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(233, 33, 61, 0.05) 0%, transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Decorative elements */
+.hero-modern .decorative-dots {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.hero-modern .decorative-dots::before,
+.hero-modern .decorative-dots::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #E9213D;
+    border-radius: 50%;
+}
+
+.hero-modern .decorative-dots::before {
+    top: 20%;
+    left: 10%;
+    box-shadow: 
+        50px 30px 0 #E9213D,
+        100px 60px 0 #E9213D,
+        150px 20px 0 #E9213D,
+        200px 90px 0 #E9213D;
+}
+
+.hero-modern .decorative-dots::after {
+    bottom: 20%;
+    right: 10%;
+    box-shadow: 
+        50px 30px 0 #E9213D,
+        100px 60px 0 #E9213D,
+        150px 20px 0 #E9213D;
+}
+
 .hero-modern .container {
     position: relative;
     z-index: 2;
@@ -176,6 +229,21 @@ body:has(.landing-page) {
 .stats-modern {
     padding: 80px 0;
     background: #FFFFFF;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(233, 33, 61, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(233, 33, 61, 0.04) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .stat-card-modern {
@@ -224,6 +292,20 @@ body:has(.landing-page) {
 
 .section-modern {
     padding: 100px 0;
+    position: relative;
+}
+
+.section-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(233, 33, 61, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(233, 33, 61, 0.03) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .section-title-modern {
@@ -314,6 +396,32 @@ body:has(.landing-page) {
 .payment-methods-modern {
     background: #FAFAFA;
     padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.payment-methods-modern::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(233, 33, 61, 0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.payment-methods-modern::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: -50px;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(233, 33, 61, 0.04) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .payment-card-modern {
@@ -389,6 +497,38 @@ body:has(.landing-page) {
 .about-section-modern {
     background: linear-gradient(135deg, #F5F5F5 0%, #FFFFFF 100%);
     padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.about-section-modern::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(233, 33, 61, 0.05) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Geometric shapes background */
+.about-section-modern::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-image: 
+        linear-gradient(45deg, transparent 48%, rgba(233, 33, 61, 0.02) 49%, rgba(233, 33, 61, 0.02) 51%, transparent 52%),
+        linear-gradient(-45deg, transparent 48%, rgba(233, 33, 61, 0.02) 49%, rgba(233, 33, 61, 0.02) 51%, transparent 52%);
+    background-size: 80px 80px;
+    background-position: 0 0, 40px 40px;
+    opacity: 0.3;
+    pointer-events: none;
 }
 
 .about-content-modern {
@@ -429,6 +569,7 @@ body:has(.landing-page) {
     text-decoration: none;
     display: inline-block;
     margin-bottom: 16px;
+    font-family: 'Audiowide', sans-serif !important;
 }
 
 .footer-modern .footer-description {
