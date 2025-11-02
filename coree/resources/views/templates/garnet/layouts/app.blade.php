@@ -8,7 +8,30 @@
 
 <body>
     <div class="preloader">
-        <div class="spinner"></div>
+        <div class="spinner">
+            <div class="brand-loader" data-text="{{ siteName() }}">{{ siteName() }}</div>
+            
+            <div class="loading-ring">
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="ring"></div>
+                <div class="percentage" id="loadingPercentage">0%</div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            
+            <div class="loading-text">Loading Your Experience...</div>
+        </div>
+        
+        <!-- Floating particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
     </div>
 
     @unless (request()->routeIs('home', 'password.reset'))
@@ -100,6 +123,7 @@
     @include($activeTemplate . '.partials.modals.contact')
 
     <!-- JavaScript files -->
+        <script src="{{ asset('assets/' . $activeTemplate . '/js/preloader.js') }}?v={{ config('app.version') }}"></script>
         <script src="{{ asset('assets/' . $activeTemplate . '/js/bootstrap.bundle.min.js') }}?v={{ config('app.version') }}">
         </script>
         <script src="{{ asset('assets/' . $activeTemplate . '/js/custom.min.js') }}?v={{ config('app.version') }}"></script>
