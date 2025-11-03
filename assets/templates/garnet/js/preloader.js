@@ -1,104 +1,115 @@
 /**
- * Enhanced Preloader Script
- * Adds percentage counter and smooth transitions
+ * Cyberpunk Scanning Preloader
+ * Line-by-line scanning animation with glitch effects
  */
 
 (function() {
     'use strict';
     
-    // Preloader elements
     const preloader = document.querySelector('.preloader');
-    const percentageDisplay = document.getElementById('loadingPercentage');
-    const progressBar = document.getElementById('progressBar');
+    const brandText = document.querySelector('.brand-scanner');
+    const scanline = document.querySelector('.scanline');
     
-    let currentPercentage = 0;
-    let targetPercentage = 0;
-    let loadingInterval;
+    let scanComplete = false;
     
     /**
-     * Simulate loading progress
+     * Trigger random glitch effects
      */
-    function simulateLoading() {
-        // Simulate different loading stages
-        const loadingStages = [
-            { percent: 30, delay: 200 },   // Fast initial load
-            { percent: 60, delay: 400 },   // Medium load
-            { percent: 85, delay: 600 },   // Slower for realism
-            { percent: 100, delay: 100 }   // Quick finish
-        ];
+    function triggerGlitch() {
+        if (!brandText || scanComplete) return;
         
-        let stageIndex = 0;
+        const glitchType = Math.random();
         
-        function nextStage() {
-            if (stageIndex < loadingStages.length) {
-                targetPercentage = loadingStages[stageIndex].percent;
-                setTimeout(nextStage, loadingStages[stageIndex].delay);
-                stageIndex++;
-            }
-        }
-        
-        nextStage();
-    }
-    
-    /**
-     * Update percentage display smoothly
-     */
-    function updatePercentage() {
-        if (currentPercentage < targetPercentage) {
-            currentPercentage += 1;
-            
-            if (percentageDisplay) {
-                percentageDisplay.textContent = currentPercentage + '%';
-            }
-            
-            if (progressBar) {
-                progressBar.style.width = currentPercentage + '%';
-            }
-            
-            // If we reach 100%, start fade out
-            if (currentPercentage >= 100) {
-                setTimeout(hidePreloader, 300);
-            }
+        if (glitchType < 0.5) {
+            // RGB split glitch
+            brandText.classList.add('rgb-split');
+            setTimeout(() => {
+                brandText.classList.remove('rgb-split');
+            }, 200);
+        } else {
+            // Position glitch
+            brandText.classList.add('glitch');
+            setTimeout(() => {
+                brandText.classList.remove('glitch');
+            }, 300);
         }
     }
     
     /**
-     * Hide preloader with fade animation
+     * Schedule random glitches during scanning
+     */
+    function scheduleGlitches() {
+        // Trigger 3-5 random glitches during scan
+        const glitchCount = 3 + Math.floor(Math.random() * 3);
+        
+        for (let i = 0; i < glitchCount; i++) {
+            const delay = 400 + Math.random() * 1200;
+            setTimeout(triggerGlitch, delay);
+        }
+    }
+    
+    /**
+     * Simulate line-by-line scanning
+     */
+    function startScanning() {
+        // Mark text as being scanned
+        if (brandText) {
+            // Start dim, will brighten as scan completes
+            setTimeout(() => {
+                brandText.classList.add('scanned');
+            }, 1500); // When scanline reaches bottom
+        }
+        
+        // Schedule random glitches
+        scheduleGlitches();
+        
+        // Mark scan as complete
+        setTimeout(() => {
+            scanComplete = true;
+        }, 1600);
+    }
+    
+    /**
+     * Hide preloader with glitch effect
      */
     function hidePreloader() {
-        if (preloader) {
-            preloader.classList.add('fade-out');
+        if (!preloader) return;
+        
+        // Final glitch before exit
+        if (brandText) {
+            brandText.classList.add('glitch');
+        }
+        
+        setTimeout(() => {
+            preloader.classList.add('final-glitch');
             
             setTimeout(() => {
-                preloader.style.display = 'none';
-                clearInterval(loadingInterval);
+                preloader.classList.add('fade-out');
                 
-                // Optional: Dispatch event when loading complete
-                document.dispatchEvent(new Event('preloaderComplete'));
-            }, 800);
-        }
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    
+                    // Dispatch completion event
+                    document.dispatchEvent(new Event('preloaderComplete'));
+                }, 800);
+            }, 200);
+        }, 100);
     }
     
     /**
-     * Initialize preloader
+     * Initialize preloader sequence
      */
     function initPreloader() {
-        // Update percentage smoothly
-        loadingInterval = setInterval(updatePercentage, 30);
+        // Start scanning animation immediately
+        startScanning();
         
-        // Start simulated loading
-        simulateLoading();
-        
-        // Fallback: Force hide after 5 seconds
-        setTimeout(() => {
-            if (preloader && preloader.style.display !== 'none') {
-                targetPercentage = 100;
-            }
-        }, 5000);
+        // Hide after scan completes + small delay
+        const totalDuration = 2500; // 2.5 seconds total
+        setTimeout(hidePreloader, totalDuration);
     }
     
     /**
-     * Start on page load
+     * Trigger on various load events
      */
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initPreloader);
@@ -107,14 +118,15 @@
     }
     
     /**
-     * Also trigger on window load (for images/resources)
+     * Also ensure it hides when everything is loaded
      */
     window.addEventListener('load', function() {
-        // Speed up to 100% when everything is loaded
+        // If preloader still showing after 4 seconds, force hide
         setTimeout(() => {
-            targetPercentage = 100;
-        }, 200);
+            if (preloader && preloader.style.display !== 'none') {
+                hidePreloader();
+            }
+        }, 4000);
     });
     
 })();
-

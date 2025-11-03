@@ -8,30 +8,60 @@
 
 <body>
     <div class="preloader">
-        <div class="spinner">
-            <div class="brand-loader" data-text="{{ siteName() }}">{{ siteName() }}</div>
-            
-            <div class="loading-ring">
-                <div class="ring"></div>
-                <div class="ring"></div>
-                <div class="ring"></div>
-                <div class="ring"></div>
-                <div class="percentage" id="loadingPercentage">0%</div>
+        <!-- Cyber grid background -->
+        <div class="cyber-grid"></div>
+        
+        <!-- Pulse rings -->
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        
+        <!-- Data streams (falling lines) -->
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        <div class="data-stream"></div>
+        
+        <!-- HUD corner brackets -->
+        <div class="hud-corner top-left"></div>
+        <div class="hud-corner top-right"></div>
+        <div class="hud-corner bottom-left"></div>
+        <div class="hud-corner bottom-right"></div>
+        
+        <!-- Glitch artifacts -->
+        <div class="glitch-artifact"></div>
+        <div class="glitch-artifact"></div>
+        <div class="glitch-artifact"></div>
+        
+        <!-- Hexagon particles -->
+        <div class="hex-particle"></div>
+        <div class="hex-particle"></div>
+        <div class="hex-particle"></div>
+        
+        <!-- Pixel corruption effects -->
+        <div class="pixel-corruption"></div>
+        <div class="pixel-corruption"></div>
+        <div class="pixel-corruption"></div>
+        
+        <!-- Static noise overlay -->
+        <div class="static-overlay"></div>
+        
+        <!-- Vignette -->
+        <div class="vignette"></div>
+        
+        <!-- Main scanner content -->
+        <div class="scanner-container">
+            <div style="position: relative;">
+                <div class="brand-scanner">{{ siteName() }}</div>
+                <div class="scanline"></div>
             </div>
             
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            
-            <div class="loading-text">Loading Your Experience...</div>
+            <div class="loading-universe">loading universe</div>
         </div>
         
-        <!-- Floating particles -->
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
-        <div class="particle"></div>
+        <!-- Progress bar at bottom -->
+        <div class="scan-progress"></div>
     </div>
 
     @unless (request()->routeIs('home', 'password.reset'))
