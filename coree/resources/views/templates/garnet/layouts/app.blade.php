@@ -9,11 +9,7 @@
 <body>
     <div class="preloader">
         <div class="scanner-container">
-            <div style="position: relative; display: inline-block;">
-                <div class="brand-scanner">{{ strtoupper(siteName()) }}</div>
-                <div class="scanline"></div>
-            </div>
-            
+            <div class="brand-scanner">{{ strtoupper(siteName()) }}</div>
             <div class="loading-universe">Loading Universe</div>
         </div>
     </div>
