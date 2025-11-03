@@ -8,46 +8,14 @@
 
 <body>
     <div class="preloader">
-        <!-- Background effects -->
-        <div class="cyber-grid"></div>
-        <div class="vignette"></div>
-        
-        <!-- Data streams -->
-        <div class="data-stream"></div>
-        <div class="data-stream"></div>
-        <div class="data-stream"></div>
-        <div class="data-stream"></div>
-        <div class="data-stream"></div>
-        
-        <!-- HUD corners -->
-        <div class="hud-corner top-left"></div>
-        <div class="hud-corner top-right"></div>
-        <div class="hud-corner bottom-left"></div>
-        <div class="hud-corner bottom-right"></div>
-        
-        <!-- Glitch effects -->
-        <div class="glitch-artifact"></div>
-        <div class="glitch-artifact"></div>
-        <div class="glitch-artifact"></div>
-        
-        <div class="pixel-corruption"></div>
-        <div class="pixel-corruption"></div>
-        <div class="pixel-corruption"></div>
-        
-        <div class="static-overlay"></div>
-        
-        <!-- Main content -->
         <div class="scanner-container">
             <div style="position: relative; display: inline-block;">
                 <div class="brand-scanner">{{ strtoupper(siteName()) }}</div>
                 <div class="scanline"></div>
             </div>
             
-            <div class="loading-universe">loading universe</div>
+            <div class="loading-universe">Loading Universe</div>
         </div>
-        
-        <!-- Bottom progress -->
-        <div class="scan-progress"></div>
     </div>
 
     @unless (request()->routeIs('home', 'password.reset'))

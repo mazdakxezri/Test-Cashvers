@@ -1,6 +1,6 @@
 /**
- * Cyberpunk Scanning Preloader
- * Clean, focused scanning animation with glitch effects
+ * Minimal Scanning Preloader
+ * Simple and lightweight
  */
 
 (function() {
@@ -10,91 +10,51 @@
     const brandText = document.querySelector('.brand-scanner');
     
     /**
-     * Trigger random glitch during scanning
-     */
-    function randomGlitch() {
-        if (!brandText) return;
-        
-        const glitchType = Math.random();
-        
-        if (glitchType < 0.4) {
-            // RGB chromatic aberration
-            brandText.classList.add('rgb-split');
-            setTimeout(() => brandText.classList.remove('rgb-split'), 150);
-        } else if (glitchType < 0.8) {
-            // Position shake glitch
-            brandText.classList.add('glitch');
-            setTimeout(() => brandText.classList.remove('glitch'), 200);
-        }
-    }
-    
-    /**
-     * Start scanning sequence
+     * Start the scanning sequence
      */
     function startScan() {
-        // Add scanning class
-        if (brandText) {
-            brandText.classList.add('scanning');
-        }
-        
-        // Random glitches during scan
-        setTimeout(() => randomGlitch(), 600);
-        setTimeout(() => randomGlitch(), 1000);
-        setTimeout(() => randomGlitch(), 1300);
-        
-        // Mark as fully scanned when scanline completes
+        // Mark as scanned when scanline finishes (1.5s)
         setTimeout(() => {
             if (brandText) {
-                brandText.classList.remove('scanning');
                 brandText.classList.add('scanned');
             }
         }, 1500);
     }
     
     /**
-     * Exit with glitch effect
+     * Hide preloader
      */
-    function exitPreloader() {
-        if (!preloader) return;
-        
-        // Final glitch
-        preloader.classList.add('final-glitch');
-        
-        setTimeout(() => {
+    function hidePreloader() {
+        if (preloader) {
             preloader.classList.add('fade-out');
-            
             setTimeout(() => {
                 preloader.style.display = 'none';
-                document.dispatchEvent(new Event('preloaderComplete'));
-            }, 600);
-        }, 300);
+            }, 500);
+        }
     }
     
     /**
-     * Initialize preloader
+     * Initialize
      */
     function init() {
-        // Start scanning immediately
         startScan();
-        
-        // Hide after 2.5 seconds
-        setTimeout(exitPreloader, 2500);
+        setTimeout(hidePreloader, 2000);
     }
     
-    // Start when DOM is ready
+    // Start when ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {
         init();
     }
     
-    // Failsafe: force hide after 4 seconds
+    // Failsafe
     window.addEventListener('load', function() {
         setTimeout(() => {
             if (preloader && preloader.style.display !== 'none') {
-                exitPreloader();
+                hidePreloader();
             }
-        }, 4000);
+        }, 3000);
     });
     
 })();
