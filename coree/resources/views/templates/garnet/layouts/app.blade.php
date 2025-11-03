@@ -8,59 +8,45 @@
 
 <body>
     <div class="preloader">
-        <!-- Cyber grid background -->
+        <!-- Background effects -->
         <div class="cyber-grid"></div>
+        <div class="vignette"></div>
         
-        <!-- Pulse rings -->
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
-        
-        <!-- Data streams (falling lines) -->
+        <!-- Data streams -->
         <div class="data-stream"></div>
         <div class="data-stream"></div>
         <div class="data-stream"></div>
         <div class="data-stream"></div>
         <div class="data-stream"></div>
         
-        <!-- HUD corner brackets -->
+        <!-- HUD corners -->
         <div class="hud-corner top-left"></div>
         <div class="hud-corner top-right"></div>
         <div class="hud-corner bottom-left"></div>
         <div class="hud-corner bottom-right"></div>
         
-        <!-- Glitch artifacts -->
+        <!-- Glitch effects -->
         <div class="glitch-artifact"></div>
         <div class="glitch-artifact"></div>
         <div class="glitch-artifact"></div>
         
-        <!-- Hexagon particles -->
-        <div class="hex-particle"></div>
-        <div class="hex-particle"></div>
-        <div class="hex-particle"></div>
-        
-        <!-- Pixel corruption effects -->
         <div class="pixel-corruption"></div>
         <div class="pixel-corruption"></div>
         <div class="pixel-corruption"></div>
         
-        <!-- Static noise overlay -->
         <div class="static-overlay"></div>
         
-        <!-- Vignette -->
-        <div class="vignette"></div>
-        
-        <!-- Main scanner content -->
+        <!-- Main content -->
         <div class="scanner-container">
-            <div style="position: relative;">
-                <div class="brand-scanner">{{ siteName() }}</div>
+            <div style="position: relative; display: inline-block;">
+                <div class="brand-scanner">{{ strtoupper(siteName()) }}</div>
                 <div class="scanline"></div>
             </div>
             
             <div class="loading-universe">loading universe</div>
         </div>
         
-        <!-- Progress bar at bottom -->
+        <!-- Bottom progress -->
         <div class="scan-progress"></div>
     </div>
 
