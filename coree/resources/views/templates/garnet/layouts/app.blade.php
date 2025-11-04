@@ -74,7 +74,7 @@
     @include($activeTemplate . '.partials.menus.mobile-bar')
 
     <!-- Cookie Bar -->
-    <div class="cookie-bar" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 999999 !important; width: 100% !important; transform: none !important;">
+    <div class="cookie-bar">
         <div class="cookie-container">
             <div class="d-flex align-items-center">
                 <img src="{{ asset('assets/' . $activeTemplate . '/images/cookie.png') }}" alt="Cookie"
@@ -99,44 +99,6 @@
             </div>
         </div>
     </div>
-    
-    <style>
-        /* Cookie Bar Override - Prevent any overlap issues */
-        .cookie-bar {
-            position: fixed !important;
-            bottom: 0 !important;
-            left: 0 !important;
-            right: 0 !important;
-            z-index: 999999 !important;
-            width: 100% !important;
-            transform: none !important;
-            margin: 0 !important;
-            pointer-events: auto !important;
-        }
-        
-        .cookie-bar.show {
-            display: block !important;
-        }
-        
-        /* Ensure footer never overlaps with cookie bar */
-        footer {
-            position: relative !important;
-            z-index: 100 !important;
-            margin-bottom: 220px !important; /* Space for cookie bar */
-        }
-        
-        /* Prevent overlap with hero section */
-        .hero-space {
-            position: relative !important;
-            z-index: 10 !important;
-        }
-        
-        /* Remove wrapper/content margin for home page */
-        body {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-    </style>
 
     @guest
         <!-- Modal Auth -->

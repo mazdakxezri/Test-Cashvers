@@ -1,0 +1,94 @@
+/* Cookie Bar Fix - Proper positioning without overlaps */
+
+.cookie-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 999999 !important;
+    background: rgba(30, 30, 40, 0.98) !important;
+    backdrop-filter: blur(20px) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 24px 0 !important;
+    transform: translateY(100%) !important;
+    transition: transform 0.3s ease !important;
+    box-shadow: 0 -5px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+.cookie-bar.show {
+    transform: translateY(0) !important;
+    display: block !important;
+}
+
+.cookie-container {
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+    padding: 0 24px !important;
+}
+
+/* Ensure footer has proper spacing */
+footer {
+    margin-bottom: 250px !important;
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+/* Cookie bar buttons */
+.cookie-btn {
+    padding: 12px 28px !important;
+    border-radius: 10px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    border: none !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.cookie-btn.accept {
+    background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%) !important;
+    color: white !important;
+}
+
+.cookie-btn.accept:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 5px 20px rgba(0, 184, 212, 0.4) !important;
+}
+
+.cookie-btn.reject {
+    background: rgba(255, 255, 255, 0.05) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.cookie-btn.reject:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Prevent any wrapper interference */
+.wrapper {
+    position: relative !important;
+}
+
+/* Ensure content never overlaps */
+body {
+    position: relative !important;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    footer {
+        margin-bottom: 300px !important;
+    }
+    
+    .cookie-container {
+        padding: 0 16px !important;
+    }
+    
+    .cookie-btn {
+        width: 100% !important;
+        margin-bottom: 12px !important;
+    }
+}
+
