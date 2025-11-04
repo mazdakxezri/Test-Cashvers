@@ -14,10 +14,12 @@
         </div>
     </div>
 
-    @unless (request()->routeIs('home', 'password.reset'))
-        @include($activeTemplate . '.partials.menus.top-bar')
-        <!-- Side Navigation for Desktop -->
-        @include($activeTemplate . '.partials.menus.sidebar')
+    @unless (request()->routeIs('password.reset'))
+        @include($activeTemplate . '.partials.menus.top-bar-space')
+        @unless(request()->routeIs('home'))
+            <!-- Side Navigation for Desktop -->
+            @include($activeTemplate . '.partials.menus.sidebar')
+        @endunless
         <!-- Main Content -->
         <div class="wrapper">
             <main class="content">
