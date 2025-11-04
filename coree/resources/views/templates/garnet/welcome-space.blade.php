@@ -2,7 +2,7 @@
 @section('title', 'Home')
 
 @section('content')
-<div style="background: #0a0a0f; min-height: 100vh; position: relative; overflow: hidden;">
+<div style="background: #0a0a0f; min-height: 100vh; position: relative; overflow-x: hidden; overflow-y: auto; padding-bottom: 250px;">
     
     <!-- Cosmic Background -->
     <div class="cosmic-bg"></div>
@@ -18,7 +18,7 @@
     <div class="glow-orb" style="bottom: 10%; left: 10%; background: radial-gradient(circle, rgba(13, 71, 161, 0.3) 0%, transparent 70%); width: 500px; height: 500px;"></div>
     
     <!-- Hero Section -->
-    <section style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 20px; position: relative; z-index: 10;">
+    <section class="hero-space" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 80px 20px 200px; position: relative; z-index: 10;">
         <div style="max-width: 1400px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;">
             
             <!-- Left Side: Text Content -->

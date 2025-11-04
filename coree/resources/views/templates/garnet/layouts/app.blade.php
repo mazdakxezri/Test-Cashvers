@@ -6,7 +6,7 @@
     @yield('styles')
 </head>
 
-<body>
+<body style="padding-bottom: 0 !important; margin-bottom: 0 !important;">
     <div class="preloader">
         <div class="scanner-container">
             <div class="brand-scanner">{{ strtoupper(siteName()) }}</div>
@@ -71,7 +71,7 @@
     @include($activeTemplate . '.partials.menus.mobile-bar')
 
     <!-- Cookie Bar -->
-    <div class="cookie-bar" style="z-index: 99999 !important; position: fixed !important; bottom: 0 !important;">
+    <div class="cookie-bar" style="position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; z-index: 999999 !important; width: 100% !important; transform: none !important;">
         <div class="cookie-container">
             <div class="d-flex align-items-center">
                 <img src="{{ asset('assets/' . $activeTemplate . '/images/cookie.png') }}" alt="Cookie"
@@ -96,6 +96,43 @@
             </div>
         </div>
     </div>
+    
+    <style>
+        /* Cookie Bar Override - Prevent any overlap issues */
+        .cookie-bar {
+            position: fixed !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            z-index: 999999 !important;
+            width: 100% !important;
+            transform: none !important;
+            margin: 0 !important;
+            pointer-events: auto !important;
+        }
+        
+        .cookie-bar.show {
+            display: block !important;
+        }
+        
+        /* Ensure footer stays above cookie bar when visible */
+        footer {
+            position: relative !important;
+            z-index: 100 !important;
+            margin-bottom: 0 !important;
+        }
+        
+        /* When cookie bar is showing, add padding to body */
+        body.cookie-bar-visible {
+            padding-bottom: 200px !important;
+        }
+        
+        /* Prevent overlap with hero section */
+        .hero-space {
+            position: relative !important;
+            z-index: 10 !important;
+        }
+    </style>
 
     @guest
         <!-- Modal Auth -->
