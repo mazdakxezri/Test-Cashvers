@@ -35,7 +35,7 @@
                     <div class="stat-label">Average Earned Yesterday</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-value">${{ number_format(getStatistics()['total_earned'], 0) }}</div>
+                    <div class="stat-value">${{ getStatistics()['total_earned'] }}</div>
                     <div class="stat-label">Total Earned on {{ siteName() }}</div>
                 </div>
             </div>
