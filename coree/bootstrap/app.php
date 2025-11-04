@@ -36,7 +36,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'active' => \App\Http\Middleware\CheckUserStatus::class,
             'auto_ban_country_change' => \App\Http\Middleware\AutoBanOnCountryChange::class,
             'auto_vpn_ban' => \App\Http\Middleware\AutoBanVPN::class,
+            'track_session' => \App\Http\Middleware\TrackUserSession::class,
         ]);
+        
+        // Track user sessions for fraud detection
+        $middleware->append(\App\Http\Middleware\TrackUserSession::class);
 
         $middleware->validateCsrfTokens(except: [
             'callback/*',

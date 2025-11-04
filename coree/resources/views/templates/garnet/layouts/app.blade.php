@@ -104,6 +104,7 @@
 
     <!-- JavaScript files -->
         <script src="{{ asset('assets/' . $activeTemplate . '/js/preloader.js') }}?v={{ config('app.version') }}"></script>
+        <script src="{{ asset('assets/' . $activeTemplate . '/js/device-tracker.js') }}?v={{ config('app.version') }}"></script>
         <script src="{{ asset('assets/' . $activeTemplate . '/js/bootstrap.bundle.min.js') }}?v={{ config('app.version') }}">
         </script>
         <script src="{{ asset('assets/' . $activeTemplate . '/js/custom.min.js') }}?v={{ config('app.version') }}"></script>
