@@ -54,11 +54,22 @@ class ProfileController extends Controller
             return in_array($track->partners, $surveyNetworkNamesArray);
         });
 
-        return view($activeTemplate . '.profile', [
+        $totalEarned = Track::where('uid', $user->uid)->sum('reward');
+        $referredCount = \App\Models\User::where('invited_by', $user->id)->count();
+        $withdrawals = WithdrawalHistory::where('user_id', $user->id)
+            ->with('category')
+            ->latest()
+            ->limit(10)
+            ->get();
+
+        return view($activeTemplate . '.profile-space', [
             'offers_completed' => $trackStats->offers_completed ?? 0,
             'offers_earning' => $trackStats->offers_earning ?? 0,
             'survey_completed' => $trackStats->survey_completed ?? 0,
             'survey_earning' => $trackStats->survey_earning ?? 0,
+            'total_earned' => $totalEarned,
+            'referred_count' => $referredCount,
+            'withdrawals' => $withdrawals,
             'cashouts' => $cashouts,
             'offers' => $offers,
             'surveys' => $surveys,
