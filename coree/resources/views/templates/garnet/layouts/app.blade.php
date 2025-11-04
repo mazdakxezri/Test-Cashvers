@@ -71,7 +71,7 @@
     @include($activeTemplate . '.partials.menus.mobile-bar')
 
     <!-- Cookie Bar -->
-    <div class="cookie-bar">
+    <div class="cookie-bar" style="z-index: 99999 !important; position: fixed !important; bottom: 0 !important;">
         <div class="cookie-container">
             <div class="d-flex align-items-center">
                 <img src="{{ asset('assets/' . $activeTemplate . '/images/cookie.png') }}" alt="Cookie"

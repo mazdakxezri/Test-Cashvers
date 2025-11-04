@@ -57,10 +57,20 @@
                     <!-- Glowing background circle -->
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; background: radial-gradient(circle, rgba(0, 184, 212, 0.2) 0%, transparent 70%); filter: blur(40px); animation: pulse 4s ease-in-out infinite;"></div>
                     
-                    <!-- Avatar Image -->
-                    <img src="{{ asset('assets/' . $activeTemplate . '/images/hero-avatar.png') }}" 
-                         alt="Crypto Hero" 
-                         style="position: relative; width: 100%; max-width: 500px; height: auto; filter: drop-shadow(0 0 40px rgba(0, 184, 212, 0.5)); z-index: 2;">
+                    <!-- Avatar Placeholder (Gradient Circle with Icon) -->
+                    <div style="position: relative; width: 400px; height: 400px; background: linear-gradient(135deg, rgba(0, 184, 212, 0.2) 0%, rgba(13, 71, 161, 0.2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(0, 184, 212, 0.3); backdrop-filter: blur(20px); box-shadow: 0 0 60px rgba(0, 184, 212, 0.3), inset 0 0 60px rgba(0, 184, 212, 0.1); z-index: 2;">
+                        <!-- Crypto Symbol -->
+                        <svg width="200" height="200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 20px rgba(0, 184, 212, 0.8));">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#00B8D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(0, 184, 212, 0.1)"/>
+                            <path d="M2 17L12 22L22 17" stroke="#00B8D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M2 12L12 17L22 12" stroke="#00B8D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    
+                    <!-- Orbiting Particles -->
+                    <div style="position: absolute; width: 8px; height: 8px; background: #00B8D4; border-radius: 50%; top: 10%; left: 20%; animation: orbit 8s linear infinite; box-shadow: 0 0 10px #00B8D4;"></div>
+                    <div style="position: absolute; width: 6px; height: 6px; background: #0D47A1; border-radius: 50%; bottom: 15%; right: 25%; animation: orbit 10s linear infinite reverse; box-shadow: 0 0 10px #0D47A1;"></div>
+                    <div style="position: absolute; width: 10px; height: 10px; background: #00B8D4; border-radius: 50%; top: 60%; right: 10%; animation: orbit 12s linear infinite; box-shadow: 0 0 12px #00B8D4;"></div>
                 </div>
             </div>
             
@@ -279,6 +289,11 @@
 @keyframes pulse {
     0%, 100% { opacity: 0.5; transform: scale(1); }
     50% { opacity: 0.8; transform: scale(1.1); }
+}
+
+@keyframes orbit {
+    0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
+    100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
 }
 
 /* Button with Glow Effect */
