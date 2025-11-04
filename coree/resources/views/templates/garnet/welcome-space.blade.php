@@ -1,7 +1,7 @@
 @extends($activeTemplate . '.layouts.app')
 @section('title', 'Home')
 
-@section('landing-content')
+@section('content')
     <!-- Cosmic Background -->
     <div class="cosmic-bg">
         <div class="stars"></div>
