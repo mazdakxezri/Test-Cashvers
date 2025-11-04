@@ -28,7 +28,7 @@ class CashoutController extends Controller
             ? min(($userBalance / $withdrawalAmount) * 100, 100)
             : 0;
 
-        return view($activeTemplate . '.cashout', compact('withdrawals', 'userBalance', 'withdrawalAmount', 'progressPercentage'));
+        return view($activeTemplate . '.cashout-space', compact('withdrawals', 'userBalance', 'withdrawalAmount', 'progressPercentage'));
     }
 
     
