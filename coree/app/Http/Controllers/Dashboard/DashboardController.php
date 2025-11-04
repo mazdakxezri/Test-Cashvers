@@ -28,7 +28,7 @@ class DashboardController extends Controller
     {
         $data = $this->homeService->getHomeData($request);
 
-        return view($data['activeTemplate'] . '.home', [
+        return view($data['activeTemplate'] . '.home-clean', [
             'isVPNDetected' => $data['isVPNDetected'],
             'homeSlider' => $data['homeSlider'],
             'offer_networks' => $data['offer_networks'],
