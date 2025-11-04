@@ -16,50 +16,53 @@
 
     @unless (request()->routeIs('password.reset'))
         @include($activeTemplate . '.partials.menus.top-bar-space')
-        @unless(request()->routeIs('home'))
-            <!-- Side Navigation for Desktop -->
-            @include($activeTemplate . '.partials.menus.sidebar-space')
-        @endunless
-        <!-- Main Content -->
-        <div class="wrapper">
-            <main class="content">
-                @auth
-                    @if (!Auth::user()->hasVerifiedEmail() && (session('success') || session('error')))
-                        @include($activeTemplate . '.partials.alerts.alerts')
-                    @elseif (!Auth::user()->hasVerifiedEmail())
-                        <div class="alert-box alert-warning mb-0 rounded-0">
-                            <svg width="19" height="19" viewBox="0 0 19 19" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M9.16667 1.66667C5.02453 1.66667 1.66667 5.02453 1.66667 9.16667C1.66667 13.3088 5.02453 16.6667 9.16667 16.6667C13.3088 16.6667 16.6667 13.3088 16.6667 9.16667C16.6667 5.02453 13.3088 1.66667 9.16667 1.66667ZM0 9.16667C0 4.10406 4.10406 0 9.16667 0C14.2293 0 18.3333 4.10406 18.3333 9.16667C18.3333 14.2293 14.2293 18.3333 9.16667 18.3333C4.10406 18.3333 0 14.2293 0 9.16667Z"
-                                    fill="white" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M9.16732 8.33301C9.62755 8.33301 10.0007 8.7061 10.0007 9.16634V12.4997C10.0007 12.9599 9.62755 13.333 9.16732 13.333C8.70708 13.333 8.33398 12.9599 8.33398 12.4997V9.16634C8.33398 8.7061 8.70708 8.33301 9.16732 8.33301Z"
-                                    fill="white" />
-                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                    d="M8.33398 5.83333C8.33398 5.3731 8.70708 5 9.16732 5H9.17565C9.63589 5 10.009 5.3731 10.009 5.83333C10.009 6.29357 9.63589 6.66667 9.17565 6.66667H9.16732C8.70708 6.66667 8.33398 6.29357 8.33398 5.83333Z"
-                                    fill="white" />
-                            </svg>
-
-                            Please check and confirm your email address. If you need another confirmation email,
-                            <form action="{{ route('auth.verification.resend') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="text-decoration-underline p-0 border-0 bg-transparent">click here
-                                    to resend</button>
-                            </form>.
-                        </div>
-                    @endif
-                @endauth
-
-                @if (session('success') || session('error'))
-                    @include($activeTemplate . '.partials.alerts.alerts')
-                @endif
-
-
-                @yield('content')
-            </main>
+        
+        @if(request()->routeIs('home'))
+            <!-- Landing Page Layout (No Wrapper) -->
+            @yield('content')
             @include($activeTemplate . '.partials.footer-space')
-        </div>
+        @else
+            <!-- Dashboard Layout (With Sidebar & Wrapper) -->
+            @include($activeTemplate . '.partials.menus.sidebar-space')
+            <div class="wrapper">
+                <main class="content">
+                    @auth
+                        @if (!Auth::user()->hasVerifiedEmail() && (session('success') || session('error')))
+                            @include($activeTemplate . '.partials.alerts.alerts')
+                        @elseif (!Auth::user()->hasVerifiedEmail())
+                            <div class="alert-box alert-warning mb-0 rounded-0">
+                                <svg width="19" height="19" viewBox="0 0 19 19" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.16667 1.66667C5.02453 1.66667 1.66667 5.02453 1.66667 9.16667C1.66667 13.3088 5.02453 16.6667 9.16667 16.6667C13.3088 16.6667 16.6667 13.3088 16.6667 9.16667C16.6667 5.02453 13.3088 1.66667 9.16667 1.66667ZM0 9.16667C0 4.10406 4.10406 0 9.16667 0C14.2293 0 18.3333 4.10406 18.3333 9.16667C18.3333 14.2293 14.2293 18.3333 9.16667 18.3333C4.10406 18.3333 0 14.2293 0 9.16667Z"
+                                        fill="white" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M9.16732 8.33301C9.62755 8.33301 10.0007 8.7061 10.0007 9.16634V12.4997C10.0007 12.9599 9.62755 13.333 9.16732 13.333C8.70708 13.333 8.33398 12.9599 8.33398 12.4997V9.16634C8.33398 8.7061 8.70708 8.33301 9.16732 8.33301Z"
+                                        fill="white" />
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M8.33398 5.83333C8.33398 5.3731 8.70708 5 9.16732 5H9.17565C9.63589 5 10.009 5.3731 10.009 5.83333C10.009 6.29357 9.63589 6.66667 9.17565 6.66667H9.16732C8.70708 6.66667 8.33398 6.29357 8.33398 5.83333Z"
+                                        fill="white" />
+                                </svg>
+
+                                Please check and confirm your email address. If you need another confirmation email,
+                                <form action="{{ route('auth.verification.resend') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="text-decoration-underline p-0 border-0 bg-transparent">click here
+                                        to resend</button>
+                                </form>.
+                            </div>
+                        @endif
+                    @endauth
+
+                    @if (session('success') || session('error'))
+                        @include($activeTemplate . '.partials.alerts.alerts')
+                    @endif
+
+                    @yield('content')
+                </main>
+                @include($activeTemplate . '.partials.footer-space')
+            </div>
+        @endif
     @else
         <div class="landing-page">
             @include($activeTemplate . '.partials.menus.top-bar-space')
@@ -115,22 +118,23 @@
             display: block !important;
         }
         
-        /* Ensure footer stays above cookie bar when visible */
+        /* Ensure footer never overlaps with cookie bar */
         footer {
             position: relative !important;
             z-index: 100 !important;
-            margin-bottom: 0 !important;
-        }
-        
-        /* When cookie bar is showing, add padding to body */
-        body.cookie-bar-visible {
-            padding-bottom: 200px !important;
+            margin-bottom: 220px !important; /* Space for cookie bar */
         }
         
         /* Prevent overlap with hero section */
         .hero-space {
             position: relative !important;
             z-index: 10 !important;
+        }
+        
+        /* Remove wrapper/content margin for home page */
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
         }
     </style>
 
