@@ -1,0 +1,229 @@
+/**
+ * Crypto Landing Page Theme
+ * Minimal Black + Neon Blue Design
+ */
+
+/* Base */
+.landing-page {
+    background: #000000 !important;
+    color: #FFFFFF !important;
+    font-family: 'Inter', 'Poppins', sans-serif;
+}
+
+.landing-page::before {
+    display: none;
+}
+
+body:has(.landing-page) {
+    background: #000000 !important;
+}
+
+/* Navigation */
+.nav-modern {
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+    box-shadow: none;
+}
+
+.nav-modern .navbar-brand {
+    color: #FFFFFF !important;
+    font-family: 'Audiowide', sans-serif !important;
+}
+
+.nav-modern .nav-link-modern {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.nav-modern .nav-link-modern:hover {
+    color: #00D9FF;
+}
+
+.nav-btn-signin {
+    color: #00D9FF;
+    border: 2px solid #00D9FF;
+    background: transparent;
+}
+
+.nav-btn-signin:hover {
+    background: #00D9FF;
+    color: #000000;
+}
+
+.nav-btn-signup {
+    background: linear-gradient(135deg, #00D9FF 0%, #0EA5E9 100%);
+    color: #000000;
+    border: none;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.nav-btn-signup:hover {
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Hero Section */
+.hero-modern {
+    background: linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-modern::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 30% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 50%);
+}
+
+.hero-title-modern {
+    color: #FFFFFF;
+}
+
+.hero-title-modern .highlight {
+    color: #00D9FF !important;
+    text-shadow: 0 0 30px rgba(0, 217, 255, 0.5);
+}
+
+.hero-subtitle-modern {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Statistics Section */
+.stats-modern {
+    background: #000000;
+}
+
+.stat-card-modern {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stat-card-modern:hover {
+    border-color: #00D9FF;
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.2);
+}
+
+.stat-icon-modern {
+    background: linear-gradient(135deg, #00D9FF 0%, #0EA5E9 100%);
+}
+
+.stat-value-modern {
+    color: #00D9FF;
+}
+
+.stat-label-modern {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* About Section */
+.about-section-modern {
+    background: #000000;
+}
+
+.about-section-modern::before {
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.08) 0%, transparent 70%);
+}
+
+.about-content-modern {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.brand-highlight {
+    color: #00D9FF !important;
+}
+
+/* How It Works */
+.section-modern {
+    background: #000000 !important;
+}
+
+.section-title-modern {
+    color: #FFFFFF;
+}
+
+.section-subtitle-modern {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.step-number-modern {
+    background: linear-gradient(135deg, #00D9FF 0%, #0EA5E9 100%);
+    color: #000000;
+}
+
+.step-card-modern h4 {
+    color: #FFFFFF;
+}
+
+/* Payment Methods */
+.payment-methods-modern {
+    background: #0a0a0a;
+}
+
+.payment-card-modern {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.payment-card-modern:hover {
+    border-color: #00D9FF;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+/* FAQ */
+.faq-modern {
+    background: #000000;
+}
+
+.faq-item-modern {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faq-item-modern:hover {
+    border-color: #00D9FF;
+}
+
+.faq-question-modern {
+    background: #111111;
+    color: #FFFFFF;
+}
+
+.faq-answer-modern {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Footer */
+.footer-modern {
+    background: #0a0a0a;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-modern .footer-brand {
+    color: #FFFFFF;
+    font-family: 'Audiowide', sans-serif !important;
+}
+
+.footer-modern .footer-description {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-modern .footer-links a {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-modern .footer-links a:hover {
+    color: #00D9FF;
+}
+
+.footer-modern .social-link {
+    background: #111111;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-modern .social-link:hover {
+    border-color: #00D9FF;
+    background: #00D9FF;
+}
+

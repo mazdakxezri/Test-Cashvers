@@ -18,7 +18,7 @@
     href="{{ asset('assets/' . $activeTemplate . '/css/preloader.css') }}?v={{ config('app.version') }}" />
 @if(request()->routeIs('home'))
 <link rel="stylesheet"
-    href="{{ asset('assets/' . $activeTemplate . '/css/modern-minimal.css') }}?v={{ config('app.version') }}" />
+    href="{{ asset('assets/' . $activeTemplate . '/css/crypto-landing.css') }}?v={{ config('app.version') }}" />
 @endif
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
