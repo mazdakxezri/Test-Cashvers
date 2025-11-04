@@ -18,7 +18,7 @@
         @include($activeTemplate . '.partials.menus.top-bar-space')
         @unless(request()->routeIs('home'))
             <!-- Side Navigation for Desktop -->
-            @include($activeTemplate . '.partials.menus.sidebar')
+            @include($activeTemplate . '.partials.menus.sidebar-space')
         @endunless
         <!-- Main Content -->
         <div class="wrapper">
@@ -58,13 +58,13 @@
 
                 @yield('content')
             </main>
-            @include($activeTemplate . '.partials.footer')
+            @include($activeTemplate . '.partials.footer-space')
         </div>
     @else
         <div class="landing-page">
-            @include($activeTemplate . '.partials.menus.top-bar')
+            @include($activeTemplate . '.partials.menus.top-bar-space')
             @yield('landing-content')
-            @include($activeTemplate . '.partials.footer')
+            @include($activeTemplate . '.partials.footer-space')
         </div>
     @endunless
     <!-- Bottom Menu for Mobile -->
