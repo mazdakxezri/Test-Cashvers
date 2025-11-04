@@ -11,15 +11,9 @@
 <link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/bootstrap.min.css') }}?v={{ config('app.version') }}" />
 <link rel="stylesheet"
-    href="{{ asset('assets/' . $activeTemplate . '/css/style.min.css') }}?v={{ config('app.version') }}" />
-<link rel="stylesheet"
-    href="{{ asset('assets/' . $activeTemplate . '/css/clean-design-system.css') }}?v={{ config('app.version') }}" />
+    href="{{ asset('assets/' . $activeTemplate . '/css/space-design-system.css') }}?v={{ config('app.version') }}" />
 <link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/preloader.css') }}?v={{ config('app.version') }}" />
-@if(request()->routeIs('home'))
-<link rel="stylesheet"
-    href="{{ asset('assets/' . $activeTemplate . '/css/clean-landing.css') }}?v={{ config('app.version') }}" />
-@endif
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
