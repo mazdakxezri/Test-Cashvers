@@ -13,6 +13,8 @@
 <link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/style.min.css') }}?v={{ config('app.version') }}" />
 <link rel="stylesheet"
+    href="{{ asset('assets/' . $activeTemplate . '/css/crypto-theme.css') }}?v={{ config('app.version') }}" />
+<link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/preloader.css') }}?v={{ config('app.version') }}" />
 @if(request()->routeIs('home'))
 <link rel="stylesheet"

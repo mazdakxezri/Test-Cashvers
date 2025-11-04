@@ -1,0 +1,272 @@
+/**
+ * Crypto Theme - Black + Neon Blue
+ * Minimal, clean, tech-focused design
+ */
+
+:root {
+    /* Primary Colors */
+    --primary-neon-blue: #00D9FF;
+    --primary-blue: #0EA5E9;
+    --accent-blue: #38BDF8;
+    --dark-blue: #0369A1;
+    
+    /* Backgrounds */
+    --bg-black: #000000;
+    --bg-dark: #0a0a0a;
+    --bg-card: #111111;
+    --bg-elevated: #1a1a1a;
+    
+    /* Text */
+    --text-primary: #FFFFFF;
+    --text-secondary: #A3A3A3;
+    --text-muted: #525252;
+    
+    /* Accent Colors */
+    --success: #10B981;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+    
+    /* Glows */
+    --glow-blue: rgba(0, 217, 255, 0.5);
+    --glow-blue-soft: rgba(0, 217, 255, 0.2);
+    
+    /* Borders */
+    --border-subtle: rgba(255, 255, 255, 0.05);
+    --border-normal: rgba(255, 255, 255, 0.1);
+    --border-emphasis: rgba(0, 217, 255, 0.3);
+}
+
+/* Base Overrides */
+body {
+    background-color: var(--bg-black) !important;
+    color: var(--text-primary) !important;
+}
+
+/* Cards */
+.card,
+.profile-card,
+.redeem-card,
+.stat-card-modern {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-normal) !important;
+    transition: all 0.3s ease;
+}
+
+.card:hover,
+.redeem-card:hover {
+    border-color: var(--primary-neon-blue) !important;
+    box-shadow: 0 0 20px var(--glow-blue-soft) !important;
+}
+
+/* Primary Buttons */
+.btn.primary-btn,
+.cta-button-modern,
+.nav-btn-signup {
+    background: linear-gradient(135deg, var(--primary-neon-blue) 0%, var(--primary-blue) 100%) !important;
+    color: var(--bg-black) !important;
+    font-weight: 700;
+    border: none !important;
+    box-shadow: 0 0 20px var(--glow-blue-soft);
+    transition: all 0.3s ease;
+}
+
+.btn.primary-btn:hover,
+.cta-button-modern:hover {
+    box-shadow: 0 0 30px var(--glow-blue) !important;
+    transform: translateY(-2px);
+}
+
+/* Secondary Buttons */
+.btn.secondary-btn {
+    background: transparent !important;
+    border: 2px solid var(--primary-neon-blue) !important;
+    color: var(--primary-neon-blue) !important;
+}
+
+.btn.secondary-btn:hover {
+    background: var(--primary-neon-blue) !important;
+    color: var(--bg-black) !important;
+}
+
+/* Navigation */
+nav.top-nav {
+    background-color: var(--bg-card) !important;
+    border-bottom: 1px solid var(--border-normal);
+}
+
+.side-nav {
+    background-color: var(--bg-card) !important;
+}
+
+.side-nav li.nav-item.active {
+    background: linear-gradient(to right, var(--glow-blue-soft) 0%, transparent 100%) !important;
+    border-left: 3px solid var(--primary-neon-blue);
+}
+
+.side-nav li.nav-item.active::before {
+    display: none; /* Remove old red indicator */
+}
+
+/* Bottom Menu */
+.bottom-menu {
+    background-color: var(--bg-card) !important;
+    border-top: 1px solid var(--border-normal);
+}
+
+.bottom-menu .nav-item.active {
+    background: linear-gradient(to top, var(--glow-blue-soft) 0%, transparent 100%) !important;
+}
+
+.bottom-menu .nav-item.active svg path {
+    fill: var(--primary-neon-blue) !important;
+}
+
+.bottom-menu .nav-item.active small {
+    color: var(--primary-neon-blue) !important;
+}
+
+/* Forms */
+.form-control {
+    background-color: var(--bg-elevated) !important;
+    border: 1px solid var(--border-normal) !important;
+    color: var(--text-primary) !important;
+    border-radius: 8px;
+    padding-left: 16px;
+}
+
+.form-control:focus {
+    border-color: var(--primary-neon-blue) !important;
+    box-shadow: 0 0 0 3px var(--glow-blue-soft) !important;
+}
+
+/* Links & Accents */
+a {
+    color: var(--primary-neon-blue);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--accent-blue);
+}
+
+/* Balance Display */
+nav.top-nav .balance {
+    background: var(--bg-elevated) !important;
+    border: 1px solid var(--border-normal);
+}
+
+nav.top-nav .balance .icon-balance {
+    background: linear-gradient(135deg, var(--primary-neon-blue) 0%, var(--primary-blue) 100%) !important;
+    color: var(--bg-black) !important;
+}
+
+/* Offer Cards */
+section.api-offers .api-offers-card {
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-normal) !important;
+}
+
+section.api-offers .api-offers-card:hover {
+    border-color: var(--primary-neon-blue) !important;
+    box-shadow: 0 0 25px var(--glow-blue) !important;
+    background: var(--bg-elevated) !important;
+}
+
+section.api-offers .api-offers-card .cpi strong {
+    color: var(--primary-neon-blue) !important;
+}
+
+/* Network/Offerwall Cards */
+section.offerwalls .partners-card:hover {
+    border-color: var(--primary-neon-blue) !important;
+    box-shadow: 0 0 30px var(--glow-blue) !important;
+}
+
+/* Modal */
+.modal-content {
+    background: var(--bg-card) !important;
+    border-top-color: var(--primary-neon-blue) !important;
+}
+
+/* Footer */
+footer {
+    background-color: var(--bg-dark) !important;
+    border-top: 1px solid var(--border-normal);
+}
+
+/* Stats & Highlights */
+.stat-value-modern,
+.hero-title-modern .highlight {
+    color: var(--primary-neon-blue) !important;
+}
+
+/* Progress Bars */
+.progress-fill,
+section.cashout .progress-bar .progress-fill {
+    background: linear-gradient(90deg, var(--primary-neon-blue) 0%, var(--accent-blue) 100%) !important;
+    box-shadow: 0 0 15px var(--glow-blue);
+}
+
+/* Leaderboard */
+.first-place,
+.second-place,
+.third-place {
+    border-color: var(--border-normal) !important;
+}
+
+.first-place .prize {
+    background: linear-gradient(135deg, var(--primary-neon-blue) 0%, var(--primary-blue) 100%) !important;
+}
+
+/* Alerts */
+.alert-box.alert-success {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+}
+
+.alert-box.alert-error {
+    background: linear-gradient(135deg, var(--danger) 0%, #DC2626 100%);
+}
+
+.alert-box.alert-warning {
+    background: linear-gradient(135deg, var(--warning) 0%, #D97706 100%);
+}
+
+/* Glowing Effects */
+.glow-blue {
+    box-shadow: 0 0 20px var(--glow-blue) !important;
+}
+
+/* Smooth Transitions */
+* {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+/* Clean Typography */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* Minimal Borders */
+.border {
+    border-color: var(--border-normal) !important;
+}
+
+/* Tables */
+.table {
+    color: var(--text-primary);
+}
+
+.table thead th {
+    border-bottom: 2px solid var(--primary-neon-blue) !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-thumb {
+    background-color: var(--primary-neon-blue) !important;
+}
+
+::-webkit-scrollbar-track {
+    background-color: var(--bg-card) !important;
+}
+
