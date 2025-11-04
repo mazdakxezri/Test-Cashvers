@@ -53,24 +53,34 @@
             
             <!-- Right Side: Hero Avatar -->
             <div style="position: relative; display: flex; align-items: center; justify-content: center;">
-                <div style="position: relative; animation: float 6s ease-in-out infinite;">
-                    <!-- Glowing background circle -->
-                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 450px; height: 450px; background: radial-gradient(circle, rgba(0, 184, 212, 0.2) 0%, transparent 70%); filter: blur(40px); animation: pulse 4s ease-in-out infinite;"></div>
+                <div class="avatar-container" style="position: relative; animation: float 6s ease-in-out infinite;">
+                    <!-- Multiple Glowing Rings -->
+                    <div class="glow-ring-1"></div>
+                    <div class="glow-ring-2"></div>
+                    <div class="glow-ring-3"></div>
                     
-                    <!-- Avatar Placeholder (Gradient Circle with Icon) -->
-                    <div style="position: relative; width: 400px; height: 400px; background: linear-gradient(135deg, rgba(0, 184, 212, 0.2) 0%, rgba(13, 71, 161, 0.2) 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(0, 184, 212, 0.3); backdrop-filter: blur(20px); box-shadow: 0 0 60px rgba(0, 184, 212, 0.3), inset 0 0 60px rgba(0, 184, 212, 0.1); z-index: 2;">
-                        <!-- Crypto Symbol -->
-                        <svg width="200" height="200" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 20px rgba(0, 184, 212, 0.8));">
-                            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#00B8D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(0, 184, 212, 0.1)"/>
-                            <path d="M2 17L12 22L22 17" stroke="#00B8D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M2 12L12 17L22 12" stroke="#00B8D4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
+                    <!-- Main Glowing background -->
+                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(0, 184, 212, 0.3) 0%, rgba(13, 71, 161, 0.2) 50%, transparent 70%); filter: blur(60px); animation: pulse 4s ease-in-out infinite; z-index: 1;"></div>
+                    
+                    <!-- Avatar Image -->
+                    <img src="{{ asset('assets/' . $activeTemplate . '/images/hero-avatar.png') }}" 
+                         alt="Crypto Warrior" 
+                         class="hero-avatar"
+                         style="position: relative; width: 100%; max-width: 480px; height: auto; z-index: 3; animation: avatarGlow 3s ease-in-out infinite;">
+                    
+                    <!-- Energy Particles -->
+                    <div class="energy-particle particle-1"></div>
+                    <div class="energy-particle particle-2"></div>
+                    <div class="energy-particle particle-3"></div>
+                    <div class="energy-particle particle-4"></div>
+                    <div class="energy-particle particle-5"></div>
+                    <div class="energy-particle particle-6"></div>
                     
                     <!-- Orbiting Particles -->
-                    <div style="position: absolute; width: 8px; height: 8px; background: #00B8D4; border-radius: 50%; top: 10%; left: 20%; animation: orbit 8s linear infinite; box-shadow: 0 0 10px #00B8D4;"></div>
-                    <div style="position: absolute; width: 6px; height: 6px; background: #0D47A1; border-radius: 50%; bottom: 15%; right: 25%; animation: orbit 10s linear infinite reverse; box-shadow: 0 0 10px #0D47A1;"></div>
-                    <div style="position: absolute; width: 10px; height: 10px; background: #00B8D4; border-radius: 50%; top: 60%; right: 10%; animation: orbit 12s linear infinite; box-shadow: 0 0 12px #00B8D4;"></div>
+                    <div style="position: absolute; width: 10px; height: 10px; background: #00B8D4; border-radius: 50%; top: 10%; left: 15%; animation: orbit 10s linear infinite; box-shadow: 0 0 15px #00B8D4, 0 0 30px rgba(0, 184, 212, 0.5); z-index: 4;"></div>
+                    <div style="position: absolute; width: 8px; height: 8px; background: #0D47A1; border-radius: 50%; bottom: 20%; right: 20%; animation: orbit 12s linear infinite reverse; box-shadow: 0 0 12px #0D47A1, 0 0 25px rgba(13, 71, 161, 0.5); z-index: 4;"></div>
+                    <div style="position: absolute; width: 12px; height: 12px; background: #00B8D4; border-radius: 50%; top: 55%; right: 8%; animation: orbit 15s linear infinite; box-shadow: 0 0 18px #00B8D4, 0 0 35px rgba(0, 184, 212, 0.5); z-index: 4;"></div>
+                    <div style="position: absolute; width: 7px; height: 7px; background: #0D47A1; border-radius: 50%; top: 30%; right: 30%; animation: orbit 9s linear infinite reverse; box-shadow: 0 0 10px #0D47A1, 0 0 20px rgba(13, 71, 161, 0.5); z-index: 4;"></div>
                 </div>
             </div>
             
@@ -294,6 +304,133 @@
 @keyframes orbit {
     0% { transform: rotate(0deg) translateX(200px) rotate(0deg); }
     100% { transform: rotate(360deg) translateX(200px) rotate(-360deg); }
+}
+
+/* Avatar Glow Animation */
+@keyframes avatarGlow {
+    0%, 100% { 
+        filter: drop-shadow(0 0 30px rgba(0, 184, 212, 0.6)) drop-shadow(0 0 60px rgba(0, 184, 212, 0.3)); 
+    }
+    50% { 
+        filter: drop-shadow(0 0 50px rgba(0, 184, 212, 0.9)) drop-shadow(0 0 100px rgba(0, 184, 212, 0.5)); 
+    }
+}
+
+/* Glowing Rings */
+.glow-ring-1, .glow-ring-2, .glow-ring-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 2px solid rgba(0, 184, 212, 0.3);
+    z-index: 2;
+}
+
+.glow-ring-1 {
+    width: 520px;
+    height: 520px;
+    animation: ringRotate 20s linear infinite, ringPulse 3s ease-in-out infinite;
+}
+
+.glow-ring-2 {
+    width: 580px;
+    height: 580px;
+    border-color: rgba(13, 71, 161, 0.2);
+    animation: ringRotate 25s linear infinite reverse, ringPulse 4s ease-in-out infinite;
+}
+
+.glow-ring-3 {
+    width: 640px;
+    height: 640px;
+    border-color: rgba(0, 184, 212, 0.15);
+    animation: ringRotate 30s linear infinite, ringPulse 5s ease-in-out infinite;
+}
+
+@keyframes ringRotate {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes ringPulse {
+    0%, 100% { 
+        border-width: 2px;
+        opacity: 0.3;
+    }
+    50% { 
+        border-width: 3px;
+        opacity: 0.6;
+    }
+}
+
+/* Energy Particles */
+.energy-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #00B8D4;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00B8D4, 0 0 20px rgba(0, 184, 212, 0.5);
+    z-index: 4;
+}
+
+.particle-1 {
+    top: 15%;
+    left: 25%;
+    animation: particleFloat 6s ease-in-out infinite, particleFade 3s ease-in-out infinite;
+}
+
+.particle-2 {
+    top: 70%;
+    left: 15%;
+    animation: particleFloat 7s ease-in-out infinite 1s, particleFade 3.5s ease-in-out infinite 0.5s;
+}
+
+.particle-3 {
+    top: 25%;
+    right: 20%;
+    animation: particleFloat 8s ease-in-out infinite 2s, particleFade 4s ease-in-out infinite 1s;
+}
+
+.particle-4 {
+    top: 50%;
+    right: 10%;
+    animation: particleFloat 6.5s ease-in-out infinite 1.5s, particleFade 3.2s ease-in-out infinite 1.5s;
+}
+
+.particle-5 {
+    bottom: 25%;
+    left: 30%;
+    animation: particleFloat 7.5s ease-in-out infinite 0.5s, particleFade 3.8s ease-in-out infinite 0.8s;
+}
+
+.particle-6 {
+    bottom: 35%;
+    right: 25%;
+    animation: particleFloat 8.5s ease-in-out infinite 2.5s, particleFade 4.2s ease-in-out infinite 2s;
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translateY(0) translateX(0); }
+    25% { transform: translateY(-20px) translateX(10px); }
+    50% { transform: translateY(-10px) translateX(-15px); }
+    75% { transform: translateY(-25px) translateX(5px); }
+}
+
+@keyframes particleFade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+/* Avatar Container Hover Effect */
+.avatar-container:hover .hero-avatar {
+    animation: avatarGlow 1.5s ease-in-out infinite, float 6s ease-in-out infinite;
+}
+
+.avatar-container:hover .glow-ring-1,
+.avatar-container:hover .glow-ring-2,
+.avatar-container:hover .glow-ring-3 {
+    border-color: rgba(0, 184, 212, 0.6) !important;
 }
 
 /* Button with Glow Effect */
