@@ -29,9 +29,18 @@
 
 /* Ensure footer has proper spacing */
 footer {
-    margin-bottom: 250px !important;
+    margin-bottom: 180px !important;
     position: relative !important;
     z-index: 100 !important;
+}
+
+/* Hide mobile bottom menu on home page */
+.bottom-menu {
+    z-index: 99998 !important;
+}
+
+body:has([data-page="home"]) .bottom-menu {
+    display: none !important;
 }
 
 /* Cookie bar buttons */
@@ -79,7 +88,7 @@ body {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     footer {
-        margin-bottom: 300px !important;
+        margin-bottom: 200px !important;
     }
     
     .cookie-container {
