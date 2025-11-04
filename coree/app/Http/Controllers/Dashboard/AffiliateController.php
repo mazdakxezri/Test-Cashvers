@@ -33,7 +33,7 @@ class AffiliateController extends Controller
         $activeTemplate = getActiveTemplate();
         $referral_code = $user->referral_code;
 
-        return view($activeTemplate . '.affiliates', compact('referral_code', 'ref_earning', 'referralLogs', 'total_user_referred'));
+        return view($activeTemplate . '.affiliates-space', compact('referral_code', 'ref_earning', 'referralLogs', 'total_user_referred'));
     }
 
 

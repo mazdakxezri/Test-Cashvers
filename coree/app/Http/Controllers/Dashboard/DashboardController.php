@@ -84,7 +84,7 @@ class DashboardController extends Controller
         // Calculate potential prizes for each user
         $potentialPrizes = $this->leaderboardService->calculatePrizes($users, $topPrizes, $totalPrizePool, $distributionMethod);
         
-        return view($activeTemplate . '.leaderboard', compact('users', 'potentialPrizes', 'earnedToday', 'totalPrizePool', 'timeLeft', 'duration'));
+        return view($activeTemplate . '.leaderboard-space', compact('users', 'potentialPrizes', 'earnedToday', 'totalPrizePool', 'timeLeft', 'duration'));
     }
 
 
