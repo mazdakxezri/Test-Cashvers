@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Track;
 use App\Models\ReferralLog;
 use App\Models\WithdrawalHistory;
+use App\Models\UserSession;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 
