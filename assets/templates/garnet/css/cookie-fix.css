@@ -27,11 +27,17 @@
     padding: 0 24px !important;
 }
 
-/* Ensure footer has proper spacing */
+/* Ensure footer has proper spacing ONLY when cookie bar is visible */
 footer {
-    margin-bottom: 180px !important;
+    margin-bottom: 0 !important;
     position: relative !important;
     z-index: 100 !important;
+    transition: margin-bottom 0.3s ease !important;
+}
+
+/* Add spacing only when cookie bar is showing */
+body:has(.cookie-bar.show) footer {
+    margin-bottom: 180px !important;
 }
 
 /* Hide mobile bottom menu on home page */
@@ -87,7 +93,7 @@ body {
 
 /* Mobile responsiveness */
 @media (max-width: 768px) {
-    footer {
+    body:has(.cookie-bar.show) footer {
         margin-bottom: 200px !important;
     }
     
