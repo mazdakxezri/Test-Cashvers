@@ -1,0 +1,270 @@
+/**
+ * Clean Landing Page Styles
+ * Minimal, professional, crypto-focused
+ */
+
+/* Hero Section */
+.hero-clean {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    background: var(--bg-primary);
+    position: relative;
+    overflow: hidden;
+    padding: var(--space-8) 0;
+}
+
+/* Subtle gradient overlay */
+.hero-clean::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(0, 217, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-title {
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: var(--space-5);
+    letter-spacing: -0.03em;
+}
+
+.hero-description {
+    font-size: 20px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-6);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-cta {
+    margin-top: var(--space-6);
+}
+
+/* Statistics Section */
+.stats-clean {
+    padding: var(--space-8) 0;
+    background: var(--bg-primary);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-5);
+}
+
+/* About Section */
+.about-clean {
+    padding: var(--space-9) 0;
+    background: var(--bg-secondary);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content h2 {
+    margin-bottom: var(--space-5);
+}
+
+.about-content p {
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+/* Steps Section */
+.steps-clean {
+    padding: var(--space-9) 0;
+    background: var(--bg-primary);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-8);
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: var(--text-secondary);
+    margin-top: var(--space-3);
+}
+
+.steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-6);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.step-item {
+    text-align: center;
+    padding: var(--space-5);
+}
+
+.step-number {
+    width: 56px;
+    height: 56px;
+    background: var(--primary);
+    color: #000000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 auto var(--space-4);
+}
+
+.step-item h4 {
+    font-size: 20px;
+    margin-bottom: var(--space-2);
+}
+
+.step-item p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+/* Payments Section */
+.payments-clean {
+    padding: var(--space-9) 0;
+    background: var(--bg-secondary);
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-4);
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.payment-item {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-normal);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    transition: all var(--transition-base);
+}
+
+.payment-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+}
+
+.payment-item img {
+    max-width: 100%;
+    max-height: 50px;
+    object-fit: contain;
+    filter: brightness(1.2);
+}
+
+/* FAQ Section */
+.faq-clean {
+    padding: var(--space-9) 0 var(--space-8);
+    background: var(--bg-primary);
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-normal);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-3);
+    overflow: hidden;
+    transition: all var(--transition-base);
+}
+
+.faq-item:hover {
+    border-color: var(--border-emphasis);
+}
+
+.faq-question {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 17px;
+    font-weight: 600;
+    padding: var(--space-5);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.faq-icon {
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: 300;
+    transition: transform var(--transition-base);
+}
+
+.faq-answer {
+    border-top: 1px solid var(--border-subtle);
+}
+
+.faq-answer-content {
+    padding: var(--space-5);
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-clean {
+        min-height: 80vh;
+        padding: var(--space-7) 0;
+    }
+    
+    .hero-title {
+        font-size: clamp(32px, 10vw, 48px);
+    }
+    
+    .hero-description {
+        font-size: 18px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-5);
+    }
+    
+    .payment-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    }
+}
+

@@ -1,0 +1,579 @@
+/**
+ * CashVers Clean Design System
+ * Minimal, professional, crypto-tech aesthetic
+ * Inspired by: Coinbase, Stripe, Linear
+ */
+
+/* ========================================
+   DESIGN TOKENS
+   ======================================== */
+
+:root {
+    /* Colors */
+    --primary: #00D9FF;
+    --primary-hover: #00B8D9;
+    --primary-soft: rgba(0, 217, 255, 0.1);
+    --primary-glow: rgba(0, 217, 255, 0.4);
+    
+    --bg-primary: #000000;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #141414;
+    --bg-elevated: #1a1a1a;
+    
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0A0A0;
+    --text-tertiary: #606060;
+    
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-normal: rgba(255, 255, 255, 0.1);
+    --border-emphasis: rgba(0, 217, 255, 0.3);
+    
+    --success: #00C853;
+    --warning: #FFB300;
+    --error: #FF3D00;
+    
+    /* Spacing Scale (4px base) */
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+    
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Border Radius */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 24px var(--primary-glow);
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+}
+
+/* ========================================
+   BASE RESET
+   ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary) !important;
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Remove old messy backgrounds */
+.wrapper::before,
+.landing-page::before,
+body::before {
+    display: none !important;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: clamp(32px, 5vw, 56px); margin-bottom: var(--space-5); }
+h2 { font-size: clamp(24px, 4vw, 40px); margin-bottom: var(--space-4); }
+h3 { font-size: clamp(20px, 3vw, 32px); margin-bottom: var(--space-4); }
+h4 { font-size: clamp(18px, 2.5vw, 24px); margin-bottom: var(--space-3); }
+
+p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-4);
+}
+
+.text-primary { color: var(--text-primary) !important; }
+.text-secondary { color: var(--text-secondary) !important; }
+.text-accent { color: var(--primary) !important; }
+
+/* ========================================
+   LAYOUT & SPACING
+   ======================================== */
+
+.section {
+    padding: var(--space-8) var(--space-4);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+}
+
+.grid {
+    display: grid;
+    gap: var(--space-5);
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================
+   CARDS
+   ======================================== */
+
+.card-clean {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-normal);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: all var(--transition-base);
+}
+
+.card-clean:hover {
+    border-color: var(--border-emphasis);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-2px);
+}
+
+.card-flat {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--space-5);
+}
+
+/* ========================================
+   BUTTONS
+   ======================================== */
+
+.btn-primary {
+    background: var(--primary) !important;
+    color: #000000 !important;
+    border: none !important;
+    padding: 14px 32px !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+    cursor: pointer;
+    transition: all var(--transition-base) !important;
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.2) !important;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 0 30px rgba(0, 217, 255, 0.4) !important;
+}
+
+.btn-secondary {
+    background: transparent !important;
+    color: var(--primary) !important;
+    border: 2px solid var(--primary) !important;
+    padding: 12px 28px !important;
+    border-radius: var(--radius-md) !important;
+    font-weight: 600 !important;
+    transition: all var(--transition-base) !important;
+}
+
+.btn-secondary:hover {
+    background: var(--primary) !important;
+    color: #000000 !important;
+}
+
+.btn-ghost {
+    background: transparent !important;
+    color: var(--text-secondary) !important;
+    border: 1px solid var(--border-normal) !important;
+    padding: 10px 24px !important;
+    border-radius: var(--radius-md) !important;
+    transition: all var(--transition-base) !important;
+}
+
+.btn-ghost:hover {
+    border-color: var(--border-emphasis) !important;
+    color: var(--text-primary) !important;
+}
+
+/* ========================================
+   FORMS
+   ======================================== */
+
+.form-input {
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-normal) !important;
+    color: var(--text-primary) !important;
+    padding: 12px 16px !important;
+    border-radius: var(--radius-md) !important;
+    font-size: 15px !important;
+    width: 100%;
+    transition: all var(--transition-base) !important;
+}
+
+.form-input:focus {
+    outline: none !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px var(--primary-soft) !important;
+}
+
+.form-input::placeholder {
+    color: var(--text-tertiary) !important;
+}
+
+.form-label {
+    color: var(--text-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: var(--space-2);
+    display: block;
+}
+
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
+.nav-clean {
+    background: rgba(10, 10, 10, 0.95) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle) !important;
+    padding: var(--space-4) 0 !important;
+}
+
+.nav-link-clean {
+    color: var(--text-secondary) !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    padding: var(--space-2) var(--space-4) !important;
+    border-radius: var(--radius-sm) !important;
+    transition: all var(--transition-fast) !important;
+}
+
+.nav-link-clean:hover {
+    color: var(--primary) !important;
+    background: var(--primary-soft) !important;
+}
+
+.nav-link-clean.active {
+    color: var(--primary) !important;
+    background: var(--primary-soft) !important;
+}
+
+/* ========================================
+   STAT CARDS
+   ======================================== */
+
+.stat-card {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-normal);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    text-align: center;
+    transition: all var(--transition-base);
+}
+
+.stat-card:hover {
+    border-color: var(--border-emphasis);
+    transform: translateY(-4px);
+}
+
+.stat-value {
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: var(--space-3);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ========================================
+   OFFER CARDS (CLEAN)
+   ======================================== */
+
+.offer-card-clean {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-normal);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5);
+    transition: all var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.offer-card-clean:hover {
+    border-color: var(--primary);
+    box-shadow: var(--shadow-glow);
+    transform: translateY(-4px);
+}
+
+.offer-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    background: var(--bg-elevated);
+}
+
+.offer-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.offer-reward {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+/* ========================================
+   MODALS
+   ======================================== */
+
+.modal-clean .modal-content {
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border-normal) !important;
+    border-radius: var(--radius-xl) !important;
+    padding: var(--space-6) !important;
+}
+
+.modal-clean .modal-header {
+    border-bottom: 1px solid var(--border-subtle) !important;
+    padding-bottom: var(--space-4) !important;
+}
+
+.modal-clean .modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* ========================================
+   TABLES
+   ======================================== */
+
+.table-clean {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table-clean th {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-normal);
+}
+
+.table-clean td {
+    padding: var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+    color: var(--text-primary);
+}
+
+.table-clean tr:hover td {
+    background: var(--bg-tertiary);
+}
+
+/* ========================================
+   BADGES & TAGS
+   ======================================== */
+
+.badge-clean {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.badge-primary {
+    background: var(--primary-soft);
+    color: var(--primary);
+}
+
+.badge-success {
+    background: rgba(0, 200, 83, 0.1);
+    color: var(--success);
+}
+
+.badge-warning {
+    background: rgba(255, 179, 0, 0.1);
+    color: var(--warning);
+}
+
+.badge-error {
+    background: rgba(255, 61, 0, 0.1);
+    color: var(--error);
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.glow {
+    box-shadow: var(--shadow-glow) !important;
+}
+
+.border-glow {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px var(--primary-soft) !important;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--primary) 0%, #0EA5E9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Remove ALL old messy effects */
+.decorative-dots,
+.shape-l,
+.shape-r,
+.site-name,
+.dark-name {
+    display: none !important;
+}
+
+/* ========================================
+   CLEAN ANIMATIONS
+   ======================================== */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* ========================================
+   OVERRIDES (CLEAN UP OLD MESS)
+   ======================================== */
+
+/* Remove old primary color (red) */
+.btn.primary-btn,
+.cta-button-modern,
+.nav-btn-signup {
+    background: var(--primary) !important;
+    color: #000000 !important;
+    border: none !important;
+}
+
+/* Clean up navigation */
+nav.top-nav,
+.side-nav,
+.bottom-menu {
+    background: var(--bg-secondary) !important;
+    border-color: var(--border-subtle) !important;
+}
+
+/* Clean up cards */
+.card,
+.profile-card,
+.redeem-card {
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-normal) !important;
+    border-radius: var(--radius-lg) !important;
+}
+
+/* Clean up forms */
+.form-control {
+    background: var(--bg-tertiary) !important;
+    border: 1px solid var(--border-normal) !important;
+    color: var(--text-primary) !important;
+    border-radius: var(--radius-md) !important;
+    padding: 12px 16px !important;
+}
+
+.form-control:focus {
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px var(--primary-soft) !important;
+}
+
+/* Clean up modals */
+.modal-content {
+    background: var(--bg-secondary) !important;
+    border: 1px solid var(--border-normal) !important;
+    border-radius: var(--radius-xl) !important;
+}
+
+/* Clean up footer */
+footer {
+    background: var(--bg-secondary) !important;
+    border-top: 1px solid var(--border-subtle) !important;
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 768px) {
+    .section {
+        padding: var(--space-7) var(--space-4);
+    }
+    
+    h1 { font-size: clamp(28px, 8vw, 40px); }
+    h2 { font-size: clamp(24px, 6vw, 32px); }
+}
+

@@ -15,7 +15,7 @@ class SiteController extends Controller
     public function index()
     {
         $data = $this->getWelcomeViewData();
-        return view($data['activeTemplate'] . '.welcome', [
+        return view($data['activeTemplate'] . '.welcome-clean', [
             'faqs' => $data['faqs'],
             'paymentMethods' => $data['paymentMethods'],
         ]);
