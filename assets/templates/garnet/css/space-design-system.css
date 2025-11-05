@@ -828,3 +828,69 @@ p {
     }
 }
 
+/* ========================================
+   MOBILE FIXES - CRITICAL
+   ======================================== */
+
+@media (max-width: 1199px) {
+    /* Remove sidebar spacing on mobile */
+    body {
+        overflow-x: hidden !important;
+    }
+    
+    /* Full width cards on mobile */
+    .card-space {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Stack offers vertically on mobile */
+    .offers-grid-space {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Smaller spacing on mobile */
+    .section-space {
+        padding: var(--space-xl) var(--space-sm);
+    }
+    
+    /* Responsive text */
+    .title-xl {
+        font-size: 32px !important;
+    }
+    
+    .title-lg {
+        font-size: 24px !important;
+    }
+    
+    .title-md {
+        font-size: 20px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Even smaller for phones */
+    .title-xl {
+        font-size: 28px !important;
+    }
+    
+    .title-lg {
+        font-size: 20px !important;
+    }
+    
+    /* Cards take full width with less padding */
+    .card-space {
+        padding: var(--space-md) !important;
+        border-radius: var(--radius-md) !important;
+    }
+    
+    /* Button groups stack */
+    .btn-group-space {
+        flex-direction: column;
+    }
+    
+    .btn-group-space .btn-space {
+        width: 100%;
+    }
+}
+
