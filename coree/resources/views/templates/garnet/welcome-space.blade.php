@@ -101,7 +101,7 @@
                 </div>
                 <div class="stat-card-float">
                     <div style="font-size: 42px; font-weight: 700; background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
-                        ${{ getStatistics()['average_money'] ?? '12.50' }}
+                        {{ getStatistics()['average_money'] ?? '$12.50' }}
                     </div>
                     <div style="font-size: 15px; color: rgba(255, 255, 255, 0.6); font-family: 'Inter', sans-serif;">
                         Average Earned Yesterday
@@ -109,7 +109,7 @@
                 </div>
                 <div class="stat-card-float">
                     <div style="font-size: 42px; font-weight: 700; background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
-                        ${{ getStatistics()['total_earned'] ?? '284,592' }}
+                        {{ getStatistics()['total_earned'] ?? '$284,592' }}
                     </div>
                     <div style="font-size: 15px; color: rgba(255, 255, 255, 0.6); font-family: 'Inter', sans-serif;">
                         Total Earned on {{ siteName() }}
@@ -556,11 +556,56 @@
     font-family: 'Inter', sans-serif;
 }
 
-/* Responsive Grid Fix */
+/* Mobile Responsiveness */
 @media (max-width: 1024px) {
+    /* Hero section - stack text and avatar */
     section > div > div[style*="grid-template-columns: 1fr 1fr"] {
         grid-template-columns: 1fr !important;
-        text-align: center;
+        gap: 40px !important;
+    }
+    
+    /* Center text on mobile */
+    .hero-space > div > div:first-child {
+        text-align: center !important;
+    }
+    
+    /* Adjust avatar size on mobile */
+    .hero-avatar {
+        max-width: 350px !important;
+    }
+    
+    .avatar-container {
+        max-width: 350px !important;
+        margin: 0 auto !important;
+    }
+    
+    /* Smaller rings on mobile */
+    .glow-ring-1 { width: 380px !important; height: 380px !important; }
+    .glow-ring-2 { width: 420px !important; height: 420px !important; }
+    .glow-ring-3 { width: 460px !important; height: 460px !important; }
+}
+
+@media (max-width: 768px) {
+    /* Even smaller on phones */
+    .hero-avatar {
+        max-width: 280px !important;
+    }
+    
+    .avatar-container {
+        max-width: 280px !important;
+    }
+    
+    .glow-ring-1 { width: 320px !important; height: 320px !important; }
+    .glow-ring-2 { width: 360px !important; height: 360px !important; }
+    .glow-ring-3 { width: 400px !important; height: 400px !important; }
+    
+    /* Adjust section padding */
+    .section-space {
+        padding: 60px 16px !important;
+    }
+    
+    .hero-space {
+        padding: 60px 16px !important;
     }
 }
 </style>

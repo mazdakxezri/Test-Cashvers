@@ -1,7 +1,7 @@
 <nav class="nav-space">
     <div class="nav-space-content">
-        <a class="nav-space-brand" href="{{ auth()->check() ? route('earnings.index') : route('home') }}">
-            {{ siteName() }}
+        <a class="nav-space-brand logo-enhanced" href="{{ auth()->check() ? route('earnings.index') : route('home') }}">
+            <span class="logo-cash">Cash</span><span class="logo-vers">Vers</span>
         </a>
         
         @auth
@@ -36,6 +36,39 @@
 </nav>
 
 <style>
+/* Enhanced Logo */
+.logo-enhanced {
+    font-size: 26px !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.logo-cash {
+    background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 900;
+}
+
+.logo-vers {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.logo-enhanced:hover {
+    transform: translateY(-1px);
+}
+
+.logo-enhanced:hover .logo-cash {
+    background: linear-gradient(135deg, #0D47A1 0%, #00B8D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
 .balance-display-space,
 .level-display-space {
     display: flex;

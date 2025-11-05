@@ -91,6 +91,21 @@ body {
     position: relative !important;
 }
 
+/* Fix footer jumping issue */
+html {
+    scroll-behavior: smooth !important;
+}
+
+footer {
+    position: relative !important;
+    will-change: auto !important;
+}
+
+/* Prevent layout shifts */
+* {
+    scroll-margin-top: 80px;
+}
+
 /* Mobile responsiveness */
 @media (max-width: 768px) {
     body:has(.cookie-bar.show) footer {
