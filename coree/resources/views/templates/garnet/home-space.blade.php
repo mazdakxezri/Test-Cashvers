@@ -300,3 +300,4 @@ button.offer-card-space:focus {
 
 @section('scripts')
     @include($activeTemplate . '.partials.scripts.api-offers')
+@endsection
