@@ -1,0 +1,131 @@
+-- ============================================
+-- CASHVERS MIGRATION SQL
+-- Run this in phpMyAdmin if artisan doesn't work
+-- ============================================
+
+-- Daily Login Bonuses Table
+CREATE TABLE IF NOT EXISTS `daily_login_bonuses` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `login_date` date NOT NULL,
+  `bonus_amount` decimal(10,2) NOT NULL DEFAULT 0.02,
+  `claimed` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_user_date` (`user_id`, `login_date`),
+  KEY `idx_login_date` (`login_date`),
+  CONSTRAINT `fk_daily_bonus_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Crypto Transactions Table
+CREATE TABLE IF NOT EXISTS `crypto_transactions` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `payment_id` varchar(255) NOT NULL,
+  `order_id` varchar(255) NOT NULL,
+  `type` enum('deposit','withdrawal') NOT NULL DEFAULT 'deposit',
+  `status` enum('waiting','confirming','confirmed','completed','failed','refunded','cancelled') NOT NULL DEFAULT 'waiting',
+  `currency` varchar(10) NOT NULL,
+  `amount_crypto` decimal(20,8) NOT NULL,
+  `amount_usd` decimal(10,2) NOT NULL,
+  `wallet_address` varchar(255) DEFAULT NULL,
+  `pay_address` varchar(255) DEFAULT NULL,
+  `payment_url` text DEFAULT NULL,
+  `txn_id` varchar(255) DEFAULT NULL,
+  `confirmations` int(11) NOT NULL DEFAULT 0,
+  `confirmed_at` timestamp NULL DEFAULT NULL,
+  `completed_at` timestamp NULL DEFAULT NULL,
+  `metadata` text DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_payment_id` (`payment_id`),
+  UNIQUE KEY `unique_order_id` (`order_id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_status` (`status`),
+  KEY `idx_type` (`type`),
+  KEY `idx_payment_id` (`payment_id`),
+  CONSTRAINT `fk_crypto_tx_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Loot Box Types Table
+CREATE TABLE IF NOT EXISTS `loot_box_types` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `description` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `price_usd` decimal(10,2) NOT NULL,
+  `can_buy_with_earnings` tinyint(1) NOT NULL DEFAULT 1,
+  `can_buy_with_crypto` tinyint(1) NOT NULL DEFAULT 1,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `order` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_slug` (`slug`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Loot Box Items Table
+CREATE TABLE IF NOT EXISTS `loot_box_items` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `loot_box_type_id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `value` decimal(10,2) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `rarity` enum('common','uncommon','rare','epic','legendary') NOT NULL DEFAULT 'common',
+  `drop_rate` decimal(5,2) NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_loot_box_type` (`loot_box_type_id`),
+  KEY `idx_rarity` (`rarity`),
+  CONSTRAINT `fk_loot_item_type` FOREIGN KEY (`loot_box_type_id`) REFERENCES `loot_box_types` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Loot Box Purchases Table
+CREATE TABLE IF NOT EXISTS `loot_box_purchases` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `loot_box_type_id` bigint(20) UNSIGNED NOT NULL,
+  `payment_method` enum('earnings','crypto') NOT NULL DEFAULT 'earnings',
+  `price_paid` decimal(10,2) NOT NULL,
+  `crypto_currency` varchar(255) DEFAULT NULL,
+  `opened` tinyint(1) NOT NULL DEFAULT 0,
+  `opened_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_opened` (`opened`),
+  CONSTRAINT `fk_loot_purchase_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_loot_purchase_type` FOREIGN KEY (`loot_box_type_id`) REFERENCES `loot_box_types` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- User Loot Box Rewards Table
+CREATE TABLE IF NOT EXISTS `user_loot_box_rewards` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `loot_box_purchase_id` bigint(20) UNSIGNED NOT NULL,
+  `loot_box_item_id` bigint(20) UNSIGNED NOT NULL,
+  `value_received` decimal(10,2) DEFAULT NULL,
+  `claimed` tinyint(1) NOT NULL DEFAULT 0,
+  `claimed_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`),
+  KEY `idx_claimed` (`claimed`),
+  CONSTRAINT `fk_loot_reward_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_loot_reward_purchase` FOREIGN KEY (`loot_box_purchase_id`) REFERENCES `loot_box_purchases` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_loot_reward_item` FOREIGN KEY (`loot_box_item_id`) REFERENCES `loot_box_items` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================
+-- DONE! All tables created.
+-- ============================================
+
