@@ -59,32 +59,32 @@
                 <div class="card-float">
                     <h4 style="margin-bottom: var(--space-lg);">📊 Recent Deposits</h4>
                     
-                    @forelse($transactions as $tx)
-                    <div class="transaction-item">
-                        <div class="transaction-info">
-                            <div class="transaction-currency">{{ $tx->currency }}</div>
-                            <div class="transaction-details">
-                                <div class="transaction-amount">{{ $tx->amount_crypto }} {{ $tx->currency }}</div>
-                                <div class="transaction-date">{{ $tx->created_at->diffForHumans() }}</div>
+                    @if(count($transactions) > 0)
+                        @foreach($transactions as $tx)
+                        <div class="transaction-item">
+                            <div class="transaction-info">
+                                <div class="transaction-currency">{{ $tx->currency }}</div>
+                                <div class="transaction-details">
+                                    <div class="transaction-amount">{{ $tx->amount_crypto }} {{ $tx->currency }}</div>
+                                    <div class="transaction-date">{{ $tx->created_at->diffForHumans() }}</div>
+                                </div>
+                            </div>
+                            <div class="transaction-status">
+                                @if($tx->status === 'completed')
+                                    <span class="badge-success">✓ Completed</span>
+                                @elseif($tx->status === 'confirming' || $tx->status === 'confirmed')
+                                    <span class="badge-warning">⏳ Confirming</span>
+                                @elseif($tx->status === 'waiting')
+                                    <span class="badge-info">⏰ Waiting</span>
+                                @else
+                                    <span class="badge-danger">✗ {{ ucfirst($tx->status) }}</span>
+                                @endif
                             </div>
                         </div>
-                        <div class="transaction-status">
-                            @if($tx->status === 'completed')
-                                <span class="badge-success">✓ Completed</span>
-                            @elseif($tx->status === 'confirming' || $tx->status === 'confirmed')
-                                <span class="badge-warning">⏳ Confirming</span>
-                            @elseif($tx->status === 'waiting')
-                                <span class="badge-info">⏰ Waiting</span>
-                            @else
-                                <span class="badge-danger">✗ {{ ucfirst($tx->status) }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    @empty
-                    <p class="text-muted text-center py-4">No deposits yet</p>
-                    @endforelse
-
-                    {{ $transactions->links() }}
+                        @endforeach
+                    @else
+                        <p class="text-muted text-center py-4">No deposits yet</p>
+                    @endif
                 </div>
             </div>
         </div>

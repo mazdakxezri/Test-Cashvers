@@ -647,9 +647,10 @@ p {
 
 .offer-image-space {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     background: linear-gradient(135deg, var(--space-elevated) 0%, var(--space-card) 100%);
+    border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
 .offer-content-space {

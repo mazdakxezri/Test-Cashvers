@@ -126,10 +126,17 @@ footer {
     display: flex !important;
     flex-direction: column !important;
     min-height: calc(100vh - 76px) !important;
+    position: relative !important;
 }
 
 .content {
-    flex: 1 !important;
+    flex: 1 0 auto !important;
+    position: relative !important;
+}
+
+/* Force footer to bottom */
+footer {
+    flex-shrink: 0 !important;
 }
 
 /* Mobile responsiveness */

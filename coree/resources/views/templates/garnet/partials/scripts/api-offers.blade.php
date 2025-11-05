@@ -44,22 +44,27 @@
             if (eventData) {
                 try {
                     const jsonData = JSON.parse(eventData.trim());
-                    if (Array.isArray(jsonData)) {
+                    if (Array.isArray(jsonData) && jsonData.length > 0) {
+                        // Add header
+                        const header = document.createElement('h6');
+                        header.style.cssText = 'color: #00B8D4; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; font-family: Inter, sans-serif;';
+                        header.textContent = 'Milestones';
+                        modalEvents.appendChild(header);
+                        
                         jsonData.forEach((task, index) => {
                             const taskDiv = document.createElement('div');
-                            taskDiv.className =
-                                'd-flex align-items-center gap-4 task border-bottom';
+                            taskDiv.style.cssText = 'background: rgba(18, 18, 26, 0.5); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 16px 20px; margin-bottom: 12px; display: flex; align-items: center; gap: 16px;';
 
                             const badgeSpan = document.createElement('span');
-                            badgeSpan.className = 'badge';
+                            badgeSpan.style.cssText = 'width: 32px; height: 32px; background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: white; font-size: 14px; font-family: Inter, sans-serif; flex-shrink: 0;';
                             badgeSpan.textContent = index + 1;
 
                             const taskDescriptionSpan = document.createElement('span');
-                            taskDescriptionSpan.className = 'text-white fs-13';
+                            taskDescriptionSpan.style.cssText = 'color: rgba(255, 255, 255, 0.9); font-size: 15px; flex: 1; font-family: Inter, sans-serif;';
                             taskDescriptionSpan.textContent = task.name;
 
                             const priceSpan = document.createElement('span');
-                            priceSpan.className = 'text-warning ms-auto fw-semibold';
+                            priceSpan.style.cssText = 'background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; font-size: 16px; font-family: Inter, sans-serif; flex-shrink: 0;';
                             priceSpan.textContent = `${task.payout.toFixed(2)} ${siteSymbol}`;
 
                             taskDiv.append(badgeSpan, taskDescriptionSpan, priceSpan);

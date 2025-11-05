@@ -204,8 +204,8 @@
 
 .offers-grid-space {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: var(--space-lg);
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: var(--space-md);
 }
 
 .offer-placeholder-space {
