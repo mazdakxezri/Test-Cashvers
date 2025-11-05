@@ -104,7 +104,6 @@
     </section>
 
     @include($activeTemplate . '.partials.modals.cashout')
-@endsection
 
 <style>
 .balance-progress-card {
