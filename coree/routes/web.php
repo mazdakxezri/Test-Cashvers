@@ -11,6 +11,8 @@ use App\Http\Controllers\Dashboard\AffiliateController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\DailyBonusController;
 use App\Http\Controllers\Dashboard\CryptoController;
+use App\Http\Controllers\Dashboard\BitLabsController;
+use App\Http\Controllers\Dashboard\LootBoxController;
 
 // Public routes
 Route::middleware('guest')->group(function () {
@@ -55,8 +57,21 @@ Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])
     Route::post('/crypto/deposit', [CryptoController::class, 'createDeposit'])->name('crypto.deposit.create');
     Route::get('/crypto/withdrawal', [CryptoController::class, 'withdrawalIndex'])->name('crypto.withdrawal');
     Route::post('/crypto/withdrawal', [CryptoController::class, 'createWithdrawal'])->name('crypto.withdrawal.create');
+
+    // BitLabs Surveys
+    Route::get('/surveys', [BitLabsController::class, 'index'])->name('bitlabs.index');
+    Route::post('/surveys/click', [BitLabsController::class, 'clickSurvey'])->name('bitlabs.click');
+
+    // Loot Boxes
+    Route::get('/lootbox', [LootBoxController::class, 'index'])->name('lootbox.index');
+    Route::post('/lootbox/purchase', [LootBoxController::class, 'purchase'])->name('lootbox.purchase');
+    Route::post('/lootbox/open', [LootBoxController::class, 'open'])->name('lootbox.open');
+    Route::post('/lootbox/claim', [LootBoxController::class, 'claimReward'])->name('lootbox.claim');
 });
 
 // NOWPayments IPN Callback (no auth required)
 Route::post('/callback/nowpayments', [CryptoController::class, 'handleCallback'])->name('nowpayments.callback');
+
+// BitLabs Webhook (no auth required)
+Route::post('/callback/bitlabs', [BitLabsController::class, 'callback'])->name('bitlabs.callback');
 
