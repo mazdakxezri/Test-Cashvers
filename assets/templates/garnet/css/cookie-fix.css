@@ -114,6 +114,23 @@ body:has([data-page="home"]) .bottom-menu {
     padding: var(--space-xl) var(--space-lg) !important;
 }
 
+/* CRITICAL: Mobile responsiveness for wrapper */
+@media (max-width: 1199px) {
+    .wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .content {
+        padding: 20px 16px !important;
+    }
+    
+    footer {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
 /* Ensure content never overlaps */
 body {
     position: relative !important;
@@ -169,6 +186,18 @@ footer {
     .cookie-btn {
         width: 100% !important;
         margin-bottom: 12px !important;
+    }
+    
+    /* Fix daily bonus widget on mobile */
+    .daily-bonus-widget .bonus-card {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+        padding: 20px !important;
+    }
+    
+    .daily-bonus-widget .bonus-stats {
+        flex-direction: row;
+        justify-content: space-around;
     }
 }
 

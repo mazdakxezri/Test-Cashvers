@@ -155,18 +155,18 @@
     
     .nav-space-content {
         padding: 0 12px !important;
-        gap: 12px;
+        gap: 8px;
     }
     
     /* Smaller logo on mobile */
     .logo-enhanced {
-        font-size: 20px !important;
+        font-size: 18px !important;
         letter-spacing: -0.3px !important;
     }
     
     /* Make nav links smaller and wrap better */
     .nav-space-links {
-        gap: 8px !important;
+        gap: 6px !important;
         flex-wrap: nowrap;
     }
     
@@ -185,17 +185,33 @@
     
     .balance-display-space,
     .level-display-space {
-        padding: 6px 12px;
+        padding: 4px 8px;
+        min-width: 70px;
     }
     
     .balance-label,
     .level-label {
-        font-size: 9px;
+        font-size: 8px;
     }
     
     .balance-value,
     .level-value {
-        font-size: 14px;
+        font-size: 12px;
+    }
+    
+    /* User dropdown on mobile */
+    .user-dropdown-toggle {
+        padding: 6px 10px !important;
+    }
+    
+    .user-avatar {
+        width: 28px !important;
+        height: 28px !important;
+        font-size: 12px !important;
+    }
+    
+    .user-name-short {
+        display: none;
     }
 }
 
