@@ -111,13 +111,25 @@ html {
 }
 
 footer {
-    position: relative !important;
+    position: static !important;
+    transform: none !important;
     will-change: auto !important;
 }
 
 /* Prevent layout shifts */
 * {
     scroll-margin-top: 80px;
+}
+
+/* Ensure wrapper doesn't move footer */
+.wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    min-height: calc(100vh - 76px) !important;
+}
+
+.content {
+    flex: 1 !important;
 }
 
 /* Mobile responsiveness */

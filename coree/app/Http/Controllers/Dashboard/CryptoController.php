@@ -24,10 +24,16 @@ class CryptoController extends Controller
     public function depositIndex()
     {
         $currencies = ['BTC', 'ETH', 'USDT', 'LTC', 'BCH', 'TRX'];
-        $transactions = CryptoTransaction::where('user_id', Auth::id())
-            ->deposits()
-            ->orderByDesc('created_at')
-            ->paginate(10);
+        
+        try {
+            $transactions = CryptoTransaction::where('user_id', Auth::id())
+                ->deposits()
+                ->orderByDesc('created_at')
+                ->paginate(10);
+        } catch (\Exception $e) {
+            // Table doesn't exist yet
+            $transactions = collect([]);
+        }
 
         return view('templates.garnet.crypto.deposit', compact('currencies', 'transactions'));
     }
