@@ -30,7 +30,17 @@
                     
                     <div class="offers-grid-space">
                         @foreach ($allOffers->take(6) as $offer)
-                            <div class="offer-card-space">
+                            <button class="offer-card-space" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#ApiModal"
+                                    data-name="{{ $offer->name }}"
+                                    data-creative="{{ $offer->creative }}"
+                                    data-payout="{{ number_format($offer->payout, 2) }}"
+                                    data-device="{{ $offer->device }}"
+                                    data-requirements="{{ $offer->requirements }}"
+                                    data-link="{{ $offer->link }}"
+                                    data-description="{{ $offer->description ?? '' }}"
+                                    data-event='@json($offer->event ?? [])'>
                                 @if($offer->creative)
                                     <img src="{{ $offer->creative }}" alt="{{ $offer->name }}" class="offer-image-space">
                                 @else
@@ -45,22 +55,26 @@
                                     
                                     <div class="offer-footer-space">
                                         <div class="offer-reward-space">{{ siteSymbol() }}{{ number_format($offer->payout, 2) }}</div>
-                                        @auth
-                                            <a href="{{ $offer->link }}" class="btn-space-primary btn-sm-space">
-                                                Start
-                                            </a>
-                                        @else
-                                            <button class="btn-space-primary btn-sm-space" data-bs-toggle="modal" data-bs-target="#authModal">
-                                                Login
-                                            </button>
-                                        @endauth
+                                        <span class="btn-space-primary btn-sm-space">
+                                            View Details
+                                        </span>
                                     </div>
                                 </div>
-                            </div>
+                            </button>
                         @endforeach
                         
                         @foreach ($ogadsOffers->take(6) as $ogads)
-                            <div class="offer-card-space">
+                            <button class="offer-card-space"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#ApiModal"
+                                    data-name="{{ $ogads['name_short'] }}"
+                                    data-creative="{{ $ogads['picture'] }}"
+                                    data-payout="{{ number_format($ogads['payout'], 2) }}"
+                                    data-device="{{ $ogads['device'] ?? 'desktop' }}"
+                                    data-requirements="{{ $ogads['description'] ?? '' }}"
+                                    data-link="{{ $ogads['link'] . (Auth::check() ? Auth::user()->uid : '') }}"
+                                    data-description="{{ $ogads['adcopy'] ?? '' }}"
+                                    data-event='[]'>
                                 <img src="{{ $ogads['picture'] }}" alt="{{ $ogads['name_short'] }}" class="offer-image-space">
                                 
                                 <div class="offer-content-space">
@@ -69,18 +83,12 @@
                                     
                                     <div class="offer-footer-space">
                                         <div class="offer-reward-space">{{ siteSymbol() }}{{ number_format($ogads['payout'], 2) }}</div>
-                                        @auth
-                                            <a href="{{ $ogads['link'] . Auth::user()->uid }}" class="btn-space-primary btn-sm-space">
-                                                Start
-                                            </a>
-                                        @else
-                                            <button class="btn-space-primary btn-sm-space" data-bs-toggle="modal" data-bs-target="#authModal">
-                                                Login
-                                            </button>
-                                        @endauth
+                                        <span class="btn-space-primary btn-sm-space">
+                                            View Details
+                                        </span>
                                     </div>
                                 </div>
-                            </div>
+                            </button>
                         @endforeach
                     </div>
                 </div>
@@ -267,5 +275,25 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Make button.offer-card-space look like a div */
+button.offer-card-space {
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
+    width: 100%;
+}
+
+button.offer-card-space:focus {
+    outline: none;
+}
 </style>
 
+@include($activeTemplate . '.partials.modals.api')
+@include($activeTemplate . '.partials.modals.offerwall')
+@endsection
+
+@section('scripts')
+    @include($activeTemplate . '.partials.scripts.api-offers')
