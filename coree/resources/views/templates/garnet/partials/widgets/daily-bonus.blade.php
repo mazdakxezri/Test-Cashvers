@@ -1,11 +1,19 @@
 @inject('bonusService', 'App\Services\DailyLoginBonusService')
 
 @php
-    $canClaim = $bonusService->canClaimToday(Auth::user());
-    $streak = $bonusService->getCurrentStreak(Auth::user());
-    $totalEarned = $bonusService->getTotalBonuses(Auth::user());
-    $nextBonusIn = $bonusService->getTimeUntilNextBonus();
+    try {
+        $canClaim = $bonusService->canClaimToday(Auth::user());
+        $streak = $bonusService->getCurrentStreak(Auth::user());
+        $totalEarned = $bonusService->getTotalBonuses(Auth::user());
+        $nextBonusIn = $bonusService->getTimeUntilNextBonus();
+        $bonusEnabled = true;
+    } catch (\Exception $e) {
+        // Table doesn't exist yet - migrations not run
+        $bonusEnabled = false;
+    }
 @endphp
+
+@if($bonusEnabled)
 
 <div class="daily-bonus-widget">
     <div class="bonus-card">
@@ -312,4 +320,5 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 </script>
+@endif
 

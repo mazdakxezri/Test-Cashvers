@@ -18,20 +18,25 @@ class DailyLoginBonus
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            $bonusService = new DailyLoginBonusService();
-            $user = Auth::user();
+            try {
+                $bonusService = new DailyLoginBonusService();
+                $user = Auth::user();
 
-            // Check if user can claim today's bonus
-            if ($bonusService->canClaimToday($user)) {
-                $result = $bonusService->checkAndAwardBonus($user);
-                
-                if ($result['awarded']) {
-                    // Store in session to show notification
-                    session()->flash('daily_bonus_awarded', [
-                        'amount' => $result['amount'],
-                        'streak' => $result['current_streak'],
-                    ]);
+                // Check if user can claim today's bonus
+                if ($bonusService->canClaimToday($user)) {
+                    $result = $bonusService->checkAndAwardBonus($user);
+                    
+                    if ($result['awarded']) {
+                        // Store in session to show notification
+                        session()->flash('daily_bonus_awarded', [
+                            'amount' => $result['amount'],
+                            'streak' => $result['current_streak'],
+                        ]);
+                    }
                 }
+            } catch (\Exception $e) {
+                // Table doesn't exist yet - migrations not run
+                // Silent fail, don't break the page
             }
         }
 
