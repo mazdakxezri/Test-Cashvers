@@ -907,5 +907,14 @@ p {
     .offer-content-space {
         padding: var(--space-md) !important;
     }
+    
+    /* Smaller profile stats on mobile */
+    .stat-value {
+        font-size: 24px !important;
+    }
+    
+    .stat-value-space {
+        font-size: 32px !important;
+    }
 }
 
