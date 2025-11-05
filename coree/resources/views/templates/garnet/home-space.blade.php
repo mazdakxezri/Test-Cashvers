@@ -9,6 +9,9 @@
         <div class="glow-orb glow-orb-purple" style="bottom: 30%; left: 10%;"></div>
     </div>
 
+    <!-- Daily Login Bonus Widget -->
+    @include($activeTemplate . '.partials.widgets.daily-bonus')
+
     @if (isset($isVPNDetected) && $isVPNDetected)
         <section class="section-space">
             <div class="container-space">

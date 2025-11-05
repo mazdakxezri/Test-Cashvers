@@ -37,10 +37,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'auto_ban_country_change' => \App\Http\Middleware\AutoBanOnCountryChange::class,
             'auto_vpn_ban' => \App\Http\Middleware\AutoBanVPN::class,
             'track_session' => \App\Http\Middleware\TrackUserSession::class,
+            'daily_bonus' => \App\Http\Middleware\DailyLoginBonus::class,
         ]);
         
         // Track user sessions for fraud detection
         $middleware->append(\App\Http\Middleware\TrackUserSession::class);
+        
+        // Award daily login bonus automatically
+        $middleware->append(\App\Http\Middleware\DailyLoginBonus::class);
 
         $middleware->validateCsrfTokens(except: [
             'callback/*',

@@ -9,6 +9,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\CashoutController;
 use App\Http\Controllers\Dashboard\AffiliateController;
 use App\Http\Controllers\Dashboard\ProfileController;
+use App\Http\Controllers\Dashboard\DailyBonusController;
 
 // Public routes
 Route::middleware('guest')->group(function () {
@@ -44,5 +45,8 @@ Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])
     Route::get('/leaderboard', [DashboardController::class, 'leaderboard'])->name('leaderboard.index');
     Route::get('/offers', [DashboardController::class, 'getAllOffers'])->name('all.offers');
 
+    // Daily Login Bonus
+    Route::post('/bonus/claim', [DailyBonusController::class, 'claim'])->name('bonus.claim');
+    Route::get('/bonus/calendar', [DailyBonusController::class, 'calendar'])->name('bonus.calendar');
 });
 
