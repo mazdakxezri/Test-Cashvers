@@ -157,6 +157,7 @@
         @include($activeTemplate . '.partials.modals.offerwall')
     @endif
 
+    @include($activeTemplate . '.partials.modals.api')
 @endsection
 
 @section('scripts')
@@ -184,6 +185,8 @@
             });
         </script>
     @endauth
+
+    @include($activeTemplate . '.partials.scripts.api-offers')
 @endsection
 
 <style>
@@ -293,11 +296,3 @@ button.offer-card-space:focus {
     outline: none;
 }
 </style>
-
-@include($activeTemplate . '.partials.modals.api')
-@include($activeTemplate . '.partials.modals.offerwall')
-@endsection
-
-@section('scripts')
-    @include($activeTemplate . '.partials.scripts.api-offers')
-@endsection
