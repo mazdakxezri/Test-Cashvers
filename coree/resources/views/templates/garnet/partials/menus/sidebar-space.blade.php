@@ -61,17 +61,26 @@
 </aside>
 
 <style>
+/* Hide sidebar by default (mobile-first) */
 .sidebar-space {
-    position: fixed;
-    left: 0;
-    top: 76px;
-    width: 240px;
-    height: calc(100vh - 76px);
-    background: rgba(10, 10, 15, 0.95);
-    backdrop-filter: blur(20px);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
-    padding: var(--space-lg) 0;
-    z-index: 100;
+    display: none;
+}
+
+/* Show sidebar only on desktop */
+@media (min-width: 1200px) {
+    .sidebar-space {
+        display: block;
+        position: fixed;
+        left: 0;
+        top: 76px;
+        width: 240px;
+        height: calc(100vh - 76px);
+        background: rgba(10, 10, 15, 0.95);
+        backdrop-filter: blur(20px);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+        padding: var(--space-lg) 0;
+        z-index: 100;
+    }
 }
 
 .sidebar-nav {
