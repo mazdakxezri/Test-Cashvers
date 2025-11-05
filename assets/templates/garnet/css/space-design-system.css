@@ -649,7 +649,7 @@ p {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
-    background: linear-gradient(135deg, var(--space-elevated) 0%, var(--space-card) 100%);
+    background: var(--space-card);
     border-radius: var(--radius-md) var(--radius-md) 0 0;
 }
 
@@ -891,6 +891,21 @@ p {
     
     .btn-group-space .btn-space {
         width: 100%;
+    }
+    
+    /* Smaller View Details button on mobile */
+    .btn-sm-space {
+        padding: 6px 14px !important;
+        font-size: 12px !important;
+    }
+    
+    /* Remove extra mobile padding */
+    .container-space {
+        padding: 0 var(--space-sm) !important;
+    }
+    
+    .offer-content-space {
+        padding: var(--space-md) !important;
     }
 }
 

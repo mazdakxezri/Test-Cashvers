@@ -61,11 +61,26 @@ main + footer {
 
 /* Hide mobile bottom menu on home page */
 .bottom-menu {
-    z-index: 99998 !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 999 !important;
 }
 
 body:has([data-page="home"]) .bottom-menu {
     display: none !important;
+}
+
+/* Add bottom padding to body when bottom menu is visible */
+@media (max-width: 1199px) {
+    body:not(:has([data-page="home"])) {
+        padding-bottom: 80px !important;
+    }
+    
+    footer {
+        margin-bottom: 0 !important;
+    }
 }
 
 /* Cookie bar buttons */

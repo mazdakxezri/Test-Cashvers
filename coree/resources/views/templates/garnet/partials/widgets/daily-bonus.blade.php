@@ -227,23 +227,57 @@
 }
 
 @media (max-width: 768px) {
+    .daily-bonus-widget {
+        margin-bottom: var(--space-md);
+    }
+    
     .bonus-card {
         grid-template-columns: 1fr;
         text-align: center;
-        gap: var(--space-md);
+        gap: var(--space-sm);
+        padding: var(--space-md) !important;
     }
     
     .bonus-icon {
         margin: 0 auto;
     }
     
+    .bonus-icon svg {
+        width: 32px !important;
+        height: 32px !important;
+    }
+    
+    .bonus-title {
+        font-size: 16px !important;
+        margin-bottom: 4px !important;
+    }
+    
+    .bonus-amount {
+        font-size: 24px !important;
+        margin-bottom: var(--space-sm) !important;
+    }
+    
+    .bonus-currency {
+        font-size: 18px !important;
+    }
+    
+    .btn-claim-bonus {
+        padding: 10px 24px !important;
+        font-size: 14px !important;
+    }
+    
     .bonus-stats {
         flex-direction: row;
         justify-content: space-around;
+        gap: var(--space-sm);
     }
     
     .bonus-stat {
         text-align: center;
+    }
+    
+    .stat-value {
+        font-size: 14px !important;
     }
 }
 </style>
