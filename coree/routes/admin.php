@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\LeaderboardController;
 use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\EmailTemplateController;
+use App\Http\Controllers\Admin\FraudDetectionController;
 
 Route::
         namespace('Admin\Auth')->group(function () {
@@ -43,6 +44,10 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('/members/balance/deduct/{id}', [MembersController::class, 'deductBalance'])->name('members.balance.deduct');
     Route::put('/members/{id}/{action}', [MembersController::class, 'changeStatus'])->name('members.status.change')->where('action', 'ban|unban');
     Route::get('/members/banned', [MembersController::class, 'banned'])->name('members.banned');
+
+    // Fraud Detection
+    Route::get('/fraud', [FraudDetectionController::class, 'index'])->name('fraud.index');
+    Route::get('/fraud/user/{userId}', [FraudDetectionController::class, 'userDetails'])->name('fraud.user.details');
 
     Route::get('/api-offers', [OffersController::class, 'ApiOffers'])->name('offers.api');
     Route::post('/api-offers', [OffersController::class, 'StoreApi'])->name('offers.api.store');
