@@ -101,7 +101,11 @@
                 </div>
                 <div class="stat-card-float">
                     <div style="font-size: 42px; font-weight: 700; background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
-                        {{ getStatistics()['average_money'] ?? '$12.50' }}
+                        @php
+                            $avgMoney = getStatistics()['average_money'] ?? '12.50';
+                            $avgMoney = str_replace('$', '', $avgMoney);
+                        @endphp
+                        ${{ $avgMoney }}
                     </div>
                     <div style="font-size: 15px; color: rgba(255, 255, 255, 0.6); font-family: 'Inter', sans-serif;">
                         Average Earned Yesterday
@@ -109,7 +113,11 @@
                 </div>
                 <div class="stat-card-float">
                     <div style="font-size: 42px; font-weight: 700; background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 12px; font-family: 'Inter', sans-serif;">
-                        {{ getStatistics()['total_earned'] ?? '$284,592' }}
+                        @php
+                            $totalEarned = getStatistics()['total_earned'] ?? '284,592';
+                            $totalEarned = str_replace('$', '', $totalEarned);
+                        @endphp
+                        ${{ $totalEarned }}
                     </div>
                     <div style="font-size: 15px; color: rgba(255, 255, 255, 0.6); font-family: 'Inter', sans-serif;">
                         Total Earned on {{ siteName() }}

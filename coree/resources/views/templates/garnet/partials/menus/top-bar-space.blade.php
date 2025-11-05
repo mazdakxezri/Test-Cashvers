@@ -109,8 +109,39 @@
 }
 
 @media (max-width: 768px) {
+    /* Fix nav spacing and overlapping on mobile */
+    .nav-space {
+        padding: 12px 0 !important;
+    }
+    
+    .nav-space-content {
+        padding: 0 12px !important;
+        gap: 12px;
+    }
+    
+    /* Smaller logo on mobile */
+    .logo-enhanced {
+        font-size: 20px !important;
+        letter-spacing: -0.3px !important;
+    }
+    
+    /* Make nav links smaller and wrap better */
     .nav-space-links {
-        gap: var(--space-sm) !important;
+        gap: 8px !important;
+        flex-wrap: nowrap;
+    }
+    
+    .nav-space-link {
+        font-size: 13px !important;
+        padding: 0 !important;
+        white-space: nowrap;
+    }
+    
+    /* Smaller "Get Started" button on mobile */
+    .btn-sm-space {
+        font-size: 12px !important;
+        padding: 8px 14px !important;
+        white-space: nowrap;
     }
     
     .balance-display-space,
@@ -126,6 +157,22 @@
     .balance-value,
     .level-value {
         font-size: 14px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .logo-enhanced {
+        font-size: 18px !important;
+    }
+    
+    .nav-space-link {
+        font-size: 11px !important;
+    }
+    
+    .btn-sm-space {
+        font-size: 11px !important;
+        padding: 6px 12px !important;
     }
 }
 </style>
