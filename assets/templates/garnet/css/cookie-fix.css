@@ -131,6 +131,13 @@ body:has([data-page="home"]) .bottom-menu {
 
 /* CRITICAL: Mobile responsiveness for wrapper */
 @media (max-width: 1199px) {
+    /* Hide sidebar completely on mobile/tablet */
+    .sidebar-space,
+    .side-nav,
+    aside.sidebar-space {
+        display: none !important;
+    }
+    
     .wrapper {
         margin-left: 0 !important;
         width: 100% !important;
