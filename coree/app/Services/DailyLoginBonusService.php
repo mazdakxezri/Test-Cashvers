@@ -49,6 +49,20 @@ class DailyLoginBonusService
 
             // Add to user balance
             $user->increment('balance', self::DAILY_BONUS);
+
+            // Create track record for admin activity log
+            \App\Models\Track::create([
+                'uid' => $user->uid,
+                'offer_id' => 'daily_login_bonus',
+                'offer_name' => 'Daily Login Bonus',
+                'amount' => self::DAILY_BONUS,
+                'reward' => self::DAILY_BONUS,
+                'status' => 1,
+                'partners' => 'system',
+                'network_name' => 'Daily Bonus',
+                'ip_address' => request()->ip(),
+                'country' => $user->country_code ?? 'Unknown',
+            ]);
         });
 
         return [

@@ -125,18 +125,21 @@ footer {
 .wrapper {
     display: flex !important;
     flex-direction: column !important;
-    min-height: calc(100vh - 76px) !important;
+    min-height: 100vh !important;
     position: relative !important;
+    padding-top: 76px !important;
 }
 
 .content {
     flex: 1 0 auto !important;
     position: relative !important;
+    padding-bottom: 0 !important;
 }
 
-/* Force footer to bottom */
+/* Force footer to bottom and prevent movement */
 footer {
     flex-shrink: 0 !important;
+    margin-top: auto !important;
 }
 
 /* Mobile responsiveness */

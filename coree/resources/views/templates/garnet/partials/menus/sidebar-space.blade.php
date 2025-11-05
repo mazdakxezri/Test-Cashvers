@@ -16,6 +16,15 @@
             <span>Cashout</span>
         </a>
         
+        <a href="{{ route('lootbox.index') }}" class="sidebar-link {{ request()->routeIs('lootbox.index') ? 'active' : '' }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="8" width="18" height="12" rx="2" ry="2"></rect>
+                <path d="M12 8V3M8 3h8"></path>
+                <line x1="3" y1="13" x2="21" y2="13"></line>
+            </svg>
+            <span>Loot Boxes</span>
+        </a>
+        
         <a href="{{ route('crypto.deposit') }}" class="sidebar-link {{ request()->routeIs('crypto.deposit') ? 'active' : '' }}">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"></circle>

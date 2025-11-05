@@ -27,29 +27,29 @@
             <div class="wrapper">
                 <main class="content">
                     @auth
-                        @if (!Auth::user()->hasVerifiedEmail() && (session('success') || session('error')))
-                            @include($activeTemplate . '.partials.alerts.alerts')
-                        @elseif (!Auth::user()->hasVerifiedEmail())
-                            <div class="alert-box alert-warning mb-0 rounded-0">
-                                <svg width="19" height="19" viewBox="0 0 19 19" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M9.16667 1.66667C5.02453 1.66667 1.66667 5.02453 1.66667 9.16667C1.66667 13.3088 5.02453 16.6667 9.16667 16.6667C13.3088 16.6667 16.6667 13.3088 16.6667 9.16667C16.6667 5.02453 13.3088 1.66667 9.16667 1.66667ZM0 9.16667C0 4.10406 4.10406 0 9.16667 0C14.2293 0 18.3333 4.10406 18.3333 9.16667C18.3333 14.2293 14.2293 18.3333 9.16667 18.3333C4.10406 18.3333 0 14.2293 0 9.16667Z"
-                                        fill="white" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M9.16732 8.33301C9.62755 8.33301 10.0007 8.7061 10.0007 9.16634V12.4997C10.0007 12.9599 9.62755 13.333 9.16732 13.333C8.70708 13.333 8.33398 12.9599 8.33398 12.4997V9.16634C8.33398 8.7061 8.70708 8.33301 9.16732 8.33301Z"
-                                        fill="white" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                        d="M8.33398 5.83333C8.33398 5.3731 8.70708 5 9.16732 5H9.17565C9.63589 5 10.009 5.3731 10.009 5.83333C10.009 6.29357 9.63589 6.66667 9.17565 6.66667H9.16732C8.70708 6.66667 8.33398 6.29357 8.33398 5.83333Z"
-                                        fill="white" />
-                                </svg>
-
-                                Please check and confirm your email address. If you need another confirmation email,
-                                <form action="{{ route('auth.verification.resend') }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="text-decoration-underline p-0 border-0 bg-transparent">click here
-                                        to resend</button>
-                                </form>.
+                        @if (!Auth::user()->hasVerifiedEmail())
+                            <div style="background: linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 193, 7, 0.1) 100%); border: 1px solid rgba(255, 152, 0, 0.3); border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; position: relative; z-index: 1000;">
+                                <div style="display: flex; align-items: center; gap: 16px;">
+                                    <div style="width: 48px; height: 48px; background: rgba(255, 152, 0, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFA726" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                        </svg>
+                                    </div>
+                                    <div style="flex: 1;">
+                                        <h5 style="color: #FFA726; font-size: 16px; font-weight: 700; margin: 0 0 8px 0; font-family: 'Inter', sans-serif;">📧 Email Verification Required</h5>
+                                        <p style="color: rgba(255, 255, 255, 0.9); margin: 0; font-size: 14px; line-height: 1.6; font-family: 'Inter', sans-serif;">
+                                            Please check and confirm your email address to unlock all features. 
+                                            <form action="{{ route('auth.verification.resend') }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                <button type="submit" style="background: none; border: none; color: #00B8D4; text-decoration: underline; cursor: pointer; font-weight: 600; padding: 0; font-family: 'Inter', sans-serif;">
+                                                    Resend verification email
+                                                </button>
+                                            </form>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         @endif
                     @endauth
