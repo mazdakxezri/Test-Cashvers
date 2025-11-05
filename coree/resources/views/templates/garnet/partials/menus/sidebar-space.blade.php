@@ -113,11 +113,5 @@
 .sidebar-link.active svg {
     stroke: var(--primary-bright);
 }
-
-@media (max-width: 1199px) {
-    .sidebar-space {
-        display: none;
-    }
-}
 </style>
 

@@ -115,12 +115,14 @@ body:has([data-page="home"]) .bottom-menu {
     background: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Prevent any wrapper interference */
-.wrapper {
-    position: relative !important;
-    margin-left: 200px !important;
-    width: calc(100% - 200px) !important;
-    min-height: calc(100vh - 80px) !important;
+/* Prevent any wrapper interference - Desktop only */
+@media (min-width: 1200px) {
+    .wrapper {
+        position: relative !important;
+        margin-left: 200px !important;
+        width: calc(100% - 200px) !important;
+        min-height: calc(100vh - 80px) !important;
+    }
 }
 
 .content {
