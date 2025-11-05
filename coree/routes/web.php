@@ -10,6 +10,7 @@ use App\Http\Controllers\Dashboard\CashoutController;
 use App\Http\Controllers\Dashboard\AffiliateController;
 use App\Http\Controllers\Dashboard\ProfileController;
 use App\Http\Controllers\Dashboard\DailyBonusController;
+use App\Http\Controllers\Dashboard\CryptoController;
 
 // Public routes
 Route::middleware('guest')->group(function () {
@@ -48,5 +49,14 @@ Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])
     // Daily Login Bonus
     Route::post('/bonus/claim', [DailyBonusController::class, 'claim'])->name('bonus.claim');
     Route::get('/bonus/calendar', [DailyBonusController::class, 'calendar'])->name('bonus.calendar');
+
+    // Crypto Deposits & Withdrawals
+    Route::get('/crypto/deposit', [CryptoController::class, 'depositIndex'])->name('crypto.deposit');
+    Route::post('/crypto/deposit', [CryptoController::class, 'createDeposit'])->name('crypto.deposit.create');
+    Route::get('/crypto/withdrawal', [CryptoController::class, 'withdrawalIndex'])->name('crypto.withdrawal');
+    Route::post('/crypto/withdrawal', [CryptoController::class, 'createWithdrawal'])->name('crypto.withdrawal.create');
 });
+
+// NOWPayments IPN Callback (no auth required)
+Route::post('/callback/nowpayments', [CryptoController::class, 'handleCallback'])->name('nowpayments.callback');
 

@@ -16,6 +16,14 @@
             <span>Cashout</span>
         </a>
         
+        <a href="{{ route('crypto.deposit') }}" class="sidebar-link {{ request()->routeIs('crypto.deposit') ? 'active' : '' }}">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 6v12M6 12h12"></path>
+            </svg>
+            <span>Deposit Crypto</span>
+        </a>
+        
         <a href="{{ route('affiliates.index') }}" class="sidebar-link {{ request()->routeIs('affiliates.index') ? 'active' : '' }}">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
