@@ -28,27 +28,22 @@
                 <main class="content">
                     @auth
                         @if (!Auth::user()->hasVerifiedEmail())
-                            <div style="background: linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 193, 7, 0.1) 100%); border: 1px solid rgba(255, 152, 0, 0.3); border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; position: relative; z-index: 1000;">
-                                <div style="display: flex; align-items: center; gap: 16px;">
-                                    <div style="width: 48px; height: 48px; background: rgba(255, 152, 0, 0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFA726" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <line x1="12" y1="8" x2="12" y2="12"></line>
-                                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                                        </svg>
-                                    </div>
-                                    <div style="flex: 1;">
-                                        <h5 style="color: #FFA726; font-size: 16px; font-weight: 700; margin: 0 0 8px 0; font-family: 'Inter', sans-serif;">📧 Email Verification Required</h5>
-                                        <p style="color: rgba(255, 255, 255, 0.9); margin: 0; font-size: 14px; line-height: 1.6; font-family: 'Inter', sans-serif;">
-                                            Please check and confirm your email address to unlock all features. 
-                                            <form action="{{ route('auth.verification.resend') }}" method="POST" style="display: inline;">
-                                                @csrf
-                                                <button type="submit" style="background: none; border: none; color: #00B8D4; text-decoration: underline; cursor: pointer; font-weight: 600; padding: 0; font-family: 'Inter', sans-serif;">
-                                                    Resend verification email
-                                                </button>
-                                            </form>
-                                        </p>
-                                    </div>
+                            <div style="background: rgba(255, 152, 0, 0.1); border-left: 3px solid #FFA726; padding: 12px 16px; margin-bottom: 16px; border-radius: 6px; position: relative; z-index: 10;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFA726" stroke-width="2" style="flex-shrink: 0;">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                    <p style="color: rgba(255, 255, 255, 0.9); margin: 0; font-size: 13px; font-family: 'Inter', sans-serif;">
+                                        <strong style="color: #FFA726;">Email verification required.</strong>
+                                        <form action="{{ route('auth.verification.resend') }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            <button type="submit" style="background: none; border: none; color: #00B8D4; text-decoration: underline; cursor: pointer; font-weight: 600; padding: 0; font-family: 'Inter', sans-serif; font-size: 13px;">
+                                                Resend
+                                            </button>
+                                        </form>
+                                    </p>
                                 </div>
                             </div>
                         @endif
