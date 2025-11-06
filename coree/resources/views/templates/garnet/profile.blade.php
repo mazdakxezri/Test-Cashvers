@@ -53,6 +53,13 @@
 
                     </div>
                 </div>
+                
+                <!-- Earnings Chart -->
+                <div class="profile-card mt-4">
+                    <h3 class="mb-3">Earnings Overview</h3>
+                    <canvas id="earningsChart" height="80"></canvas>
+                </div>
+                
                 <div class="statistics profile-card mt-4 pb-0">
                     <div class="row">
 
@@ -470,4 +477,102 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// Get earnings data for last 14 days
+const earningsData = @json(\DB::table('tracks')
+    ->where('uid', Auth::user()->uid)
+    ->where('status', 1)
+    ->where('created_at', '>=', now()->subDays(13)->startOfDay())
+    ->selectRaw('DATE(created_at) as date, SUM(reward) as total')
+    ->groupBy('date')
+    ->orderBy('date')
+    ->get()
+    ->pluck('total', 'date'));
+
+// Generate last 14 days labels
+const labels = [];
+const data = [];
+for (let i = 13; i >= 0; i--) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    const dateStr = date.toISOString().split('T')[0];
+    const label = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    labels.push(label);
+    data.push(earningsData[dateStr] || 0);
+}
+
+const ctx = document.getElementById('earningsChart').getContext('2d');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Daily Earnings ($)',
+            data: data,
+            borderColor: '#00B8D4',
+            backgroundColor: 'rgba(0, 184, 212, 0.1)',
+            borderWidth: 2,
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#00B8D4',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                backgroundColor: 'rgba(10, 10, 15, 0.95)',
+                titleColor: '#00B8D4',
+                bodyColor: '#fff',
+                borderColor: '#00B8D4',
+                borderWidth: 1,
+                padding: 12,
+                displayColors: false,
+                callbacks: {
+                    label: function(context) {
+                        return '$' + context.parsed.y.toFixed(2);
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.05)',
+                    drawBorder: false
+                },
+                ticks: {
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    callback: function(value) {
+                        return '$' + value;
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    maxRotation: 45,
+                    minRotation: 45
+                }
+            }
+        }
+    }
+});
+</script>
 @endsection
