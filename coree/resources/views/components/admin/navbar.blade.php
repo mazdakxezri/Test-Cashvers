@@ -208,6 +208,9 @@
                                     <a class="dropdown-item" href="{{ route('admin.leaderboard.index') }}">
                                         Leaderboard Setup
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('admin.lootbox.index') }}">
+                                        Loot Box Management
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('admin.frauds.index') }}">
                                         Fraud Prevention
                                     </a>
