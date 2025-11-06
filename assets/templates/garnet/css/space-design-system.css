@@ -716,7 +716,7 @@ p {
 }
 
 .offer-content-space {
-    padding: var(--space-lg);
+    padding: 16px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -724,18 +724,18 @@ p {
 }
 
 .offer-title-space {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
     color: var(--text-white);
-    margin-bottom: var(--space-sm);
-    line-height: 1.4;
+    margin-bottom: 8px;
+    line-height: 1.3;
 }
 
 .offer-desc-space {
-    font-size: 14px;
+    font-size: 13px;
     color: var(--text-gray);
-    line-height: 1.6;
-    margin-bottom: var(--space-md);
+    line-height: 1.5;
+    margin-bottom: 12px;
     flex: 1;
 }
 
@@ -748,7 +748,7 @@ p {
 }
 
 .offer-reward-space {
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--primary-bright);
 }

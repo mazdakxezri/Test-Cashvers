@@ -52,6 +52,9 @@ Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])
     // Daily Login Bonus
     Route::post('/bonus/claim', [DailyBonusController::class, 'claim'])->name('bonus.claim');
     Route::get('/bonus/calendar', [DailyBonusController::class, 'calendar'])->name('bonus.calendar');
+    
+    // Tier System
+    Route::get('/tiers', [\App\Http\Controllers\Dashboard\TierController::class, 'index'])->name('tiers.index');
 
     // Crypto Deposits & Withdrawals
     Route::get('/crypto/deposit', [CryptoController::class, 'depositIndex'])->name('crypto.deposit');

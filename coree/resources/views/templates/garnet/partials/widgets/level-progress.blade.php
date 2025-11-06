@@ -17,8 +17,11 @@
                 <div class="tier-rank">{{ $tierInfo['rank_name'] }}</div>
                 <div class="tier-level">Level {{ Auth::user()->level }}</div>
             </div>
-            <div class="tier-badge" style="background: linear-gradient(135deg, {{ $tierInfo['color'] }}40, {{ $tierInfo['color'] }}20); border-color: {{ $tierInfo['color'] }};">
-                {{ $tierInfo['name'] }}
+            <div class="tier-actions">
+                <div class="tier-badge" style="background: linear-gradient(135deg, {{ $tierInfo['color'] }}40, {{ $tierInfo['color'] }}20); border-color: {{ $tierInfo['color'] }};">
+                    {{ $tierInfo['name'] }}
+                </div>
+                <a href="{{ route('tiers.index') }}" class="tier-link">View All Tiers →</a>
             </div>
         </div>
         
@@ -62,27 +65,33 @@
 
 <style>
 .level-progress-widget {
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
 }
 
 .tier-card {
     background: linear-gradient(135deg, rgba(0, 184, 212, 0.05) 0%, rgba(13, 71, 161, 0.05) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-lg);
-    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
     backdrop-filter: blur(10px);
 }
 
 .tier-header {
     display: flex;
     align-items: center;
-    gap: var(--space-md);
-    margin-bottom: var(--space-md);
+    gap: 12px;
+    margin-bottom: 12px;
 }
 
 .tier-icon {
-    font-size: 32px;
+    font-size: 24px;
     line-height: 1;
+}
+
+.tier-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .tier-info {
@@ -90,25 +99,39 @@
 }
 
 .tier-rank {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 700;
     color: var(--text-white);
     font-family: 'Inter', sans-serif;
 }
 
 .tier-level {
-    font-size: 12px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.6);
     font-family: 'Inter', sans-serif;
 }
 
 .tier-badge {
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-size: 11px;
+    font-weight: 600;
     border: 1px solid;
     font-family: 'Inter', sans-serif;
+}
+
+.tier-link {
+    font-size: 11px;
+    color: #00B8D4;
+    text-decoration: none;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+
+.tier-link:hover {
+    color: #00E5FF;
+    text-decoration: underline;
 }
 
 .progress-section {
@@ -133,9 +156,9 @@
 }
 
 .progress-bar-container {
-    height: 24px;
+    height: 20px;
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     position: relative;
 }
@@ -185,30 +208,35 @@
 
 .features-section {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: var(--space-md);
+    padding-top: 12px;
 }
 
 .features-header {
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 600;
     color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     font-family: 'Inter', sans-serif;
 }
 
 .features-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px;
 }
 
 .feature-item {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 12px;
+    gap: 6px;
+    font-size: 11px;
     color: rgba(255, 255, 255, 0.8);
     font-family: 'Inter', sans-serif;
+}
+
+.feature-item svg {
+    width: 12px;
+    height: 12px;
 }
 
 .feature-item svg {
