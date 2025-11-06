@@ -129,9 +129,20 @@ class User extends Authenticatable implements MustVerifyEmail
             ->first();
 
         if ($level && $this->level < $level->level) {
+            $oldLevel = $this->level;
             $this->level = $level->level;
             $this->balance += $level->reward;
             $this->save();
+            
+            // Award tier upgrade rewards (free loot boxes as cash for now)
+            \App\Services\LevelService::awardTierRewards($this, $level->level);
+            
+            // Store level up info in session for notification
+            session()->flash('level_up', [
+                'old_level' => $oldLevel,
+                'new_level' => $level->level,
+                'reward' => $level->reward,
+            ]);
         }
     }
 }
