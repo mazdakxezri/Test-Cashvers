@@ -61,7 +61,7 @@ class DailyLoginBonusService
                 'status' => 1,
                 'partners' => 'system',
                 'network_name' => 'Daily Bonus',
-                'ip_address' => request()->ip(),
+                'ip' => request()->ip(),
                 'country' => $user->country_code ?? 'Unknown',
             ]);
         });
