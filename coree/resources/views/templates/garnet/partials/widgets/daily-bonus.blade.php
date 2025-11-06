@@ -68,17 +68,18 @@
 
 <style>
 .daily-bonus-widget {
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-md);
+    max-width: 900px;
 }
 
 .bonus-card {
     background: linear-gradient(135deg, rgba(0, 184, 212, 0.08) 0%, rgba(13, 71, 161, 0.08) 100%);
     border: 1px solid rgba(0, 184, 212, 0.25);
     border-radius: var(--radius-md);
-    padding: var(--space-md);
+    padding: 16px 20px;
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: var(--space-sm);
+    gap: 12px;
     align-items: center;
     backdrop-filter: blur(10px);
     position: relative;
@@ -102,8 +103,8 @@
 }
 
 .bonus-icon svg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     animation: bonusFloat 3s ease-in-out infinite;
 }
 
@@ -118,20 +119,20 @@
 }
 
 .bonus-title {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--text-white);
-    margin-bottom: 2px;
+    margin-bottom: 0;
     font-family: 'Inter', sans-serif;
 }
 
 .bonus-status {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: var(--space-sm);
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 6px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-family: 'Inter', sans-serif;
 }
 
@@ -157,31 +158,31 @@
 }
 
 .bonus-amount {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 700;
     background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
     font-family: 'Inter', sans-serif;
 }
 
 .bonus-currency {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .btn-claim-bonus {
     background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
     color: white;
-    padding: 8px 20px;
+    padding: 6px 16px;
     border-radius: var(--radius-sm);
     font-weight: 600;
-    font-size: 13px;
+    font-size: 12px;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
-    box-shadow: 0 2px 10px rgba(0, 184, 212, 0.25);
+    box-shadow: 0 2px 8px rgba(0, 184, 212, 0.2);
 }
 
 .btn-claim-bonus:hover {
@@ -212,17 +213,17 @@
 }
 
 .stat-label {
-    font-size: 11px;
+    font-size: 10px;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 4px;
-    font-weight: 600;
+    margin-bottom: 2px;
+    font-weight: 500;
     letter-spacing: 0.05em;
     font-family: 'Inter', sans-serif;
 }
 
 .stat-value {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     color: var(--text-white);
     font-family: 'Inter', sans-serif;

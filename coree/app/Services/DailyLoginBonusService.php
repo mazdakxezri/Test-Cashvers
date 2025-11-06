@@ -56,6 +56,7 @@ class DailyLoginBonusService
                 'offer_id' => 'daily_login_bonus',
                 'offer_name' => 'Daily Login Bonus',
                 'amount' => self::DAILY_BONUS,
+                'payout' => self::DAILY_BONUS,
                 'reward' => self::DAILY_BONUS,
                 'status' => 1,
                 'partners' => 'system',
