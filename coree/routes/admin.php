@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\LevelController;
 use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\FraudDetectionController;
+use App\Http\Controllers\Admin\LootBoxAdminController;
 
 Route::
         namespace('Admin\Auth')->group(function () {
