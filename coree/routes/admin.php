@@ -103,5 +103,19 @@ Route::middleware(['auth:admin'])->group(function () {
     
     Route::get('/email-templates', [EmailTemplateController::class, 'index'])->name('email-templates.index');
     Route::put('/email-templates/update', [EmailTemplateController::class, 'updateAll'])->name('email-templates.updateAll');
+    
+    // Loot Box Management
+    Route::get('/lootbox', [LootBoxAdminController::class, 'index'])->name('lootbox.index');
+    Route::get('/lootbox/create', [LootBoxAdminController::class, 'create'])->name('lootbox.create');
+    Route::post('/lootbox', [LootBoxAdminController::class, 'store'])->name('lootbox.store');
+    Route::get('/lootbox/{lootBoxType}/edit', [LootBoxAdminController::class, 'edit'])->name('lootbox.edit');
+    Route::put('/lootbox/{lootBoxType}', [LootBoxAdminController::class, 'update'])->name('lootbox.update');
+    Route::delete('/lootbox/{lootBoxType}', [LootBoxAdminController::class, 'destroy'])->name('lootbox.destroy');
+    
+    // Loot Box Items Management
+    Route::get('/lootbox/{lootBoxType}/items', [LootBoxAdminController::class, 'showItems'])->name('lootbox.items');
+    Route::post('/lootbox/{lootBoxType}/items', [LootBoxAdminController::class, 'storeItem'])->name('lootbox.items.store');
+    Route::put('/lootbox/items/{item}', [LootBoxAdminController::class, 'updateItem'])->name('lootbox.items.update');
+    Route::delete('/lootbox/items/{item}', [LootBoxAdminController::class, 'destroyItem'])->name('lootbox.items.destroy');
 
 });
