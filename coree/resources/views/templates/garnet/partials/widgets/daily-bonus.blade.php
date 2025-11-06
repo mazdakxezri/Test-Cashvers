@@ -286,23 +286,36 @@
 
 <script>
 function claimDailyBonus() {
+    console.log('Claiming daily bonus...');
+    
     fetch('{{ route('bonus.claim') }}', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        }
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json'
+        },
+        credentials: 'same-origin'
     })
-    .then(response => response.json())
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+    })
     .then(data => {
+        console.log('Response data:', data);
         if (data.success) {
             // Show success notification
             showBonusNotification(data.amount, data.streak);
             // Reload page to update UI
             setTimeout(() => location.reload(), 2000);
+        } else {
+            alert(data.message || 'Failed to claim bonus');
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error claiming bonus:', error);
+        alert('Error claiming bonus. Please check console.');
+    });
 }
 
 function showBonusNotification(amount, streak) {
