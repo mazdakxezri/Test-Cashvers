@@ -72,13 +72,13 @@
 }
 
 .bonus-card {
-    background: linear-gradient(135deg, rgba(0, 184, 212, 0.1) 0%, rgba(13, 71, 161, 0.1) 100%);
-    border: 1px solid rgba(0, 184, 212, 0.3);
-    border-radius: var(--radius-lg);
-    padding: var(--space-lg);
+    background: linear-gradient(135deg, rgba(0, 184, 212, 0.08) 0%, rgba(13, 71, 161, 0.08) 100%);
+    border: 1px solid rgba(0, 184, 212, 0.25);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     align-items: center;
     backdrop-filter: blur(10px);
     position: relative;
@@ -102,8 +102,8 @@
 }
 
 .bonus-icon svg {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
     animation: bonusFloat 3s ease-in-out infinite;
 }
 
@@ -118,10 +118,10 @@
 }
 
 .bonus-title {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--text-white);
-    margin-bottom: 4px;
+    margin-bottom: 2px;
     font-family: 'Inter', sans-serif;
 }
 
@@ -157,31 +157,31 @@
 }
 
 .bonus-amount {
-    font-size: 24px;
-    font-weight: 800;
+    font-size: 20px;
+    font-weight: 700;
     background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: var(--space-sm);
+    margin-bottom: 8px;
     font-family: 'Inter', sans-serif;
 }
 
 .bonus-currency {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .btn-claim-bonus {
     background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
     color: white;
-    padding: 10px 24px;
-    border-radius: var(--radius-md);
+    padding: 8px 20px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
-    font-size: 14px;
+    font-size: 13px;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
-    box-shadow: 0 4px 15px rgba(0, 184, 212, 0.3);
+    box-shadow: 0 2px 10px rgba(0, 184, 212, 0.25);
 }
 
 .btn-claim-bonus:hover {
@@ -222,8 +222,8 @@
 }
 
 .stat-value {
-    font-size: 16px;
-    font-weight: 700;
+    font-size: 14px;
+    font-weight: 600;
     color: var(--text-white);
     font-family: 'Inter', sans-serif;
 }
