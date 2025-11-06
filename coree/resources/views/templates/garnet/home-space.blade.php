@@ -27,10 +27,10 @@
     @else
         <!-- Latest Offers -->
         @if (isOgadsApiEnabled() || count($allOffers) > 0 || count($ogadsOffers) > 0)
-            <section class="section-space" style="padding-top: var(--space-3xl);">
+            <section class="section-space" style="padding-top: var(--space-lg); padding-bottom: var(--space-lg);">
                 <div class="container-space">
                     <div class="section-header-inline">
-                        <h2 class="heading-section" style="margin: 0;">Latest Offers</h2>
+                        <h2 class="heading-section" style="margin: 0; font-size: 22px;">Latest Offers</h2>
                         <a href="{{ route('all.offers') }}" class="btn-space-secondary btn-sm-space">View All</a>
                     </div>
                     

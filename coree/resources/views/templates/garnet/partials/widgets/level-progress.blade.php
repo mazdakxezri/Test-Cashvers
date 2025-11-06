@@ -46,18 +46,11 @@
             </div>
         @endif
         
-        <!-- Unlocked Features -->
+        <!-- Unlocked Features - Compact -->
         <div class="features-section">
-            <div class="features-header">🔓 Unlocked Perks:</div>
-            <div class="features-list">
-                @foreach(array_slice($features, -3) as $feature)
-                    <div class="feature-item">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ $tierInfo['color'] }}" stroke-width="3">
-                            <polyline points="20 6 9 17 4 12"></polyline>
-                        </svg>
-                        {{ $feature }}
-                    </div>
-                @endforeach
+            <div class="features-compact">
+                <span class="features-label">🔓 Perks:</span>
+                <span class="features-count">{{ count($features) }} unlocked</span>
             </div>
         </div>
     </div>
@@ -208,39 +201,26 @@
 
 .features-section {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 12px;
+    padding-top: 10px;
 }
 
-.features-header {
+.features-compact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.features-label {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Inter', sans-serif;
+}
+
+.features-count {
     font-size: 11px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.7);
-    margin-bottom: 6px;
+    color: #00B8D4;
     font-family: 'Inter', sans-serif;
-}
-
-.features-list {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.8);
-    font-family: 'Inter', sans-serif;
-}
-
-.feature-item svg {
-    width: 12px;
-    height: 12px;
-}
-
-.feature-item svg {
-    flex-shrink: 0;
 }
 
 @media (max-width: 768px) {
