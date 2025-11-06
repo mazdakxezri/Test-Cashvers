@@ -115,48 +115,43 @@ body:has([data-page="home"]) .bottom-menu {
     background: rgba(255, 255, 255, 0.1) !important;
 }
 
-/* Prevent any wrapper interference - Desktop only */
-@media (min-width: 1200px) {
-    .wrapper {
-        position: relative !important;
-        margin-left: 200px !important;
-        width: calc(100% - 200px) !important;
-        min-height: calc(100vh - 80px) !important;
-    }
+/* Wrapper and Content - Mobile First Approach */
+.wrapper {
+    position: relative;
+    margin-left: 0;
+    width: 100%;
+    min-height: calc(100vh - 80px);
 }
 
 .content {
-    margin-left: 0 !important;
-    width: 100% !important;
-    padding: var(--space-xl) var(--space-lg) !important;
+    margin-left: 0;
+    width: 100%;
+    padding: 20px 16px;
 }
 
-/* CRITICAL: Hide OLD sidebar completely (we use sidebar-space now) */
-.side-nav,
-nav.side-nav {
-    display: none !important;
-}
-
-/* CRITICAL: Mobile responsiveness for wrapper */
-@media (max-width: 1199px) {
-    /* Hide sidebar completely on mobile/tablet */
-    .sidebar-space,
-    aside.sidebar-space {
-        display: none !important;
-    }
-    
+/* Only add sidebar spacing on desktop */
+@media (min-width: 1200px) {
     .wrapper {
-        margin-left: 0 !important;
-        width: 100% !important;
+        margin-left: 240px;
+        width: calc(100% - 240px);
     }
     
     .content {
-        padding: 20px 16px !important;
+        padding: var(--space-xl) var(--space-lg);
     }
-    
-    footer {
-        margin-left: 0 !important;
-        width: 100% !important;
+}
+
+/* Hide OLD sidebar completely */
+.side-nav,
+nav.side-nav {
+    display: none;
+}
+
+/* Hide NEW sidebar on mobile */
+@media (max-width: 1199px) {
+    .sidebar-space,
+    aside.sidebar-space {
+        display: none;
     }
 }
 
