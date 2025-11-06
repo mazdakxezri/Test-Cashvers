@@ -100,6 +100,12 @@
         @include($activeTemplate . '.partials.modals.auth')
         @include($activeTemplate . '.partials.modals.forgot')
     @endguest
+    
+    @auth
+        <!-- Level Up Modal -->
+        @include($activeTemplate . '.partials.modals.level-up')
+    @endauth
+    
     @include($activeTemplate . '.partials.modals.contact')
 
     <!-- JavaScript files -->

@@ -12,9 +12,6 @@
     <!-- Level Progress Widget -->
     @include($activeTemplate . '.partials.widgets.level-progress')
     
-    <!-- Level Progress Widget -->
-    @include($activeTemplate . '.partials.widgets.level-progress')
-    
     <!-- Daily Login Bonus Widget -->
     @include($activeTemplate . '.partials.widgets.daily-bonus')
 
