@@ -251,6 +251,26 @@
     .tier-icon-large {
         font-size: 36px;
     }
+    
+    .current-tier-card {
+        padding: var(--space-lg);
+    }
+    
+    .tier-detail-header {
+        flex-wrap: wrap;
+    }
+    
+    .tier-detail-icon {
+        font-size: 28px;
+    }
+    
+    .current-badge,
+    .locked-badge {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 8px;
+        text-align: center;
+    }
 }
 </style>
 @endsection
