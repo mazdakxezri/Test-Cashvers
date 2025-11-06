@@ -71,7 +71,44 @@ main + footer {
         bottom: 0;
         left: 0;
         right: 0;
+        width: 100%;
         z-index: 999;
+        background: rgba(10, 10, 15, 0.98);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(20px);
+    }
+    
+    .bottom-menu .navbar-nav {
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        height: 70px;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .bottom-menu .nav-item {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .bottom-menu .nav-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 8px 4px;
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    .bottom-menu .nav-item.active .nav-link {
+        color: #00B8D4;
+    }
+    
+    .bottom-menu .nav-link small {
+        font-size: 10px;
+        text-transform: capitalize;
     }
     
     body:not(:has([data-page="home"])) {
