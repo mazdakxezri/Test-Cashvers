@@ -11,9 +11,12 @@
                     <span class="balance-value">{{ siteSymbol() }}{{ number_format(Auth::user()->balance, 2) }}</span>
                 </div>
                 
-                <div class="level-display-space">
-                    <span class="level-label">Level</span>
-                    <span class="level-value">{{ Auth::user()->level }}</span>
+                @php
+                    $tierInfo = \App\Services\LevelService::getTierForLevel(Auth::user()->level);
+                @endphp
+                <div class="level-display-space" style="border-color: {{ $tierInfo['color'] }}40;">
+                    <span class="level-label">{{ $tierInfo['icon'] }} {{ $tierInfo['name'] }}</span>
+                    <span class="level-value" style="color: {{ $tierInfo['color'] }};">{{ Auth::user()->level }}</span>
                 </div>
                 
                 <div class="user-dropdown">
