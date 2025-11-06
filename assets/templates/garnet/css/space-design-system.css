@@ -350,6 +350,13 @@ p {
     box-shadow: 0 0 50px rgba(0, 184, 212, 0.5);
 }
 
+/* Small button variant */
+.btn-sm-space {
+    padding: 8px 16px;
+    font-size: 13px;
+    border-radius: var(--radius-md);
+}
+
 .btn-space-secondary {
     background: transparent;
     color: var(--text-white);
@@ -651,6 +658,61 @@ p {
     object-fit: cover;
     background: var(--space-card);
     border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+/* ========================================
+   NETWORK CARDS (Offer & Survey Partners)
+   ======================================== */
+
+.networks-grid-space {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+}
+
+.network-card-space {
+    background: rgba(10, 10, 15, 0.95) !important; /* Same as sidebar */
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.network-card-space:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 184, 212, 0.4);
+    box-shadow: 0 8px 30px rgba(0, 184, 212, 0.15);
+}
+
+.network-image-container {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--space-md);
+}
+
+.network-image-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.network-card-space h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-white);
+    margin-bottom: var(--space-sm);
+}
+
+.network-card-space p {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.6;
 }
 
 .offer-content-space {
