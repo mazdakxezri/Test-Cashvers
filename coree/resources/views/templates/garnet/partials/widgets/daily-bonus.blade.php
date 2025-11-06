@@ -74,11 +74,11 @@
 .bonus-card {
     background: linear-gradient(135deg, rgba(0, 184, 212, 0.1) 0%, rgba(13, 71, 161, 0.1) 100%);
     border: 1px solid rgba(0, 184, 212, 0.3);
-    border-radius: var(--radius-xl);
-    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     align-items: center;
     backdrop-filter: blur(10px);
     position: relative;
@@ -102,6 +102,8 @@
 }
 
 .bonus-icon svg {
+    width: 36px;
+    height: 36px;
     animation: bonusFloat 3s ease-in-out infinite;
 }
 
@@ -116,10 +118,10 @@
 }
 
 .bonus-title {
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text-white);
-    margin-bottom: var(--space-xs);
+    margin-bottom: 4px;
     font-family: 'Inter', sans-serif;
 }
 
@@ -155,26 +157,26 @@
 }
 
 .bonus-amount {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: 800;
     background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
     font-family: 'Inter', sans-serif;
 }
 
 .bonus-currency {
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .btn-claim-bonus {
     background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
     color: white;
-    padding: 12px 32px;
+    padding: 10px 24px;
     border-radius: var(--radius-md);
     font-weight: 600;
-    font-size: 15px;
+    font-size: 14px;
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -220,7 +222,7 @@
 }
 
 .stat-value {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: var(--text-white);
     font-family: 'Inter', sans-serif;
