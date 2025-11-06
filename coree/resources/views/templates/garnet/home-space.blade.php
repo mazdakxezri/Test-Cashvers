@@ -9,6 +9,9 @@
         <div class="glow-orb glow-orb-purple" style="bottom: 30%; left: 10%;"></div>
     </div>
 
+    <!-- Level Progress Widget -->
+    @include($activeTemplate . '.partials.widgets.level-progress')
+    
     <!-- Daily Login Bonus Widget -->
     @include($activeTemplate . '.partials.widgets.daily-bonus')
 
