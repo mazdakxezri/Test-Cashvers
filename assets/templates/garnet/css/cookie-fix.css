@@ -131,11 +131,16 @@ body:has([data-page="home"]) .bottom-menu {
     padding: var(--space-xl) var(--space-lg) !important;
 }
 
+/* CRITICAL: Hide OLD sidebar completely (we use sidebar-space now) */
+.side-nav,
+nav.side-nav {
+    display: none !important;
+}
+
 /* CRITICAL: Mobile responsiveness for wrapper */
 @media (max-width: 1199px) {
     /* Hide sidebar completely on mobile/tablet */
     .sidebar-space,
-    .side-nav,
     aside.sidebar-space {
         display: none !important;
     }
