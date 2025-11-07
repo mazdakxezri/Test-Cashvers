@@ -1,44 +1,47 @@
 @extends($activeTemplate . '.layouts.app')
-@section('styles')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-@endsection
 @section('title', 'All Offers')
 
 @section('content')
-
-    @include($activeTemplate . '.partials.live-stats')
+    <div class="cosmic-bg">
+        <div class="stars"></div>
+        <div class="glow-orb glow-orb-blue" style="top: 15%; right: 10%;"></div>
+        <div class="glow-orb glow-orb-purple" style="bottom: 25%; left: 5%;"></div>
+    </div>
 
     @if (isset($isVPNDetected) && $isVPNDetected)
-        <!--VPN Detected -->
-        <section class="vpn-detect d-flex align-items-center justify-content-center px-4 py-5">
-            <div class="text-center">
-                <h2 class="mb-0">
-                    <img src="{{ asset('assets/' . $activeTemplate . '/images/shield.png') }}" class="img-fluid"
-                        alt="shield" />
-                </h2>
-                <div class="vpn mt-3">
-                    <h2>VPN Detected</h2>
-                    <p>Please turn off your VPN for a smoother browsing experience. Thank you for your understanding!</p>
+        <!-- VPN Detected -->
+        <section class="section-space" style="padding-top: var(--space-3xl);">
+            <div class="container-space">
+                <div class="card-float text-center" style="padding: var(--space-3xl);">
+                    <div class="vpn-shield" style="margin-bottom: var(--space-xl);">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#FF5370" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            <path d="M12 8v4m0 4h.01"></path>
+                        </svg>
+                    </div>
+                    <h2 class="heading-section" style="margin-bottom: var(--space-md);">VPN Detected</h2>
+                    <p class="text-body-lg" style="color: rgba(255, 255, 255, 0.7);">
+                        Please turn off your VPN for a smoother browsing experience. Thank you for your understanding!
+                    </p>
                 </div>
-
             </div>
         </section>
     @else
         @if (isOgadsApiEnabled() || count($allOffers) > 0)
-            <!--API Offers-->
-            <section class="cover api-offers mb-3">
-                <div class="sec-title pt-4 pb-2 px-4 d-flex align-items-center justify-content-between">
-                    <h2 class="mb-0">
-                        <img src="{{ asset('assets/' . $activeTemplate . '/images/icons/rocket.svg') }}" class="img-fluid"
-                            alt="rocket" />
-                        Latest Offers
-                    </h2>
-                </div>
-                @if (count($allOffers) > 0)
-                    <div class="api-offers-row all-offers d-flex flex-wrap align-items-center justify-content-start flex-lg-row pt-3 mx-0"
-                        id="api-offers-1">
-                        @foreach ($allOffers as $offer)
-                            <div class="col-4 col-md-2 col-lg-auto">
+            <!-- All Offers Section -->
+            <section class="section-space" style="padding-top: var(--space-3xl);">
+                <div class="container-space">
+                    <div class="section-header-space">
+                        <h1 class="heading-hero">
+                            Latest <span class="text-gradient-blue">Offers</span>
+                        </h1>
+                        <p class="section-subtitle">Browse all available offers and start earning!</p>
+                    </div>
+
+                    @if (count($allOffers) > 0)
+                        <!-- Offers Grid -->
+                        <div class="offers-grid-space">
+                            @foreach ($allOffers as $offer)
                                 @include($activeTemplate . '.partials.slide', [
                                     'name' => $offer->name,
                                     'creative' => $offer->creative,
@@ -49,87 +52,186 @@
                                     'description' => $offer->description,
                                     'event' => $offer->event ?? null,
                                 ])
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if (count($ogadsOffers) > 0)
+                        <!-- OGAds Offers Grid -->
+                        <div class="offers-grid-space" style="margin-top: var(--space-lg);">
+                            @foreach ($ogadsOffers as $ogads)
+                                @include($activeTemplate . '.partials.slide', [
+                                    'name' => $ogads['name_short'],
+                                    'creative' => $ogads['picture'],
+                                    'payout' => $ogads['payout'],
+                                    'device' => detectDevicePlatform(),
+                                    'requirements' => $ogads['adcopy'],
+                                    'link' => Auth::check() ? $ogads['link'] . Auth::user()->uid : '#',
+                                    'description' => $ogads['description'],
+                                    'event' => null,
+                                ])
+                            @endforeach
+                        </div>
+                    @endif
+
+                    <!-- Pagination -->
+                    @if ($allOffers->lastPage() > 1)
+                        <div class="pagination-space">
+                            <div class="pagination-container">
+                                <a href="{{ $allOffers->previousPageUrl() ?? '#' }}" 
+                                   class="pagination-btn {{ $allOffers->onFirstPage() ? 'disabled' : '' }}">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="15 18 9 12 15 6"></polyline>
+                                    </svg>
+                                    Previous
+                                </a>
+
+                                <div class="pagination-numbers">
+                                    @php
+                                        $lastPage = $allOffers->lastPage();
+                                        $currentPage = $allOffers->currentPage();
+                                        $ellipsisShown = false;
+                                    @endphp
+
+                                    @for ($page = 1; $page <= $lastPage; $page++)
+                                        @if ($page == $currentPage)
+                                            <span class="pagination-number active">{{ $page }}</span>
+                                            @php $ellipsisShown = false; @endphp
+                                        @elseif ($page == 1 || $page == $lastPage || abs($currentPage - $page) <= 2)
+                                            <a href="{{ $allOffers->url($page) }}" class="pagination-number">{{ $page }}</a>
+                                            @php $ellipsisShown = false; @endphp
+                                        @elseif (!$ellipsisShown)
+                                            <span class="pagination-dots">...</span>
+                                            @php $ellipsisShown = true; @endphp
+                                        @endif
+                                    @endfor
+                                </div>
+
+                                <a href="{{ $allOffers->nextPageUrl() ?? '#' }}" 
+                                   class="pagination-btn {{ !$allOffers->hasMorePages() ? 'disabled' : '' }}">
+                                    Next
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </a>
                             </div>
-                        @endforeach
-                    </div>
-                @endif
-                @if (count($ogadsOffers) > 0)
-                    <div class="row api-offers-row flex-wrap pt-3 mx-0" id="api-offers-2">
-                        @foreach ($ogadsOffers as $ogads)
-                            @include($activeTemplate . '.partials.slide', [
-                                'name' => $ogads['name_short'],
-                                'creative' => $ogads['picture'],
-                                'payout' => $ogads['payout'],
-                                'device' => detectDevicePlatform(),
-                                'requirements' => $ogads['adcopy'],
-                                'link' => Auth::check() ? $ogads['link'] . Auth::user()->uid : '#',
-                                'description' => $ogads['description'],
-                                'event' => null,
-                            ])
-                        @endforeach
-                    </div>
-                @endif
-                <nav aria-label="offers pagination">
-                    <ul class="pagination offers-pagination justify-content-center">
-                        <li class="page-item {{ $allOffers->onFirstPage() ? 'disabled' : '' }}">
-                            <a class="page-link" href="{{ $allOffers->previousPageUrl() ?? '#' }}">« PREV</a>
-                        </li>
-
-                        @php
-                            $lastPage = $allOffers->lastPage();
-                            $currentPage = $allOffers->currentPage();
-                            $ellipsisShown = false;
-                        @endphp
-
-                        @for ($page = 1; $page <= $lastPage; $page++)
-                            @if ($page == $currentPage)
-                                <li class="page-item active">
-                                    <div class="position-relative">
-                                        <svg width="31" height="30" viewBox="0 0 31 30" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M0.84375 2C0.84375 0.89543 1.73918 0 2.84375 0H23.0153C23.5458 0 24.0545 0.210714 24.4295 0.585786L30.258 6.41421C30.633 6.78929 30.8438 7.29799 30.8438 7.82843V28C30.8438 29.1046 29.9483 30 28.8438 30H8.67218C8.14174 30 7.63304 29.7893 7.25796 29.4142L1.42954 23.5858C1.05446 23.2107 0.84375 22.702 0.84375 22.1716V2Z"
-                                                fill="none" />
-                                        </svg>
-                                        <a class="page-link offers" href="#">{{ $page }}</a>
-                                    </div>
-                                </li>
-                                @php $ellipsisShown = false; @endphp
-                            @elseif ($page == 1 || $page == $lastPage || abs($currentPage - $page) <= 2)
-                                <li class="page-item">
-                                    <div class="position-relative">
-                                        <svg width="31" height="30" viewBox="0 0 31 30" fill="none"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M0.84375 2C0.84375 0.89543 1.73918 0 2.84375 0H23.0153C23.5458 0 24.0545 0.210714 24.4295 0.585786L30.258 6.41421C30.633 6.78929 30.8438 7.29799 30.8438 7.82843V28C30.8438 29.1046 29.9483 30 28.8438 30H8.67218C8.14174 30 7.63304 29.7893 7.25796 29.4142L1.42954 23.5858C1.05446 23.2107 0.84375 22.702 0.84375 22.1716V2Z"
-                                                fill="none" />
-                                        </svg>
-                                        <a class="page-link offers"
-                                            href="{{ $allOffers->url($page) }}">{{ $page }}</a>
-                                    </div>
-                                </li>
-                                @php $ellipsisShown = false; @endphp
-                            @elseif (!$ellipsisShown)
-                                <li class="page-item disabled"><span class="page-link">...</span></li>
-                                @php $ellipsisShown = true; @endphp
-                            @endif
-                        @endfor
-
-                        <li class="page-item {{ !$allOffers->hasMorePages() ? 'disabled' : '' }}">
-                            <a class="page-link" href="{{ $allOffers->nextPageUrl() ?? '#' }}">NEXT »</a>
-                        </li>
-                    </ul>
-                </nav>
-
-
+                        </div>
+                    @endif
+                </div>
             </section>
         @endif
         @include($activeTemplate . '.partials.modals.api')
     @endif
-
 @endsection
 
 @section('scripts')
-    @include($activeTemplate . '.partials.scripts.live-stats')
     @include($activeTemplate . '.partials.scripts.api-offers')
 @endsection
+
+<style>
+.offers-grid-space {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+}
+
+.pagination-space {
+    margin-top: var(--space-3xl);
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    background: var(--card-bg);
+    padding: var(--space-sm) var(--space-md);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pagination-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: rgba(0, 184, 212, 0.1);
+    border: 1px solid rgba(0, 184, 212, 0.3);
+    border-radius: 10px;
+    color: #00B8D4;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(.disabled) {
+    background: rgba(0, 184, 212, 0.2);
+    border-color: #00B8D4;
+    color: #00B8D4;
+    transform: translateY(-1px);
+}
+
+.pagination-btn.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.pagination-numbers {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.pagination-number {
+    min-width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.pagination-number:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+}
+
+.pagination-number.active {
+    background: linear-gradient(135deg, #00B8D4, #0081A7);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(0, 184, 212, 0.3);
+}
+
+.pagination-dots {
+    color: rgba(255, 255, 255, 0.3);
+    padding: 0 4px;
+}
+
+@media (max-width: 768px) {
+    .offers-grid-space {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: var(--space-md);
+    }
+    
+    .pagination-container {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .pagination-numbers {
+        order: 3;
+        width: 100%;
+        justify-content: center;
+        margin-top: var(--space-sm);
+    }
+}
+</style>
