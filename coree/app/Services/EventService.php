@@ -35,7 +35,7 @@ class EventService
     /**
      * Get active bonus multiplier (returns highest if multiple active)
      */
-    public function getActiveBonus Multiplier(): float
+    public function getActiveBonusMultiplier(): float
     {
         $activeEvents = Event::active()
             ->where('event_type', 'bonus_multiplier')
