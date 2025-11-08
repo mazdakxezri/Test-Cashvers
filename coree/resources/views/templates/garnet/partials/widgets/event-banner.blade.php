@@ -1,6 +1,11 @@
 @php
-    $eventService = new \App\Services\EventService();
-    $banners = $eventService->getActiveBanners();
+    try {
+        $eventService = new \App\Services\EventService();
+        $banners = $eventService->getActiveBanners();
+    } catch (\Exception $e) {
+        // Events table doesn't exist yet, skip gracefully
+        $banners = collect([]);
+    }
 @endphp
 
 @if($banners->isNotEmpty())
