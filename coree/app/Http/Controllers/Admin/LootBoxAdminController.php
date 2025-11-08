@@ -37,10 +37,7 @@ class LootBoxAdminController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price_usd' => 'required|numeric|min:0',
-            'can_buy_with_earnings' => 'boolean',
-            'can_buy_with_crypto' => 'boolean',
-            'is_active' => 'boolean',
-            'order' => 'integer|min:0',
+            'order' => 'nullable|integer|min:0',
             'image' => 'nullable|image|max:2048'
         ]);
         
@@ -79,10 +76,7 @@ class LootBoxAdminController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'price_usd' => 'required|numeric|min:0',
-            'can_buy_with_earnings' => 'boolean',
-            'can_buy_with_crypto' => 'boolean',
-            'is_active' => 'boolean',
-            'order' => 'integer|min:0',
+            'order' => 'nullable|integer|min:0',
             'image' => 'nullable|image|max:2048'
         ]);
         
