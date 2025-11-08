@@ -176,7 +176,7 @@
                             <div class="mb-4">
                                 <span style="color: rgba(255, 255, 255, 0.6); font-size: 13px; line-height: 1.6; font-family: 'Inter', sans-serif;">
                                     By signing up you agree to our
-                                    <a href="{{ route('terms.of.use') }}" target="_blank"
+                                    <a href="{{ route('terms.service') }}" target="_blank"
                                         style="color: #00B8D4; text-decoration: none;">
                                         terms and conditions
                                     </a>
