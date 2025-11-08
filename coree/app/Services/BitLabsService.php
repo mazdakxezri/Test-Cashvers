@@ -25,18 +25,28 @@ class BitLabsService
     public function getSurveys($userId): array
     {
         try {
+            // Include client parameters as required by BitLabs when calling from backend
             $response = Http::withHeaders([
                 'X-Api-Token' => $this->apiToken,
+                'Accept' => 'application/json',
             ])->get($this->apiUrl . '/surveys', [
                 'uid' => $userId,
+                'client_ip' => request()->ip(),
+                'client_user_agent' => request()->userAgent(),
             ]);
 
             if ($response->successful()) {
                 $data = $response->json();
+                
+                // Check for restriction reasons
+                if (isset($data['data']['restriction_reason'])) {
+                    Log::warning('BitLabs: User restricted - ' . $data['data']['restriction_reason']['reason']);
+                }
+                
                 return $data['data']['surveys'] ?? [];
             }
 
-            Log::error('BitLabs: Failed to get surveys - ' . $response->body());
+            Log::error('BitLabs: Failed to get surveys - Status: ' . $response->status() . ' - Body: ' . $response->body());
             return [];
         } catch (\Exception $e) {
             Log::error('BitLabs: Exception getting surveys - ' . $e->getMessage());

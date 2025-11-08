@@ -54,9 +54,9 @@
                         <div class="survey-card">
                             <div class="survey-header">
                                 <div class="survey-badge">
-                                    @if($survey['loi'] <= 5)
+                                    @if(($survey['loi'] ?? 0) <= 5)
                                         <span class="badge-duration short">⚡ Quick</span>
-                                    @elseif($survey['loi'] <= 15)
+                                    @elseif(($survey['loi'] ?? 0) <= 15)
                                         <span class="badge-duration medium">⏱️ Medium</span>
                                     @else
                                         <span class="badge-duration long">🕐 Long</span>
@@ -64,7 +64,9 @@
                                 </div>
                                 <div class="survey-payout">
                                     @php
-                                        $payout = $survey['payout'] ?? 0;
+                                        // BitLabs returns value in cents, convert to dollars
+                                        $valueInCents = $survey['value'] ?? 0;
+                                        $payout = $valueInCents / 100;
                                         $formattedPayout = number_format($payout, 2);
                                         [$integerPart, $decimalPart] = explode('.', $formattedPayout);
                                     @endphp
@@ -75,7 +77,7 @@
 
                             <div class="survey-body">
                                 <h4 class="survey-title">
-                                    {{ $survey['category'] ?? 'Survey' }}
+                                    {{ $survey['category']['name'] ?? 'Survey' }}
                                 </h4>
                                 <div class="survey-details">
                                     <div class="detail-item">
@@ -85,24 +87,27 @@
                                         </svg>
                                         <span>{{ $survey['loi'] ?? 0 }} min</span>
                                     </div>
-                                    @if(isset($survey['conversion_rate']))
+                                    @if(isset($survey['cr']))
                                         <div class="detail-item">
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                                 <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
                                             </svg>
-                                            <span>{{ $survey['conversion_rate'] }}% CR</span>
+                                            <span>{{ round($survey['cr'] * 100) }}% CR</span>
+                                        </div>
+                                    @endif
+                                    @if(isset($survey['rating']))
+                                        <div class="detail-item">
+                                            ⭐ {{ $survey['rating'] }}/5
                                         </div>
                                     @endif
                                 </div>
                             </div>
 
-                            <form action="{{ route('bitlabs.click') }}" method="POST" class="survey-footer">
-                                @csrf
-                                <input type="hidden" name="survey_id" value="{{ $survey['id'] ?? '' }}">
-                                <button type="submit" class="btn-space btn-primary-space" style="width: 100%;">
+                            <div class="survey-footer">
+                                <a href="{{ $survey['click_url'] ?? '#' }}" target="_blank" class="btn-space btn-primary-space" style="width: 100%; text-decoration: none;">
                                     📋 Start Survey
-                                </button>
-                            </form>
+                                </a>
+                            </div>
                         </div>
                     @endforeach
                 </div>
