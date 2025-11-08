@@ -61,6 +61,9 @@ Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])
     Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.password.update');
 
+    // Daily Bonus
+    Route::post('/bonus/claim', [DailyBonusController::class, 'claim'])->name('bonus.claim');
+    
     // BitLabs Surveys
     Route::get('/surveys', [BitLabsController::class, 'index'])->name('bitlabs.index');
     Route::post('/surveys/click', [BitLabsController::class, 'clickSurvey'])->name('bitlabs.click');
