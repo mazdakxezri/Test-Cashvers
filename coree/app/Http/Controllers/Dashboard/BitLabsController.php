@@ -22,13 +22,6 @@ class BitLabsController extends Controller
     public function index()
     {
         $activeTemplate = getActiveTemplate();
-        
-        // Check if we're in debug mode
-        if (request()->has('debug')) {
-            return view($activeTemplate . '.bitlabs.debug');
-        }
-        
-        // Use client-side fetching with custom card UI
         return view($activeTemplate . '.bitlabs.cards');
     }
 

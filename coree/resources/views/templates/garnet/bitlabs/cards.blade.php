@@ -18,14 +18,6 @@
                 <p class="section-subtitle">Share your opinion and earn rewards!</p>
             </div>
 
-            <!-- API Response Monitor -->
-            <div class="card-float" style="margin-bottom: var(--space-lg);">
-                <h3 style="margin-bottom: var(--space-md);">📡 Live API Response</h3>
-                <div id="api-monitor" style="background: rgba(0, 0, 0, 0.4); padding: var(--space-md); border-radius: 8px; font-family: monospace; font-size: 12px; max-height: 400px; overflow: auto;">
-                    <p style="color: #00B8D4;">Fetching from BitLabs API...</p>
-                </div>
-            </div>
-            
             <!-- Loading State -->
             <div id="surveys-loading" class="text-center" style="padding: var(--space-3xl);">
                 <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem; color: #00B8D4 !important;">
@@ -208,12 +200,8 @@
         uid: '{{ Auth::user()->uid }}',
     };
 
-    const monitor = document.getElementById('api-monitor');
-    
     try {
-        monitor.innerHTML = `<p style="color: #00B8D4;">🔄 Calling: https://api.bitlabs.ai/v2/client/surveys?uid=${config.uid}&platform=WEB_DESKTOP</p>`;
-        
-        // Fetch surveys using BitLabs v2 API (WORKING endpoint)
+        // Fetch surveys using BitLabs v2 API
         const response = await fetch(`https://api.bitlabs.ai/v2/client/surveys?uid=${config.uid}&platform=WEB_DESKTOP`, {
             headers: {
                 'X-Api-Token': config.token,
@@ -222,35 +210,13 @@
         });
 
         const data = await response.json();
-        
-        // Display full API response
-        monitor.innerHTML = `
-            <p style="color: #4CAF50;">✅ Status: ${response.status} ${response.statusText}</p>
-            <p style="color: rgba(255,255,255,0.7); margin-top: 10px;"><strong>Full Response:</strong></p>
-            <pre style="color: #fff; white-space: pre-wrap; word-wrap: break-word;">${JSON.stringify(data, null, 2)}</pre>
-        `;
-        
-        console.log('BitLabs Full Response:', data);
 
         if (data.status === 'success' && data.data && data.data.surveys && data.data.surveys.length > 0) {
             displaySurveys(data.data.surveys);
         } else {
-            // Show why no surveys
-            let reason = 'Unknown reason';
-            if (data.data?.restriction_reason) {
-                reason = data.data.restriction_reason.reason || 'User restricted';
-            } else if (data.data?.surveys) {
-                reason = `API returned empty surveys array. Data: ${JSON.stringify(data.data)}`;
-            } else {
-                reason = `Unexpected response format. Full data: ${JSON.stringify(data)}`;
-            }
-            
-            monitor.innerHTML += `<p style="color: #FFA726; margin-top: 10px;"><strong>⚠️ Why no surveys:</strong> ${reason}</p>`;
             showNoSurveys();
         }
     } catch (error) {
-        monitor.innerHTML = `<p style="color: #F44336;">❌ Error: ${error.message}</p><pre style="color: #F44336;">${error.stack}</pre>`;
-        console.error('BitLabs Error:', error);
         showNoSurveys();
     }
 })();

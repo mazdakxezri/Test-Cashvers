@@ -99,29 +99,3 @@ Route::post('/callback/bitlabs', [BitLabsController::class, 'callback'])->name('
 
 // Monlix Postback (no auth required)
 Route::post('/callback/monlix', [MonlixController::class, 'callback'])->name('monlix.callback');
-
-// Test BitLabs API (TEMPORARY - DELETE AFTER TESTING)
-Route::get('/test-bitlabs', function() {
-    $service = new \App\Services\BitLabsService();
-    $userId = auth()->user()->uid ?? 'test123';
-    
-    // Make direct API call and show response
-    $response = \Illuminate\Support\Facades\Http::withHeaders([
-        'X-Api-Token' => env('BITLABS_API_TOKEN'),
-        'Accept' => 'application/json',
-    ])->get('https://api.bitlabs.ai/v1/surveys', [
-        'uid' => $userId,
-        'client_ip' => request()->ip(),
-        'client_user_agent' => request()->userAgent(),
-    ]);
-    
-    return response()->json([
-        'api_token_configured' => env('BITLABS_API_TOKEN') ? true : false,
-        'api_token_value' => substr(env('BITLABS_API_TOKEN'), 0, 10) . '...',
-        'user_id' => $userId,
-        'client_ip' => request()->ip(),
-        'response_status' => $response->status(),
-        'response_body' => $response->json(),
-        'raw_response' => $response->body(),
-    ], 200, [], JSON_PRETTY_PRINT);
-})->middleware('auth')->name('test.bitlabs');
