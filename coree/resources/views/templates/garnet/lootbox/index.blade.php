@@ -141,6 +141,7 @@
     </section>
 @endsection
 
+@section('styles')
 <style>
 .lootbox-grid {
     display: grid;
