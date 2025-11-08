@@ -201,8 +201,8 @@
     };
 
     try {
-        // Fetch surveys using BitLabs client SDK
-        const response = await fetch(`https://api.bitlabs.ai/v2/client/surveys/${config.uid}?platform=WEB_DESKTOP`, {
+        // Fetch surveys using BitLabs v2 API (WORKING endpoint)
+        const response = await fetch(`https://api.bitlabs.ai/v2/client/surveys?uid=${config.uid}&platform=WEB_DESKTOP`, {
             headers: {
                 'X-Api-Token': config.token,
                 'Accept': 'application/json'
