@@ -1,0 +1,78 @@
+-- ========================================
+-- ACHIEVEMENTS SYSTEM - MANUAL SQL
+-- Run these in phpMyAdmin if migrations don't work
+-- ========================================
+
+-- 1. Create achievements table
+CREATE TABLE IF NOT EXISTS `achievements` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `key` varchar(255) NOT NULL UNIQUE COMMENT 'Unique identifier',
+  `name` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  `icon` varchar(255) DEFAULT NULL COMMENT 'Emoji or icon',
+  `badge_image` varchar(255) DEFAULT NULL,
+  `category` varchar(255) NOT NULL COMMENT 'earning, social, milestone, special',
+  `tier` varchar(255) NOT NULL DEFAULT 'bronze' COMMENT 'bronze, silver, gold, platinum, diamond',
+  `points` int(11) NOT NULL DEFAULT 10,
+  `reward_amount` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `requirements` json DEFAULT NULL COMMENT '{type: offers_completed, count: 100}',
+  `order` int(11) NOT NULL DEFAULT 0,
+  `is_active` tinyint(1) NOT NULL DEFAULT 1,
+  `is_hidden` tinyint(1) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `achievements_key_unique` (`key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 2. Create user_achievements table
+CREATE TABLE IF NOT EXISTS `user_achievements` (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `achievement_id` bigint(20) UNSIGNED NOT NULL,
+  `progress` int(11) NOT NULL DEFAULT 0,
+  `is_unlocked` tinyint(1) NOT NULL DEFAULT 0,
+  `unlocked_at` timestamp NULL DEFAULT NULL,
+  `is_claimed` tinyint(1) NOT NULL DEFAULT 0,
+  `claimed_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_achievements_user_achievement_unique` (`user_id`,`achievement_id`),
+  KEY `user_achievements_user_id_foreign` (`user_id`),
+  KEY `user_achievements_achievement_id_foreign` (`achievement_id`),
+  CONSTRAINT `user_achievements_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `user_achievements_achievement_id_foreign` FOREIGN KEY (`achievement_id`) REFERENCES `achievements` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- 3. Add achievement_points column to users table
+ALTER TABLE `users` ADD COLUMN `achievement_points` int(11) NOT NULL DEFAULT 0 AFTER `level`;
+
+-- ========================================
+-- SEED DEFAULT ACHIEVEMENTS
+-- ========================================
+
+INSERT INTO `achievements` (`key`, `name`, `description`, `icon`, `category`, `tier`, `points`, `reward_amount`, `requirements`, `order`, `is_active`, `is_hidden`) VALUES
+('first_offer', 'First Steps', 'Complete your first offer', '🎯', 'earning', 'bronze', 10, 0.10, '{"type":"offers_completed","count":1}', 0, 1, 0),
+('offers_10', 'Getting Started', 'Complete 10 offers', '🚀', 'earning', 'bronze', 25, 0.25, '{"type":"offers_completed","count":10}', 1, 1, 0),
+('offers_50', 'Dedicated Earner', 'Complete 50 offers', '💪', 'earning', 'silver', 50, 0.50, '{"type":"offers_completed","count":50}', 2, 1, 0),
+('offers_100', 'Centurion', 'Complete 100 offers', '🏆', 'earning', 'gold', 100, 1.00, '{"type":"offers_completed","count":100}', 3, 1, 0),
+('offers_500', 'Offer Master', 'Complete 500 offers', '👑', 'earning', 'platinum', 250, 2.50, '{"type":"offers_completed","count":500}', 4, 1, 0),
+('offers_1000', 'Legend', 'Complete 1000 offers', '⭐', 'earning', 'diamond', 500, 5.00, '{"type":"offers_completed","count":1000}', 5, 1, 0),
+('earned_1', 'First Dollar', 'Earn your first $1', '💵', 'milestone', 'bronze', 10, 0.10, '{"type":"total_earned","count":1}', 10, 1, 0),
+('earned_10', 'Dime Bag', 'Earn $10 in total', '💰', 'milestone', 'silver', 30, 0.25, '{"type":"total_earned","count":10}', 11, 1, 0),
+('earned_50', 'Half Century', 'Earn $50 in total', '💎', 'milestone', 'gold', 75, 0.50, '{"type":"total_earned","count":50}', 12, 1, 0),
+('earned_100', 'Benjamin', 'Earn $100 in total', '🤑', 'milestone', 'platinum', 150, 1.00, '{"type":"total_earned","count":100}', 13, 1, 0),
+('earned_500', 'High Roller', 'Earn $500 in total', '💸', 'milestone', 'diamond', 300, 2.50, '{"type":"total_earned","count":500}', 14, 1, 0),
+('daily_streak_7', 'Week Warrior', 'Login for 7 days in a row', '🔥', 'social', 'bronze', 20, 0.20, '{"type":"daily_streak","count":7}', 20, 1, 0),
+('daily_streak_30', 'Monthly Master', 'Login for 30 days in a row', '🌟', 'social', 'silver', 50, 0.50, '{"type":"daily_streak","count":30}', 21, 1, 0),
+('daily_streak_90', 'Unstoppable', 'Login for 90 days in a row', '💫', 'social', 'gold', 150, 1.50, '{"type":"daily_streak","count":90}', 22, 1, 0),
+('level_10', 'Rising Star', 'Reach Level 10', '🌠', 'milestone', 'bronze', 25, 0.25, '{"type":"level_reached","count":10}', 30, 1, 0),
+('level_20', 'Elite Member', 'Reach Level 20', '👔', 'milestone', 'silver', 50, 0.50, '{"type":"level_reached","count":20}', 31, 1, 0),
+('level_25', 'VIP Status', 'Reach Level 25 (Max)', '👑', 'milestone', 'diamond', 250, 2.50, '{"type":"level_reached","count":25}', 32, 1, 0),
+('first_withdrawal', 'Cashout King', 'Make your first withdrawal', '💳', 'special', 'gold', 50, 0.50, '{"type":"withdrawals_completed","count":1}', 40, 1, 0),
+('referral_1', 'Recruiter', 'Refer your first user', '🤝', 'social', 'bronze', 20, 0.25, '{"type":"referrals","count":1}', 50, 1, 0),
+('referral_10', 'Influencer', 'Refer 10 users', '📢', 'social', 'silver', 100, 1.00, '{"type":"referrals","count":10}', 51, 1, 0);
+
+-- Done! Achievements system ready.
+

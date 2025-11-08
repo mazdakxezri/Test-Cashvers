@@ -67,22 +67,8 @@ class HomeService
 
         if (!$isVPNDetected) {
             $userCountry = getCountryCode($request->ip());
-            $allOffers = $this->offerService->getOffers($userCountry, $userUid, $offerLimit);
-            $ogadsOffers = $this->offerService->fetchOgadsOffers($request);
-            
-            // Filter offers based on user level
-            if ($user) {
-                $data['allOffers'] = $allOffers->filter(function($offer) use ($user) {
-                    return LevelService::canAccessOffer($user, $offer->payout);
-                });
-                
-                $data['ogadsOffers'] = collect($ogadsOffers)->filter(function($offer) use ($user) {
-                    return LevelService::canAccessOffer($user, $offer['payout'] ?? 0);
-                })->values()->all();
-            } else {
-                $data['allOffers'] = $allOffers;
-                $data['ogadsOffers'] = $ogadsOffers;
-            }
+            $data['allOffers'] = $this->offerService->getOffers($userCountry, $userUid, $offerLimit);
+            $data['ogadsOffers'] = $this->offerService->fetchOgadsOffers($request);
         }
 
         return $data;

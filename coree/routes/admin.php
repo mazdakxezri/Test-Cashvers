@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\FAQController;
 use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\FraudDetectionController;
 use App\Http\Controllers\Admin\LootBoxAdminController;
+use App\Http\Controllers\Admin\AchievementAdminController;
 
 Route::
         namespace('Admin\Auth')->group(function () {
@@ -106,6 +107,15 @@ Route::middleware(['auth:admin'])->group(function () {
     
     // Loot Box Management
     Route::get('/lootbox', [LootBoxAdminController::class, 'index'])->name('lootbox.index');
+    
+    // Achievement Management
+    Route::get('/achievements', [AchievementAdminController::class, 'index'])->name('achievements.index');
+    Route::get('/achievements/create', [AchievementAdminController::class, 'create'])->name('achievements.create');
+    Route::post('/achievements', [AchievementAdminController::class, 'store'])->name('achievements.store');
+    Route::get('/achievements/{achievement}/edit', [AchievementAdminController::class, 'edit'])->name('achievements.edit');
+    Route::put('/achievements/{achievement}', [AchievementAdminController::class, 'update'])->name('achievements.update');
+    Route::delete('/achievements/{achievement}', [AchievementAdminController::class, 'destroy'])->name('achievements.destroy');
+    Route::post('/achievements/seed', [AchievementAdminController::class, 'seed'])->name('achievements.seed');
     Route::get('/lootbox/create', [LootBoxAdminController::class, 'create'])->name('lootbox.create');
     Route::post('/lootbox', [LootBoxAdminController::class, 'store'])->name('lootbox.store');
     Route::get('/lootbox/{lootBoxType}/edit', [LootBoxAdminController::class, 'edit'])->name('lootbox.edit');

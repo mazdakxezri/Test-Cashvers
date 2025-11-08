@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at',
         'invited_by',
         'status',
+        'achievement_points',
     ];
     /**
      * The attributes that should be hidden for serialization.
@@ -144,5 +145,25 @@ class User extends Authenticatable implements MustVerifyEmail
                 'reward' => $level->reward,
             ]);
         }
+    }
+
+    /**
+     * Get user's achievements
+     */
+    public function achievements()
+    {
+        return $this->belongsToMany(Achievement::class, 'user_achievements')
+            ->withPivot(['progress', 'is_unlocked', 'unlocked_at', 'is_claimed', 'claimed_at'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Get user's unlocked achievements count
+     */
+    public function getUnlockedAchievementsCountAttribute(): int
+    {
+        return \App\Models\UserAchievement::where('user_id', $this->id)
+            ->where('is_unlocked', true)
+            ->count();
     }
 }
