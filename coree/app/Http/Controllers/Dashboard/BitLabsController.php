@@ -23,8 +23,8 @@ class BitLabsController extends Controller
     {
         $activeTemplate = getActiveTemplate();
         
-        // Use widget-based approach (more reliable than backend API)
-        return view($activeTemplate . '.bitlabs.widget');
+        // Use iframe approach (most reliable method)
+        return view($activeTemplate . '.bitlabs.iframe');
     }
 
     /**
