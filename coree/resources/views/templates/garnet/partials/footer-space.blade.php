@@ -20,7 +20,7 @@
                 <div>
                     <h4 style="font-size: 14px; font-weight: 600; color: #ffffff; margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Inter', sans-serif;">LEGAL</h4>
                     <a href="{{ route('privacy.policy') }}" style="display: block; color: rgba(255, 255, 255, 0.6); text-decoration: none; font-size: 14px; margin-bottom: 12px; transition: color 0.2s ease; font-family: 'Inter', sans-serif;">Privacy Policy</a>
-                    <a href="{{ route('terms.of.use') }}" style="display: block; color: rgba(255, 255, 255, 0.6); text-decoration: none; font-size: 14px; margin-bottom: 12px; transition: color 0.2s ease; font-family: 'Inter', sans-serif;">Terms of Service</a>
+                    <a href="{{ route('terms.service') }}" style="display: block; color: rgba(255, 255, 255, 0.6); text-decoration: none; font-size: 14px; margin-bottom: 12px; transition: color 0.2s ease; font-family: 'Inter', sans-serif;">Terms of Service</a>
                 </div>
                 
                 <div>

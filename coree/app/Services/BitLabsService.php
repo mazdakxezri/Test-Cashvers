@@ -25,13 +25,36 @@ class BitLabsService
     public function getSurveys($userId): array
     {
         try {
-            // BitLabs v2 API endpoint with required parameters
-            $response = Http::withHeaders([
-                'X-Api-Token' => $this->apiToken,
-                'Accept' => 'application/json',
-            ])->get($this->apiUrl . '/client/surveys/' . $userId, [
-                'platform' => 'WEB_DESKTOP',
-            ]);
+            // BitLabs API - Try multiple endpoint formats
+            $endpoints = [
+                '/client/surveys/' . $userId . '?platform=WEB_DESKTOP',
+                '/surveys?uid=' . $userId,
+                '/client/surveys?uid=' . $userId . '&platform=WEB_DESKTOP',
+            ];
+            
+            $response = null;
+            foreach ($endpoints as $endpoint) {
+                $testResponse = Http::withHeaders([
+                    'X-Api-Token' => $this->apiToken,
+                    'Accept' => 'application/json',
+                ])->get($this->apiUrl . $endpoint);
+                
+                if ($testResponse->successful()) {
+                    $response = $testResponse;
+                    Log::info('BitLabs: Working endpoint found: ' . $endpoint);
+                    break;
+                }
+            }
+            
+            if (!$response) {
+                // Default to last attempt
+                $response = Http::withHeaders([
+                    'X-Api-Token' => $this->apiToken,
+                    'Accept' => 'application/json',
+                ])->get($this->apiUrl . '/client/surveys/' . $userId, [
+                    'platform' => 'WEB_DESKTOP',
+                ]);
+            }
 
             if ($response->successful()) {
                 $data = $response->json();
