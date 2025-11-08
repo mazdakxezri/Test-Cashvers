@@ -6,7 +6,7 @@
     <div class="offer-card-image">
         <img src="{{ $creative }}" alt="{{ $name }}" />
         @if(isset($event) && $event)
-            <div class="offer-event-badge">{{ $event }}</div>
+            <div class="offer-event-badge">{{ is_array($event) ? ($event['name'] ?? 'Event') : $event }}</div>
         @endif
     </div>
     
