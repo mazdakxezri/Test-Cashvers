@@ -115,9 +115,30 @@
                 <div class="card-float text-center" style="padding: var(--space-3xl);">
                     <div style="font-size: 64px; margin-bottom: var(--space-md); opacity: 0.3;">📋</div>
                     <h3 style="color: rgba(255, 255, 255, 0.7); margin-bottom: var(--space-sm);">No Surveys Available</h3>
-                    <p style="color: rgba(255, 255, 255, 0.5);">
+                    <p style="color: rgba(255, 255, 255, 0.5); margin-bottom: var(--space-md);">
                         Check back soon! Surveys are added based on your profile and location.
                     </p>
+                    
+                    <!-- Troubleshooting Info -->
+                    <div style="margin-top: var(--space-lg); padding: var(--space-md); background: rgba(255, 152, 0, 0.1); border-radius: 8px; text-align: left;">
+                        <p style="color: rgba(255, 255, 255, 0.8); font-size: 13px; margin-bottom: 8px;">
+                            <strong>⚠️ Troubleshooting:</strong>
+                        </p>
+                        <ul style="color: rgba(255, 255, 255, 0.7); font-size: 12px; margin: 0; padding-left: 20px;">
+                            <li>BitLabs API Token: {{ env('BITLABS_API_TOKEN') ? 'Configured ✅' : 'MISSING ❌' }}</li>
+                            <li>Your UID: {{ Auth::user()->uid }}</li>
+                            <li>API URL: https://api.bitlabs.ai/v1/surveys</li>
+                            <li style="margin-top: 8px;">
+                                Possible reasons:
+                                <ul style="margin-top: 4px;">
+                                    <li>BitLabs account pending approval</li>
+                                    <li>Backend API calls not enabled (contact BitLabs)</li>
+                                    <li>No surveys for your country ({{ Auth::user()->country_code ?? 'Unknown' }})</li>
+                                    <li>Cache needs clearing: <code style="background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">php artisan config:clear</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             @endif
         </div>
