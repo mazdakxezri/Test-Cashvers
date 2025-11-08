@@ -119,6 +119,7 @@
     </section>
 @endsection
 
+@section('styles')
 <style>
 .surveys-stats-grid {
     display: grid;
