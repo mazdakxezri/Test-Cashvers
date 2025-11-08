@@ -23,8 +23,8 @@ class BitLabsController extends Controller
     {
         $activeTemplate = getActiveTemplate();
         
-        // Use iframe approach (most reliable method)
-        return view($activeTemplate . '.bitlabs.iframe');
+        // Use client-side fetching with custom card UI
+        return view($activeTemplate . '.bitlabs.cards');
     }
 
     /**
