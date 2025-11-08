@@ -147,6 +147,7 @@
     </section>
 @endsection
 
+@section('styles')
 <style>
 .achievement-stats-grid {
     display: grid;
