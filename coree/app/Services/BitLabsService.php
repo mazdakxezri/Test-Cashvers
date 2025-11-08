@@ -13,7 +13,7 @@ class BitLabsService
     public function __construct()
     {
         $this->apiToken = env('BITLABS_API_TOKEN');
-        $this->apiUrl = 'https://api.bitlabs.ai/v1';
+        $this->apiUrl = 'https://api.bitlabs.ai/v2';
     }
 
     /**
@@ -25,14 +25,12 @@ class BitLabsService
     public function getSurveys($userId): array
     {
         try {
-            // Include client parameters as required by BitLabs when calling from backend
+            // BitLabs v2 API endpoint with required parameters
             $response = Http::withHeaders([
                 'X-Api-Token' => $this->apiToken,
                 'Accept' => 'application/json',
-            ])->get($this->apiUrl . '/surveys', [
-                'uid' => $userId,
-                'client_ip' => request()->ip(),
-                'client_user_agent' => request()->userAgent(),
+            ])->get($this->apiUrl . '/client/surveys/' . $userId, [
+                'platform' => 'WEB_DESKTOP',
             ]);
 
             if ($response->successful()) {
