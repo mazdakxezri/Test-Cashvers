@@ -11,7 +11,7 @@
             <div class="modal-body">
                 @include($activeTemplate . '.partials.alerts.alerts')
                 <p>We’d love to hear from you. Fill out the form below and we'll get back to you soon.</p>
-                <form action="{{ route('contact') }}" method="POST">
+                <form action="{{ route('contact.submit') }}" method="POST">
                     @csrf
                     <div class="mb-3">
                         <div class="position-relative">
