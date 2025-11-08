@@ -42,7 +42,7 @@
                         <!-- Offers Grid -->
                         <div class="offers-grid-space">
                             @foreach ($allOffers as $offer)
-                                @include($activeTemplate . '.partials.slide', [
+                                @include($activeTemplate . '.partials.offer-card', [
                                     'name' => $offer->name,
                                     'creative' => $offer->creative,
                                     'payout' => $offer->payout,
@@ -60,7 +60,7 @@
                         <!-- OGAds Offers Grid -->
                         <div class="offers-grid-space" style="margin-top: var(--space-lg);">
                             @foreach ($ogadsOffers as $ogads)
-                                @include($activeTemplate . '.partials.slide', [
+                                @include($activeTemplate . '.partials.offer-card', [
                                     'name' => $ogads['name_short'],
                                     'creative' => $ogads['picture'],
                                     'payout' => $ogads['payout'],
@@ -131,9 +131,22 @@
 <style>
 .offers-grid-space {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-    gap: var(--space-lg);
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--space-md);
     margin-top: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+    .offers-grid-space {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: var(--space-lg);
+    }
+}
+
+@media (min-width: 1200px) {
+    .offers-grid-space {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
 }
 
 .pagination-space {
