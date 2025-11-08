@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\BitLabsController;
 use App\Http\Controllers\Dashboard\LootBoxController;
 use App\Http\Controllers\Dashboard\MonlixController;
 use App\Http\Controllers\Dashboard\AchievementController;
+use App\Http\Controllers\Dashboard\PushNotificationController;
 
 // Public routes
 Route::middleware('guest')->group(function () {
@@ -77,6 +78,10 @@ Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])
     // Achievements
     Route::get('/achievements', [AchievementController::class, 'index'])->name('achievements.index');
     Route::post('/achievements/claim', [AchievementController::class, 'claim'])->name('achievements.claim');
+    
+    // Push Notifications
+    Route::post('/push/subscribe', [PushNotificationController::class, 'subscribe'])->name('push.subscribe');
+    Route::post('/push/unsubscribe', [PushNotificationController::class, 'unsubscribe'])->name('push.unsubscribe');
     Route::post('/lootbox/purchase', [LootBoxController::class, 'purchase'])->name('lootbox.purchase');
     Route::post('/lootbox/open', [LootBoxController::class, 'open'])->name('lootbox.open');
     Route::post('/lootbox/claim', [LootBoxController::class, 'claimReward'])->name('lootbox.claim');
