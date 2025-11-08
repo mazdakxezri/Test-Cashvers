@@ -30,9 +30,6 @@ class EventAdminController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'priority' => 'nullable|integer',
-            'is_active' => 'boolean',
-            'show_banner' => 'boolean',
-            'send_notification' => 'boolean',
         ]);
 
         $validated['is_active'] = $request->has('is_active');
@@ -61,9 +58,6 @@ class EventAdminController extends Controller
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'priority' => 'nullable|integer',
-            'is_active' => 'boolean',
-            'show_banner' => 'boolean',
-            'send_notification' => 'boolean',
         ]);
 
         $validated['is_active'] = $request->has('is_active');

@@ -51,8 +51,6 @@ class AchievementAdminController extends Controller
             'requirement_type' => 'required|string',
             'requirement_count' => 'required|integer|min:1',
             'order' => 'nullable|integer',
-            'is_active' => 'boolean',
-            'is_hidden' => 'boolean',
         ]);
 
         // Generate unique key from name
@@ -109,8 +107,6 @@ class AchievementAdminController extends Controller
             'requirement_type' => 'required|string',
             'requirement_count' => 'required|integer|min:1',
             'order' => 'nullable|integer',
-            'is_active' => 'boolean',
-            'is_hidden' => 'boolean',
         ]);
 
         $achievement->update([
