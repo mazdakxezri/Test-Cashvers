@@ -211,6 +211,12 @@
                                     <a class="dropdown-item" href="{{ route('admin.lootbox.index') }}">
                                         Loot Box Management
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('admin.achievements.index') }}">
+                                        🏆 Achievements
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('admin.events.index') }}">
+                                        🎪 Events & Promotions
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('admin.frauds.index') }}">
                                         Fraud Prevention
                                     </a>
