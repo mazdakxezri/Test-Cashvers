@@ -21,19 +21,10 @@ class BitLabsController extends Controller
      */
     public function index()
     {
-        $userId = Auth::user()->uid;
+        $activeTemplate = getActiveTemplate();
         
-        // Debug: Check if API token is loaded
-        $apiToken = env('BITLABS_API_TOKEN');
-        \Log::info('BitLabs API Token: ' . ($apiToken ? 'Loaded' : 'MISSING'));
-        \Log::info('User UID: ' . $userId);
-        
-        $surveys = $this->bitLabsService->getSurveys($userId);
-        $userStats = $this->bitLabsService->getUserStats($userId);
-        
-        \Log::info('BitLabs Surveys Count: ' . count($surveys));
-
-        return view('templates.garnet.bitlabs.index', compact('surveys', 'userStats'));
+        // Use widget-based approach (more reliable than backend API)
+        return view($activeTemplate . '.bitlabs.widget');
     }
 
     /**
