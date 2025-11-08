@@ -20,6 +20,7 @@ use App\Http\Controllers\Admin\EmailTemplateController;
 use App\Http\Controllers\Admin\FraudDetectionController;
 use App\Http\Controllers\Admin\LootBoxAdminController;
 use App\Http\Controllers\Admin\AchievementAdminController;
+use App\Http\Controllers\Admin\EventAdminController;
 
 Route::
         namespace('Admin\Auth')->group(function () {
@@ -116,6 +117,14 @@ Route::middleware(['auth:admin'])->group(function () {
     Route::put('/achievements/{achievement}', [AchievementAdminController::class, 'update'])->name('achievements.update');
     Route::delete('/achievements/{achievement}', [AchievementAdminController::class, 'destroy'])->name('achievements.destroy');
     Route::post('/achievements/seed', [AchievementAdminController::class, 'seed'])->name('achievements.seed');
+    
+    // Event Management
+    Route::get('/events', [EventAdminController::class, 'index'])->name('events.index');
+    Route::get('/events/create', [EventAdminController::class, 'create'])->name('events.create');
+    Route::post('/events', [EventAdminController::class, 'store'])->name('events.store');
+    Route::get('/events/{event}/edit', [EventAdminController::class, 'edit'])->name('events.edit');
+    Route::put('/events/{event}', [EventAdminController::class, 'update'])->name('events.update');
+    Route::delete('/events/{event}', [EventAdminController::class, 'destroy'])->name('events.destroy');
     Route::get('/lootbox/create', [LootBoxAdminController::class, 'create'])->name('lootbox.create');
     Route::post('/lootbox', [LootBoxAdminController::class, 'store'])->name('lootbox.store');
     Route::get('/lootbox/{lootBoxType}/edit', [LootBoxAdminController::class, 'edit'])->name('lootbox.edit');

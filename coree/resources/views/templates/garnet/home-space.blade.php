@@ -12,8 +12,11 @@
     <!-- Level Progress Widget -->
     @include($activeTemplate . '.partials.widgets.level-progress')
     
-    <!-- Daily Login Bonus Widget -->
-    @include($activeTemplate . '.partials.widgets.daily-bonus')
+            <!-- Event Banners -->
+            @include($activeTemplate . '.partials.widgets.event-banner')
+            
+            <!-- Daily Login Bonus Widget -->
+            @include($activeTemplate . '.partials.widgets.daily-bonus')
 
     @if (isset($isVPNDetected) && $isVPNDetected)
         <section class="section-space">
