@@ -1,10 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\SiteController;
-use App\Http\Controllers\Postback\CallbackController;
-use App\Http\Controllers\Postback\CustomController;
-use App\Http\Controllers\Postback\Api\ApiCallbackController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\CashoutController;
 use App\Http\Controllers\Dashboard\AffiliateController;
@@ -16,53 +14,52 @@ use App\Http\Controllers\Dashboard\LootBoxController;
 use App\Http\Controllers\Dashboard\MonlixController;
 use App\Http\Controllers\Dashboard\AchievementController;
 use App\Http\Controllers\Dashboard\PushNotificationController;
+use App\Http\Controllers\Dashboard\TierController;
 
 // Public routes
 Route::middleware('guest')->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('home');
 });
-Route::get('/r/{referral_code}', [SiteController::class, 'referralCode'])->name('referral.code');
-Route::get('/privacy-policy', [SiteController::class, 'privacy'])->name('privacy.policy');
-Route::get('/terms-of-use', [SiteController::class, 'terms'])->name('terms.of.use');
-Route::post('/contact', [SiteController::class, 'submitForm'])->name('contact');
 
-// Postback routes
-Route::match(['get', 'post'], '/callback/{param_secret}/{network_slug}', [CallbackController::class, 'index'])
-    ->name('postback.callback');
-// API Offers Postback routes
-Route::get('/callback/api/{network_name}/{secret_key}', [ApiCallbackController::class, 'index'])->name('api.postback.callback');
-// Custom Offers Postback routes
-Route::get('/callback/custom/{param_secret}/{network_name}', [CustomController::class, 'index'])->name('custom.postback.callback');
+// Authentication routes
+Route::controller(AuthController::class)
+    ->name('auth.')
+    ->group(function () {
+        Route::post('/login', 'login')->name('login');
+        Route::post('/register', 'register')->name('register');
+        Route::post('/logout', 'logout')->name('logout');
+        Route::get('/forgot-password', 'forgotPassword')->name('password.request');
+        Route::post('/forgot-password', 'sendResetLink')->name('password.email');
+        Route::get('/reset-password/{token}', 'resetPassword')->name('password.reset');
+        Route::post('/reset-password', 'updatePassword')->name('password.update');
+        Route::post('/verify-email/resend', 'resendVerificationEmail')->name('verification.resend');
+        Route::get('/email/verify/{id}/{hash}', 'verifyEmail')->name('verification.verify');
+    });
 
+// Google OAuth
+Route::get('/google/redirect', [AuthController::class, 'googleRedirect'])->name('google.redirect');
+Route::get('/google/callback', [AuthController::class, 'googleCallback'])->name('google.callback');
 
-// Authenticated routes
+Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('privacy.policy');
+Route::get('/terms-of-service', [SiteController::class, 'termsOfService'])->name('terms.service');
+
+Route::post('/contact', [SiteController::class, 'submitContact'])->name('contact.submit');
+
+// Protected routes (require authentication)
 Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])->group(function () {
     Route::get('/earn', [DashboardController::class, 'index'])->name('earnings.index');
-
-    Route::resource('cashout', CashoutController::class)->only(['index', 'store'])->names([
-        'index' => 'cashout.index',
-        'store' => 'cashout.store',
-    ]);
-    Route::get('/affiliates', [AffiliateController::class, 'index'])->name('affiliates.index');
-
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.show');
-    Route::put('/profile', [ProfileController::class, 'edit']);
-
-    Route::get('/leaderboard', [DashboardController::class, 'leaderboard'])->name('leaderboard.index');
     Route::get('/offers', [DashboardController::class, 'getAllOffers'])->name('all.offers');
-
-    // Daily Login Bonus
-    Route::post('/bonus/claim', [DailyBonusController::class, 'claim'])->name('bonus.claim');
-    Route::get('/bonus/calendar', [DailyBonusController::class, 'calendar'])->name('bonus.calendar');
+    Route::get('/leaderboard', [DashboardController::class, 'leaderboard'])->name('leaderboard.index');
     
-    // Tier System
-    Route::get('/tiers', [\App\Http\Controllers\Dashboard\TierController::class, 'index'])->name('tiers.index');
-
-    // Crypto Deposits & Withdrawals
-    Route::get('/crypto/deposit', [CryptoController::class, 'depositIndex'])->name('crypto.deposit');
-    Route::post('/crypto/deposit', [CryptoController::class, 'createDeposit'])->name('crypto.deposit.create');
-    Route::get('/crypto/withdrawal', [CryptoController::class, 'withdrawalIndex'])->name('crypto.withdrawal');
-    Route::post('/crypto/withdrawal', [CryptoController::class, 'createWithdrawal'])->name('crypto.withdrawal.create');
+    Route::get('/cashout', [CashoutController::class, 'index'])->name('cashout.index');
+    Route::post('/cashout', [CashoutController::class, 'store'])->name('cashout.store');
+    Route::get('/cashout/history', [CashoutController::class, 'history'])->name('cashout.history');
+    
+    Route::get('/affiliate', [AffiliateController::class, 'index'])->name('affiliates.index');
+    
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
+    Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'changePassword'])->name('profile.password.update');
 
     // BitLabs Surveys
     Route::get('/surveys', [BitLabsController::class, 'index'])->name('bitlabs.index');
@@ -85,10 +82,14 @@ Route::middleware(['auth', 'active', 'auto_ban_country_change', 'auto_vpn_ban'])
     Route::post('/lootbox/purchase', [LootBoxController::class, 'purchase'])->name('lootbox.purchase');
     Route::post('/lootbox/open', [LootBoxController::class, 'open'])->name('lootbox.open');
     Route::post('/lootbox/claim', [LootBoxController::class, 'claimReward'])->name('lootbox.claim');
+    
+    // Tier System
+    Route::get('/tiers', [TierController::class, 'index'])->name('tiers.index');
+    
+    // Crypto Deposit
+    Route::get('/crypto/deposit', [CryptoController::class, 'deposit'])->name('crypto.deposit');
+    Route::post('/crypto/create-payment', [CryptoController::class, 'createPayment'])->name('crypto.create-payment');
 });
-
-// NOWPayments IPN Callback (no auth required)
-Route::post('/callback/nowpayments', [CryptoController::class, 'handleCallback'])->name('nowpayments.callback');
 
 // BitLabs Webhook (no auth required)
 Route::post('/callback/bitlabs', [BitLabsController::class, 'callback'])->name('bitlabs.callback');
@@ -96,3 +97,28 @@ Route::post('/callback/bitlabs', [BitLabsController::class, 'callback'])->name('
 // Monlix Postback (no auth required)
 Route::post('/callback/monlix', [MonlixController::class, 'callback'])->name('monlix.callback');
 
+// Test BitLabs API (TEMPORARY - DELETE AFTER TESTING)
+Route::get('/test-bitlabs', function() {
+    $service = new \App\Services\BitLabsService();
+    $userId = auth()->user()->uid ?? 'test123';
+    
+    // Make direct API call and show response
+    $response = \Illuminate\Support\Facades\Http::withHeaders([
+        'X-Api-Token' => env('BITLABS_API_TOKEN'),
+        'Accept' => 'application/json',
+    ])->get('https://api.bitlabs.ai/v1/surveys', [
+        'uid' => $userId,
+        'client_ip' => request()->ip(),
+        'client_user_agent' => request()->userAgent(),
+    ]);
+    
+    return response()->json([
+        'api_token_configured' => env('BITLABS_API_TOKEN') ? true : false,
+        'api_token_value' => substr(env('BITLABS_API_TOKEN'), 0, 10) . '...',
+        'user_id' => $userId,
+        'client_ip' => request()->ip(),
+        'response_status' => $response->status(),
+        'response_body' => $response->json(),
+        'raw_response' => $response->body(),
+    ], 200, [], JSON_PRETTY_PRINT);
+})->middleware('auth')->name('test.bitlabs');
