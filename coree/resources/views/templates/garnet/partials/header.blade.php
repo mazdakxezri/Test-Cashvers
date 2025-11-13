@@ -11,9 +11,9 @@
 <link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/bootstrap.min.css') }}?v={{ config('app.version') }}" />
 <link rel="stylesheet"
-    href="{{ asset('assets/' . $activeTemplate . '/css/clean-design-system.css') }}?v={{ config('app.version') }}" />
-<link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/space-design-system.css') }}?v={{ config('app.version') }}" />
+<link rel="stylesheet"
+    href="{{ asset('assets/' . $activeTemplate . '/css/clean-design-system.css') }}?v={{ config('app.version') }}" />
 <link rel="stylesheet"
     href="{{ asset('assets/' . $activeTemplate . '/css/preloader.css') }}?v={{ config('app.version') }}" />
 <link rel="stylesheet"

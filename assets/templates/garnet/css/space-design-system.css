@@ -247,13 +247,13 @@ p {
 }
 
 .section-space {
-    padding: var(--space-4xl) 0;
+    padding: var(--space-xl) 0;
     position: relative;
 }
 
 .section-header-space {
     text-align: center;
-    margin-bottom: var(--space-3xl);
+    margin-bottom: var(--space-lg);
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -540,19 +540,19 @@ p {
    ======================================== */
 
 .heading-hero {
-    font-size: clamp(48px, 8vw, 96px);
+    font-size: clamp(32px, 5vw, 48px);
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.04em;
-    margin-bottom: var(--space-lg);
+    margin-bottom: var(--space-md);
 }
 
 .heading-section {
-    font-size: clamp(36px, 6vw, 64px);
+    font-size: clamp(26px, 4vw, 40px);
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.03em;
-    margin-bottom: var(--space-md);
+    margin-bottom: var(--space-sm);
 }
 
 .text-body-lg {
@@ -894,7 +894,7 @@ p {
 
 @media (max-width: 768px) {
     .section-space {
-        padding: var(--space-2xl) 0;
+        padding: var(--space-lg) 0;
     }
     
     .container-space {
@@ -902,7 +902,7 @@ p {
     }
     
     .section-header-space {
-        margin-bottom: var(--space-2xl);
+        margin-bottom: var(--space-md);
     }
 }
 
@@ -933,7 +933,7 @@ p {
     
     /* Smaller spacing on mobile */
     .section-space {
-        padding: var(--space-xl) var(--space-sm);
+        padding: var(--space-md) var(--space-sm);
     }
     
     /* Responsive text */
