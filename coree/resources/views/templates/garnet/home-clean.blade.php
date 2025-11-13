@@ -163,7 +163,7 @@
 
 .section-header-inline h2 {
     margin: 0;
-    font-size: 28px;
+    font-size: clamp(24px, 4vw, 28px);
 }
 
 .offers-grid {
@@ -173,12 +173,16 @@
 }
 
 .network-category {
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-7);
+}
+
+.network-category:last-child {
+    margin-bottom: 0;
 }
 
 .network-category h2 {
     margin-bottom: var(--space-5);
-    font-size: 24px;
+    font-size: clamp(20px, 3.5vw, 24px);
 }
 
 .networks-grid {
@@ -195,18 +199,30 @@
     text-align: center;
     cursor: pointer;
     transition: all var(--transition-base);
+    position: relative;
+    z-index: 1;
 }
 
 .network-card:hover {
     border-color: var(--primary);
-    box-shadow: 0 0 25px rgba(0, 217, 255, 0.2);
+    box-shadow: 0 0 25px var(--primary-glow);
     transform: translateY(-4px);
+    z-index: 10;
+}
+
+.network-card:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.network-card:active {
+    transform: translateY(-2px);
 }
 
 .network-card img {
     width: 100%;
     max-width: 120px;
-    height: 60px;
+    aspect-ratio: 2 / 1;
     object-fit: contain;
     margin-bottom: var(--space-3);
 }
@@ -224,13 +240,44 @@
     line-height: 1.5;
 }
 
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+    .offers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+    
+    .networks-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
 @media (max-width: 768px) {
+    .offers-section, .networks-section {
+        padding: var(--space-6) 0;
+    }
+    
+    .section-header-inline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-3);
+    }
+    
     .offers-grid {
         grid-template-columns: 1fr;
     }
     
     .networks-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+    
+    .network-category {
+        margin-bottom: var(--space-6);
+    }
+}
+
+@media (max-width: 480px) {
+    .networks-grid {
+        grid-template-columns: 1fr;
     }
 }
 </style>
