@@ -149,25 +149,26 @@ class OfferService
             // Filter out specific unwanted offers
             return collect($offers)
                 ->filter(function($offer) use ($user, $completedOfferIds) {
-                    // Get all fields to check (convert to string to be safe)
+                    // Get all fields to check (convert to string and lowercase)
                     $link = strtolower((string)($offer['link'] ?? ''));
                     $name = strtolower((string)($offer['name_short'] ?? $offer['name'] ?? ''));
                     $picture = strtolower((string)($offer['picture'] ?? ''));
                     
-                    // Block specific problematic offers - check all fields
-                    // Hungeroffer specific patterns
+                    // BLOCK: Hungeroffer by name (case insensitive, all variations)
                     if (str_contains($name, 'hungeroffer') || 
                         str_contains($name, 'hunger offer') ||
                         str_contains($name, 'hunger-offer')) {
                         return false;
                     }
                     
-                    // Block notik.me redirect (it's a tracking/redirect service)
-                    if (str_contains($link, 'notik.me') || str_contains($link, 'notik.')) {
+                    // BLOCK: notik.me redirect/tracking service (any variant)
+                    if (str_contains($link, 'notik.me') || 
+                        str_contains($link, 'notik.') ||
+                        str_contains($link, '//notik')) {
                         return false;
                     }
                     
-                    // Block if image contains specific Hungeroffer hash
+                    // BLOCK: Specific Hungeroffer image hash
                     if (str_contains($picture, '9175d5eac79a4a22b877f195881127ead4abb78a')) {
                         return false;
                     }
