@@ -19,7 +19,12 @@
                         </div>
                     </div>
                 </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="background: rgba(255, 255, 255, 0.1); opacity: 1; border-radius: 8px; width: 32px; height: 32px; filter: brightness(2);"></button>
+                <button type="button" class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
             </div>
 
             <!-- Modal Body -->
@@ -81,5 +86,37 @@
 /* Modal backdrop */
 .modal.api .modal-backdrop {
     backdrop-filter: blur(10px);
+}
+
+/* Custom close button */
+.modal-close-btn {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0;
+}
+
+.modal-close-btn:hover {
+    background: rgba(255, 61, 61, 0.15);
+    border-color: rgba(255, 61, 61, 0.4);
+    color: #FF3D3D;
+    transform: rotate(90deg);
+}
+
+.modal-close-btn:active {
+    transform: rotate(90deg) scale(0.95);
+}
+
+.modal-close-btn svg {
+    pointer-events: none;
 }
 </style>
