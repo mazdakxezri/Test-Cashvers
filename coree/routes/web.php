@@ -19,6 +19,7 @@ use App\Http\Controllers\Dashboard\TierController;
 // Public routes
 Route::middleware('guest')->group(function () {
     Route::get('/', [SiteController::class, 'index'])->name('home');
+    Route::get('/ref/{referral_code}', [SiteController::class, 'referralCode'])->name('referral.code');
 });
 
 // Authentication routes

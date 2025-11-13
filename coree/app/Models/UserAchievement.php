@@ -50,6 +50,12 @@ class UserAchievement extends Model
         }
 
         $required = $this->achievement->requirements['count'] ?? 1;
+        
+        // Prevent division by zero
+        if ($required <= 0) {
+            return 0;
+        }
+        
         return min(100, (int)(($this->progress / $required) * 100));
     }
 }

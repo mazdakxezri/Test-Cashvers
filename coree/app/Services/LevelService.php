@@ -81,8 +81,19 @@ class LevelService
     /**
      * Get tier info for a level
      */
-    public static function getTierForLevel(int $level): array
+    public static function getTierForLevel(?int $level): array
     {
+        // Handle null or 0 level
+        if ($level === null || $level === 0) {
+            return [
+                'key' => 'bronze',
+                'name' => 'Bronze',
+                'color' => '#cd7f32',
+                'rank_name' => 'Beginner',
+                'icon' => '🥉',
+            ];
+        }
+
         foreach (self::TIERS as $tierKey => $tier) {
             if (in_array($level, $tier['levels'])) {
                 return [
@@ -95,7 +106,7 @@ class LevelService
             }
         }
         
-        // Default for level 0 or very high levels
+        // Default for very high levels
         return [
             'key' => 'bronze',
             'name' => 'Bronze',
