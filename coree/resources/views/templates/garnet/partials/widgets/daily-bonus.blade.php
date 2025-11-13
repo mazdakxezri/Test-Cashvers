@@ -15,257 +15,127 @@
 
 @if($bonusEnabled)
 
-<div class="daily-bonus-widget">
-    <div class="bonus-card">
-        <div class="bonus-icon">
+<div class="daily-bonus-compact">
+    <div class="bonus-mini">
+        <div class="bonus-icon-mini">
             @if($canClaim)
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#00B8D4" stroke="#00B8D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="#FFB300" stroke="#FFB300" stroke-width="2"/>
                 </svg>
             @else
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="#00B8D4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2"/>
                 </svg>
             @endif
         </div>
         
-        <div class="bonus-content">
-            <h4 class="bonus-title">Daily Login Bonus</h4>
-            
-            @if($canClaim)
-                <p class="bonus-status bonus-available">
-                    <span class="bonus-pulse"></span>
-                    Ready to claim!
-                </p>
-                <div class="bonus-amount">
-                    <span class="bonus-currency">$</span>{{ number_format(\App\Services\DailyLoginBonusService::DAILY_BONUS, 2) }}
-                </div>
-                <button onclick="claimDailyBonus()" class="btn-claim-bonus">
-                    Claim Now
-                </button>
-            @else
-                <p class="bonus-status bonus-claimed">
-                    ✓ Claimed Today
-                </p>
-                <div class="bonus-next">
-                    Next bonus in: <strong>{{ $nextBonusIn }}</strong>
-                </div>
-            @endif
+        <div class="bonus-details-mini">
+            <span class="bonus-title-mini">Daily Bonus</span>
+            <span class="bonus-streak-mini">🔥 {{ $streak }} day streak</span>
         </div>
         
-        <div class="bonus-stats">
-            <div class="bonus-stat">
-                <div class="stat-label">Current Streak</div>
-                <div class="stat-value">🔥 {{ $streak }} days</div>
+        @if($canClaim)
+            <button onclick="claimDailyBonus()" class="btn-claim-mini">
+                Claim ${{ number_format(\App\Services\DailyLoginBonusService::DAILY_BONUS, 2) }}
+            </button>
+        @else
+            <div class="bonus-claimed-mini">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00C853" stroke-width="3">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span>Claimed</span>
             </div>
-            <div class="bonus-stat">
-                <div class="stat-label">Total Earned</div>
-                <div class="stat-value">${{ number_format($totalEarned, 2) }}</div>
-            </div>
-        </div>
+        @endif
     </div>
 </div>
 
 <style>
-.daily-bonus-widget {
-    margin-bottom: var(--space-md);
-    max-width: 900px;
+.daily-bonus-compact {
+    margin-bottom: 8px;
 }
 
-.bonus-card {
-    background: linear-gradient(135deg, rgba(0, 184, 212, 0.08) 0%, rgba(13, 71, 161, 0.08) 100%);
-    border: 1px solid rgba(0, 184, 212, 0.25);
-    border-radius: var(--radius-md);
-    padding: 16px 20px;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 12px;
-    align-items: center;
-    backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
-}
-
-.bonus-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: radial-gradient(circle at 20% 50%, rgba(0, 184, 212, 0.15) 0%, transparent 50%);
-    pointer-events: none;
-}
-
-.bonus-icon {
-    position: relative;
-    z-index: 2;
-}
-
-.bonus-icon svg {
-    width: 24px;
-    height: 24px;
-    animation: bonusFloat 3s ease-in-out infinite;
-}
-
-@keyframes bonusFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
-}
-
-.bonus-content {
-    position: relative;
-    z-index: 2;
-}
-
-.bonus-title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--text-white);
-    margin-bottom: 0;
-    font-family: 'Inter', sans-serif;
-}
-
-.bonus-status {
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 6px;
+.bonus-mini {
+    background: linear-gradient(135deg, rgba(255, 179, 0, 0.08) 0%, rgba(255, 152, 0, 0.08) 100%);
+    border: 1px solid rgba(255, 179, 0, 0.2);
+    border-radius: 8px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-family: 'Inter', sans-serif;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
 }
 
-.bonus-available {
-    color: #00E5FF;
+.bonus-mini:hover {
+    border-color: rgba(255, 179, 0, 0.4);
+    background: linear-gradient(135deg, rgba(255, 179, 0, 0.12) 0%, rgba(255, 152, 0, 0.12) 100%);
 }
 
-.bonus-claimed {
-    color: rgba(255, 255, 255, 0.6);
+.bonus-icon-mini {
+    flex-shrink: 0;
+    line-height: 1;
 }
 
-.bonus-pulse {
-    width: 8px;
-    height: 8px;
-    background: #00E5FF;
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
+.bonus-details-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
 }
 
-@keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.3); }
-}
-
-.bonus-amount {
-    font-size: 18px;
+.bonus-title-mini {
+    font-size: 13px;
     font-weight: 700;
-    background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 4px;
+    color: rgba(255, 255, 255, 0.95);
     font-family: 'Inter', sans-serif;
+    line-height: 1;
 }
 
-.bonus-currency {
-    font-size: 14px;
+.bonus-streak-mini {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
 }
 
-.btn-claim-bonus {
-    background: linear-gradient(135deg, #00B8D4 0%, #0D47A1 100%);
-    color: white;
-    padding: 6px 16px;
-    border-radius: var(--radius-sm);
-    font-weight: 600;
+.btn-claim-mini {
+    background: linear-gradient(135deg, #FFB300 0%, #FF9800 100%);
+    color: #000000;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 700;
     font-size: 12px;
     border: none;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     font-family: 'Inter', sans-serif;
-    box-shadow: 0 2px 8px rgba(0, 184, 212, 0.2);
+    white-space: nowrap;
+    margin-left: auto;
 }
 
-.btn-claim-bonus:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 184, 212, 0.5);
+.btn-claim-mini:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 179, 0, 0.4);
 }
 
-.bonus-next {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.7);
-    font-family: 'Inter', sans-serif;
-}
-
-.bonus-next strong {
-    color: #00B8D4;
-}
-
-.bonus-stats {
+.bonus-claimed-mini {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-    position: relative;
-    z-index: 2;
-}
-
-.bonus-stat {
-    text-align: right;
-}
-
-.stat-label {
-    font-size: 10px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 2px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    font-family: 'Inter', sans-serif;
-}
-
-.stat-value {
-    font-size: 13px;
+    align-items: center;
+    gap: 4px;
+    color: #00C853;
+    font-size: 12px;
     font-weight: 600;
-    color: var(--text-white);
     font-family: 'Inter', sans-serif;
+    margin-left: auto;
+    padding: 4px 10px;
+    background: rgba(0, 200, 83, 0.1);
+    border-radius: 6px;
 }
 
 @media (max-width: 768px) {
-    .daily-bonus-widget {
-        margin-bottom: var(--space-md);
-    }
-    
-    .bonus-card {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: var(--space-sm);
-        padding: var(--space-md) !important;
-    }
-    
-    .bonus-icon {
-        margin: 0 auto;
-    }
-    
-    .bonus-icon svg {
-        width: 32px !important;
-        height: 32px !important;
-    }
-    
-    .bonus-title {
-        font-size: 16px !important;
-        margin-bottom: 4px !important;
-    }
-    
-    .bonus-amount {
-        font-size: 24px !important;
-        margin-bottom: var(--space-sm) !important;
-    }
-    
-    .bonus-currency {
-        font-size: 18px !important;
-    }
-    
-    .btn-claim-bonus {
-        padding: 10px 24px !important;
+    .bonus-mini {
+        padding: 8px 10px;
+        gap: 8px;
         font-size: 14px !important;
     }
     

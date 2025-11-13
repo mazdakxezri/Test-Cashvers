@@ -9,14 +9,18 @@
         <div class="glow-orb glow-orb-purple" style="bottom: 30%; left: 10%;"></div>
     </div>
 
-    <!-- Level Progress Widget -->
-    @include($activeTemplate . '.partials.widgets.level-progress')
+    <!-- Compact Widgets Row -->
+    <div style="padding: 12px 0; background: rgba(0, 0, 0, 0.2);">
+        <div class="container-space">
+            <div class="widgets-compact-row">
+                @include($activeTemplate . '.partials.widgets.level-progress')
+                @include($activeTemplate . '.partials.widgets.daily-bonus')
+            </div>
+        </div>
+    </div>
     
-            <!-- Event Banners -->
-            @include($activeTemplate . '.partials.widgets.event-banner')
-            
-            <!-- Daily Login Bonus Widget -->
-            @include($activeTemplate . '.partials.widgets.daily-bonus')
+    <!-- Event Banners -->
+    @include($activeTemplate . '.partials.widgets.event-banner')
 
     @if (isset($isVPNDetected) && $isVPNDetected)
         <section class="section-space">

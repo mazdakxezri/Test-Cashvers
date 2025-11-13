@@ -6,234 +6,144 @@
     $features = $levelService::getUnlockedFeatures(Auth::user()->level);
 @endphp
 
-<div class="level-progress-widget">
-    <div class="tier-card">
-        <!-- Current Tier Display -->
-        <div class="tier-header">
-            <div class="tier-icon" style="color: {{ $tierInfo['color'] }};">
-                {{ $tierInfo['icon'] }}
-            </div>
-            <div class="tier-info">
-                <div class="tier-rank">{{ $tierInfo['rank_name'] }}</div>
-                <div class="tier-level">Level {{ Auth::user()->level }}</div>
-            </div>
-            <div class="tier-actions">
-                <div class="tier-badge" style="background: linear-gradient(135deg, {{ $tierInfo['color'] }}40, {{ $tierInfo['color'] }}20); border-color: {{ $tierInfo['color'] }};">
-                    {{ $tierInfo['name'] }}
-                </div>
-                <a href="{{ route('tiers.index') }}" class="tier-link">View All Tiers →</a>
-            </div>
+<div class="level-progress-compact">
+    <div class="tier-mini">
+        <span class="tier-icon-mini" style="color: {{ $tierInfo['color'] }};">{{ $tierInfo['icon'] }}</span>
+        <div class="tier-details-mini">
+            <span class="tier-name-mini">{{ $tierInfo['rank_name'] }}</span>
+            <span class="tier-level-mini">Lvl {{ Auth::user()->level }}</span>
         </div>
-        
-        <!-- Progress Bar -->
         @if($progress['next_level'])
-            <div class="progress-section">
-                <div class="progress-labels">
-                    <span class="progress-current">${{ number_format($progress['current_xp'], 2) }} earned</span>
-                    <span class="progress-target">${{ number_format($progress['required_xp'], 2) }} to {{ $progress['next_tier']['rank_name'] }}</span>
-                </div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar-fill" style="width: {{ $progress['percentage'] }}%; background: linear-gradient(90deg, {{ $tierInfo['color'] }}, {{ $progress['next_tier']['color'] }});">
-                        <span class="progress-percentage">{{ round($progress['percentage']) }}%</span>
-                    </div>
-                </div>
+            <div class="progress-mini">
+                <div class="progress-bar-mini" style="width: {{ $progress['percentage'] }}%; background: {{ $tierInfo['color'] }};"></div>
             </div>
+            <span class="progress-text-mini">{{ round($progress['percentage']) }}%</span>
         @else
-            <div class="progress-section">
-                <div class="max-level-badge">
-                    🏆 MAX LEVEL REACHED 🏆
-                </div>
-            </div>
+            <span class="max-badge-mini">🏆 MAX</span>
         @endif
-        
-        <!-- Unlocked Features - Compact -->
-        <div class="features-section">
-            <div class="features-compact">
-                <span class="features-label">🔓 Perks:</span>
-                <span class="features-count">{{ count($features) }} unlocked</span>
-            </div>
-        </div>
+        <a href="{{ route('tiers.index') }}" class="tier-link-mini">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+        </a>
     </div>
 </div>
 
 <style>
-.level-progress-widget {
-    margin-bottom: var(--space-md);
+.level-progress-compact {
+    margin-bottom: 8px;
 }
 
-.tier-card {
-    background: linear-gradient(135deg, rgba(0, 184, 212, 0.05) 0%, rgba(13, 71, 161, 0.05) 100%);
+.tier-mini {
+    background: linear-gradient(135deg, rgba(0, 184, 212, 0.08) 0%, rgba(13, 71, 161, 0.08) 100%);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--radius-md);
-    padding: 16px 20px;
-    backdrop-filter: blur(10px);
-}
-
-.tier-header {
+    border-radius: 8px;
+    padding: 8px 12px;
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
 }
 
-.tier-icon {
-    font-size: 24px;
+.tier-mini:hover {
+    border-color: rgba(0, 184, 212, 0.3);
+    background: linear-gradient(135deg, rgba(0, 184, 212, 0.12) 0%, rgba(13, 71, 161, 0.12) 100%);
+}
+
+.tier-icon-mini {
+    font-size: 18px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.tier-details-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex-shrink: 0;
+}
+
+.tier-name-mini {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    font-family: 'Inter', sans-serif;
     line-height: 1;
 }
 
-.tier-actions {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.tier-level-mini {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
 }
 
-.tier-info {
+.progress-mini {
     flex: 1;
-}
-
-.tier-rank {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-white);
-    font-family: 'Inter', sans-serif;
-}
-
-.tier-level {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.6);
-    font-family: 'Inter', sans-serif;
-}
-
-.tier-badge {
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-size: 11px;
-    font-weight: 600;
-    border: 1px solid;
-    font-family: 'Inter', sans-serif;
-}
-
-.tier-link {
-    font-size: 11px;
-    color: #00B8D4;
-    text-decoration: none;
-    font-weight: 500;
-    font-family: 'Inter', sans-serif;
-    white-space: nowrap;
-}
-
-.tier-link:hover {
-    color: #00E5FF;
-    text-decoration: underline;
-}
-
-.progress-section {
-    margin-bottom: var(--space-md);
-}
-
-.progress-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 11px;
-    font-family: 'Inter', sans-serif;
-}
-
-.progress-current {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.progress-target {
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 600;
-}
-
-.progress-bar-container {
-    height: 20px;
+    height: 6px;
     background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    border-radius: 3px;
     overflow: hidden;
     position: relative;
+    min-width: 80px;
 }
 
-.progress-bar-fill {
+.progress-bar-mini {
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: width 0.6s ease;
-    position: relative;
+    border-radius: 3px;
 }
 
-.progress-bar-fill::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
-
-.progress-percentage {
+.progress-text-mini {
     font-size: 11px;
-    font-weight: 700;
-    color: white;
-    position: relative;
-    z-index: 2;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+    min-width: 35px;
+    text-align: right;
 }
 
-.max-level-badge {
-    text-align: center;
-    padding: var(--space-md);
-    font-size: 14px;
+.max-badge-mini {
+    font-size: 11px;
     font-weight: 700;
     color: #FFD700;
     font-family: 'Inter', sans-serif;
+    padding: 2px 8px;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 4px;
 }
 
-.features-section {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 10px;
-}
-
-.features-compact {
+.tier-link-mini {
+    color: rgba(255, 255, 255, 0.4);
+    text-decoration: none;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
-.features-label {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.7);
-    font-family: 'Inter', sans-serif;
-}
-
-.features-count {
-    font-size: 11px;
-    font-weight: 600;
+.tier-link-mini:hover {
     color: #00B8D4;
-    font-family: 'Inter', sans-serif;
 }
 
 @media (max-width: 768px) {
-    .tier-icon {
-        font-size: 24px;
+    .tier-mini {
+        padding: 8px 10px;
+        gap: 8px;
     }
     
-    .tier-rank {
-        font-size: 14px;
+    .tier-icon-mini {
+        font-size: 16px;
     }
     
-    .tier-card {
-        padding: var(--space-md);
+    .tier-name-mini {
+        font-size: 12px;
+    }
+    
+    .progress-mini {
+        min-width: 60px;
     }
 }
 </style>
