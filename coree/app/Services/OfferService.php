@@ -146,27 +146,21 @@ class OfferService
 
             $offers = $response->json('offers', []);
 
-            // Filter out OfferToro and other unwanted offers
+            // Filter out specific unwanted offers
             return collect($offers)
                 ->filter(function($offer) use ($user, $completedOfferIds) {
                     // Get all fields to check (convert to string to be safe)
-                    $picture = strtolower((string)($offer['picture'] ?? ''));
                     $link = strtolower((string)($offer['link'] ?? ''));
                     $name = strtolower((string)($offer['name_short'] ?? $offer['name'] ?? ''));
                     
-                    // Blocked domains/keywords - comprehensive list
+                    // Only block specific problematic offers/domains
                     $blockedKeywords = [
-                        'offertoro', 
-                        'hungeroffer', 
-                        'notik.me',
-                        'notik',
-                        'static.offertoro',
+                        'hungeroffer',  // Specific offer name
+                        'notik.me',      // Notik redirect domain
                     ];
                     
                     foreach ($blockedKeywords as $keyword) {
-                        if (str_contains($picture, $keyword) || 
-                            str_contains($link, $keyword) ||
-                            str_contains($name, $keyword)) {
+                        if (str_contains($link, $keyword) || str_contains($name, $keyword)) {
                             return false;
                         }
                     }
