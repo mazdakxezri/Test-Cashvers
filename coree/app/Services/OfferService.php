@@ -152,17 +152,24 @@ class OfferService
                     // Get all fields to check (convert to string to be safe)
                     $link = strtolower((string)($offer['link'] ?? ''));
                     $name = strtolower((string)($offer['name_short'] ?? $offer['name'] ?? ''));
+                    $picture = strtolower((string)($offer['picture'] ?? ''));
                     
-                    // Only block specific problematic offers/domains
-                    $blockedKeywords = [
-                        'hungeroffer',  // Specific offer name
-                        'notik.me',      // Notik redirect domain
-                    ];
+                    // Block specific problematic offers - check all fields
+                    // Hungeroffer specific patterns
+                    if (str_contains($name, 'hungeroffer') || 
+                        str_contains($name, 'hunger offer') ||
+                        str_contains($name, 'hunger-offer')) {
+                        return false;
+                    }
                     
-                    foreach ($blockedKeywords as $keyword) {
-                        if (str_contains($link, $keyword) || str_contains($name, $keyword)) {
-                            return false;
-                        }
+                    // Block notik.me redirect (it's a tracking/redirect service)
+                    if (str_contains($link, 'notik.me') || str_contains($link, 'notik.')) {
+                        return false;
+                    }
+                    
+                    // Block if image contains specific Hungeroffer hash
+                    if (str_contains($picture, '9175d5eac79a4a22b877f195881127ead4abb78a')) {
+                        return false;
                     }
                     
                     // Filter out completed offers
