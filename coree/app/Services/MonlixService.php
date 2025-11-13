@@ -50,8 +50,19 @@ class MonlixService
             if ($response->successful()) {
                 $campaigns = $response->json();
                 
+                Log::info('Monlix API Response', [
+                    'count' => is_array($campaigns) ? count($campaigns) : 0,
+                    'user_id' => $userId,
+                ]);
+                
                 // Transform Monlix format to match ogadsOffers format
-                return $this->transformMonlixOffers($campaigns, $userId);
+                $transformed = $this->transformMonlixOffers($campaigns, $userId);
+                
+                Log::info('Monlix Transformed', [
+                    'count' => count($transformed),
+                ]);
+                
+                return $transformed;
             }
 
             Log::error('Monlix API Error', [
