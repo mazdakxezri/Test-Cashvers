@@ -41,4 +41,16 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'discord' => [
+        'client_id' => env('DISCORD_CLIENT_ID'),
+        'client_secret' => env('DISCORD_CLIENT_SECRET'),
+        'redirect' => env('DISCORD_REDIRECT_URI'),
+    ],
+
+    'steam' => [
+        'client_secret' => null,
+        'redirect' => env('STEAM_REDIRECT_URI'),
+        'allowed_hosts' => env('STEAM_ALLOWED_HOSTS'),
+    ],
+
 ];

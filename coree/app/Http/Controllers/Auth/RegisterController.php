@@ -139,7 +139,44 @@ class RegisterController extends Controller
             return redirect('/')->with('error', 'Google sign-in was cancelled.');
         }
         $user = Socialite::driver('google')->stateless()->user();
+        return $this->handleOAuthCallback($user, 'google', $request);
+    }
+
+    //Discord Registrations
+    public function redirectToDiscord()
+    {
+        return Socialite::driver('discord')->redirect();
+    }
+
+    public function handleDiscordCallback(Request $request)
+    {
+        if ($request->has('error')) {
+            return redirect('/')->with('error', 'Discord sign-in was cancelled.');
+        }
+        $user = Socialite::driver('discord')->stateless()->user();
+        return $this->handleOAuthCallback($user, 'discord', $request);
+    }
+
+    //Steam Registrations
+    public function redirectToSteam()
+    {
+        return Socialite::driver('steam')->redirect();
+    }
+
+    public function handleSteamCallback(Request $request)
+    {
+        if ($request->has('error')) {
+            return redirect('/')->with('error', 'Steam sign-in was cancelled.');
+        }
+        $user = Socialite::driver('steam')->stateless()->user();
+        return $this->handleOAuthCallback($user, 'steam', $request);
+    }
+
+    // Unified OAuth callback handler
+    private function handleOAuthCallback($user, $provider, Request $request)
+    {
         $existingUser = User::where('email', $user->email)->first();
+        
         if ($existingUser) {
             Auth::login($existingUser);
             return redirect()->route('earnings.index');
@@ -149,7 +186,7 @@ class RegisterController extends Controller
             $signupBonus = $this->getSignupBonus();
 
             $newUser = User::create([
-                'name' => $user->name,
+                'name' => $user->name ?? $user->nickname ?? 'User',
                 'email' => $user->email,
                 'password' => Hash::make(Str::random(24)),
                 'email_verified_at' => now(),

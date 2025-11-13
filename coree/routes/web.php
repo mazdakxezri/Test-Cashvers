@@ -36,9 +36,17 @@ Route::controller(AuthController::class)
         Route::get('/email/verify/{id}/{hash}', 'verifyEmail')->name('verification.verify');
     });
 
-// Google OAuth
-Route::get('/google/redirect', [AuthController::class, 'googleRedirect'])->name('google.redirect');
-Route::get('/google/callback', [AuthController::class, 'googleCallback'])->name('google.callback');
+// OAuth Routes  
+use App\Http\Controllers\Auth\RegisterController;
+
+Route::get('/google/redirect', [RegisterController::class, 'redirectToGoogle'])->name('google.redirect');
+Route::get('/google/callback', [RegisterController::class, 'handleGoogleCallback'])->name('google.callback');
+
+Route::get('/discord/redirect', [RegisterController::class, 'redirectToDiscord'])->name('discord.redirect');
+Route::get('/discord/callback', [RegisterController::class, 'handleDiscordCallback'])->name('discord.callback');
+
+Route::get('/steam/redirect', [RegisterController::class, 'redirectToSteam'])->name('steam.redirect');
+Route::get('/steam/callback', [RegisterController::class, 'handleSteamCallback'])->name('steam.callback');
 
 Route::get('/privacy-policy', [SiteController::class, 'privacyPolicy'])->name('privacy.policy');
 Route::get('/terms-of-service', [SiteController::class, 'termsOfService'])->name('terms.service');
