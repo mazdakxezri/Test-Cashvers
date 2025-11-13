@@ -146,8 +146,23 @@ class OfferService
 
             $offers = $response->json('offers', []);
 
-
-            return collect(array_filter($offers, fn($offer) => !$user || !in_array($offer['offerid'], $completedOfferIds))) // Skip filtering if user is not authenticated
+            // Filter out OfferToro offers and completed offers
+            return collect($offers)
+                ->filter(function($offer) use ($user, $completedOfferIds) {
+                    // Filter out OfferToro offers
+                    $picture = $offer['picture'] ?? '';
+                    $link = $offer['link'] ?? '';
+                    if (str_contains($picture, 'offertoro') || str_contains($link, 'offertoro')) {
+                        return false;
+                    }
+                    
+                    // Filter out completed offers
+                    if ($user && in_array($offer['offerid'], $completedOfferIds)) {
+                        return false;
+                    }
+                    
+                    return true;
+                })
                 ->map(fn($offer) => ['payout' => $offer['payout'] * $ogRate] + $offer)
                 ->values();
         }
