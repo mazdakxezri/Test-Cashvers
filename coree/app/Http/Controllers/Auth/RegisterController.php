@@ -145,7 +145,9 @@ class RegisterController extends Controller
     //Discord Registrations
     public function redirectToDiscord()
     {
-        return Socialite::driver('discord')->redirect();
+        return Socialite::driver('discord')
+            ->scopes(['identify', 'email'])
+            ->redirect();
     }
 
     public function handleDiscordCallback(Request $request)
@@ -153,8 +155,14 @@ class RegisterController extends Controller
         if ($request->has('error')) {
             return redirect('/')->with('error', 'Discord sign-in was cancelled.');
         }
-        $user = Socialite::driver('discord')->stateless()->user();
-        return $this->handleOAuthCallback($user, 'discord', $request);
+        
+        try {
+            $user = Socialite::driver('discord')->stateless()->user();
+            return $this->handleOAuthCallback($user, 'discord', $request);
+        } catch (\Exception $e) {
+            \Log::error('Discord OAuth Error: ' . $e->getMessage());
+            return redirect('/')->with('error', 'Failed to sign in with Discord. Please try again.');
+        }
     }
 
     //Steam Registrations
@@ -168,38 +176,73 @@ class RegisterController extends Controller
         if ($request->has('error')) {
             return redirect('/')->with('error', 'Steam sign-in was cancelled.');
         }
-        $user = Socialite::driver('steam')->stateless()->user();
-        return $this->handleOAuthCallback($user, 'steam', $request);
+        
+        try {
+            $user = Socialite::driver('steam')->stateless()->user();
+            
+            // Steam doesn't provide email, so we need to handle this specially
+            // We'll use Steam ID as a unique identifier
+            if (empty($user->email)) {
+                // Generate a placeholder email using Steam ID
+                $user->email = 'steam_' . $user->id . '@placeholder.local';
+            }
+            
+            return $this->handleOAuthCallback($user, 'steam', $request);
+        } catch (\Exception $e) {
+            \Log::error('Steam OAuth Error: ' . $e->getMessage());
+            return redirect('/')->with('error', 'Failed to sign in with Steam. Please try again.');
+        }
     }
 
     // Unified OAuth callback handler
     private function handleOAuthCallback($user, $provider, Request $request)
     {
+        // Log the user data for debugging
+        \Log::info('OAuth Callback Data', [
+            'provider' => $provider,
+            'user_id' => $user->id ?? null,
+            'email' => $user->email ?? null,
+            'name' => $user->name ?? $user->nickname ?? null,
+        ]);
+
+        // Check if email is provided (except for Steam which uses placeholder emails)
+        if (empty($user->email) && $provider !== 'steam') {
+            \Log::error('OAuth Error: No email provided by ' . $provider);
+            return redirect('/')->with('error', 'We need your email to create an account. Please make sure email permissions are granted.');
+        }
+
         $existingUser = User::where('email', $user->email)->first();
         
         if ($existingUser) {
             Auth::login($existingUser);
             return redirect()->route('earnings.index');
         } else {
-            $referral_code = request()->cookie('referral_code');
-            $invited_by_id = User::where('referral_code', $referral_code)->value('id');
-            $signupBonus = $this->getSignupBonus();
+            try {
+                $referral_code = request()->cookie('referral_code');
+                $invited_by_id = User::where('referral_code', $referral_code)->value('id');
+                $signupBonus = $this->getSignupBonus();
 
-            $newUser = User::create([
-                'name' => $user->name ?? $user->nickname ?? 'User',
-                'email' => $user->email,
-                'password' => Hash::make(Str::random(24)),
-                'email_verified_at' => now(),
-                'country_code' => getCountryCode($request->ip()),
-                'ip' => $request->ip(),
-                'balance' => $signupBonus,
-                'avatar' => $user->avatar,
-                'user_agent' => request()->header('User-Agent'),
-                'invited_by' => $invited_by_id,
-            ]);
+                $newUser = User::create([
+                    'name' => $user->name ?? $user->nickname ?? 'User',
+                    'email' => $user->email,
+                    'password' => Hash::make(Str::random(24)),
+                    'email_verified_at' => now(),
+                    'country_code' => getCountryCode($request->ip()),
+                    'ip' => $request->ip(),
+                    'balance' => $signupBonus,
+                    'avatar' => $user->avatar ?? null,
+                    'user_agent' => request()->header('User-Agent'),
+                    'invited_by' => $invited_by_id,
+                ]);
 
-            Auth::login($newUser);
-            return redirect()->route('earnings.index');
+                \Log::info('New user created via ' . $provider, ['user_id' => $newUser->id]);
+
+                Auth::login($newUser);
+                return redirect()->route('earnings.index');
+            } catch (\Exception $e) {
+                \Log::error('Error creating user via ' . $provider . ': ' . $e->getMessage());
+                return redirect('/')->with('error', 'Failed to create account. Please try again.');
+            }
         }
     }
 
