@@ -81,12 +81,11 @@ class HomeService
                     $request->header('User-Agent')
                 );
                 
-                // Merge Monlix offers with ogadsOffers for display (handle Collection)
-                if (is_array($data['ogadsOffers'])) {
-                    $data['ogadsOffers'] = array_merge($data['ogadsOffers'], $monlixOffers);
-                } else {
-                    $data['ogadsOffers'] = collect($data['ogadsOffers'])->merge($monlixOffers)->all();
-                }
+                // Merge Monlix offers with ogadsOffers - always keep as Collection
+                $data['ogadsOffers'] = collect($data['ogadsOffers'])->merge($monlixOffers);
+            } else {
+                // Ensure ogadsOffers is always a Collection even without Monlix
+                $data['ogadsOffers'] = collect($data['ogadsOffers']);
             }
         }
 
