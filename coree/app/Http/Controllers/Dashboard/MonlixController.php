@@ -20,10 +20,14 @@ class MonlixController extends Controller
     /**
      * Show Monlix offers page
      */
-    public function index()
+    public function index(Request $request)
     {
         $userId = Auth::user()->uid;
-        $offers = $this->monlixService->getOffers($userId);
+        $offers = $this->monlixService->getOffers(
+            $userId,
+            $request->ip(),
+            $request->header('User-Agent')
+        );
 
         return view('templates.garnet.monlix.index', compact('offers'));
     }
@@ -70,24 +74,33 @@ class MonlixController extends Controller
             return response('User not found', 404);
         }
 
-        // Calculate reward (apply your commission/rate)
-        $reward = $data['payout'] ?? 0;
-        $reward = $reward * 0.75; // 75% to user, 25% platform commission
+        // Calculate reward based on payout
+        $payout = floatval($data['payout'] ?? 0);
+        
+        // Get Monlix rate from settings (default 75% to user)
+        $monlixRate = \App\Models\Setting::where('name', 'monlix_rate')->value('value') ?? 0.75;
+        $reward = $payout * $monlixRate;
 
         // Credit user account
         $user->increment('balance', $reward);
 
         // Log the completion
-        Log::info('Monlix: Offer completed for user ' . $user->uid . ' - $' . $reward);
+        Log::info('Monlix: Offer completed', [
+            'user_uid' => $user->uid,
+            'campaign_id' => $data['campaign_id'] ?? $data['offer_id'] ?? 'N/A',
+            'payout' => $payout,
+            'user_reward' => $reward
+        ]);
 
         // Create track record
         \App\Models\Track::create([
             'uid' => $user->uid,
-            'offer_id' => $data['offer_id'] ?? 'monlix_offer',
-            'offer_name' => $data['offer_name'] ?? 'Monlix Offer',
-            'amount' => $reward,
-            'status' => $data['status'] ?? 'completed',
-            'network_name' => 'Monlix',
+            'offer_id' => $data['campaign_id'] ?? $data['offer_id'] ?? 'monlix_offer',
+            'offer_name' => $data['campaign_name'] ?? $data['offer_name'] ?? 'Monlix Offer',
+            'amount' => $payout,
+            'reward' => $reward,
+            'status' => 1, // Completed
+            'partners' => 'monlix',
             'ip_address' => $request->ip(),
         ]);
 
