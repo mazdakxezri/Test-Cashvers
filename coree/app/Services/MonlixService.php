@@ -87,7 +87,10 @@ class MonlixService
 
         $filtered = array_filter($campaigns, function($campaign) use ($userDevice, $userCountry) {
             // Filter by device/OS
-            $campaignOs = strtolower($campaign['oss'] ?? 'all');
+            $campaignOsRaw = $campaign['oss'] ?? 'all';
+            // Handle if oss is an array (e.g., ["android", "ios"])
+            $campaignOs = is_array($campaignOsRaw) ? ($campaignOsRaw[0] ?? 'all') : strtolower($campaignOsRaw);
+            
             if ($campaignOs !== 'all') {
                 // Map our device types to Monlix OS types
                 $deviceMap = [

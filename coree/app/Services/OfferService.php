@@ -149,10 +149,14 @@ class OfferService
             // Filter out OfferToro offers and completed offers
             return collect($offers)
                 ->filter(function($offer) use ($user, $completedOfferIds) {
-                    // Filter out OfferToro offers
-                    $picture = $offer['picture'] ?? '';
-                    $link = $offer['link'] ?? '';
-                    if (str_contains($picture, 'offertoro') || str_contains($link, 'offertoro')) {
+                    // Filter out OfferToro offers (multiple checks)
+                    $picture = strtolower($offer['picture'] ?? '');
+                    $link = strtolower($offer['link'] ?? '');
+                    $name = strtolower($offer['name_short'] ?? $offer['name'] ?? '');
+                    
+                    if (str_contains($picture, 'offertoro') || 
+                        str_contains($link, 'offertoro') ||
+                        str_contains($name, 'hungeroffer')) {
                         return false;
                     }
                     

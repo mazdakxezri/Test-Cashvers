@@ -31,7 +31,7 @@
                     <h2 class="mb-0">
                         <img src="{{ asset('assets/' . $activeTemplate . '/images/icons/rocket.svg') }}" class="img-fluid"
                             alt="rocket" />
-                        Latest Offers
+                        🔥 Hot Offers
                     </h2>
                     <div class="slid-button d-flex align-items-center gap-2">
                         <a href="{{ route('all.offers') }}" class="text-white text-capitalize fw-semibold fs-13">view

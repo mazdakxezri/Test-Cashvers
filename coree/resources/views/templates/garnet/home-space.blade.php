@@ -32,12 +32,12 @@
             </div>
         </section>
     @else
-        <!-- Latest Offers -->
+        <!-- Hot Offers -->
         @if (isOgadsApiEnabled() || count($allOffers) > 0 || count($ogadsOffers) > 0)
             <section class="section-space" style="padding-top: var(--space-lg); padding-bottom: var(--space-lg);">
                 <div class="container-space">
                     <div class="section-header-inline">
-                        <h2 class="heading-section" style="margin: 0; font-size: 22px;">Latest Offers</h2>
+                        <h2 class="heading-section" style="margin: 0; font-size: 22px;">🔥 Hot Offers</h2>
                         <a href="{{ route('all.offers') }}" class="btn-space-secondary btn-sm-space">View All</a>
                     </div>
                     
