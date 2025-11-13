@@ -168,6 +168,11 @@ class MonlixService
      */
     protected function mapOsToDevice($os): string
     {
+        // Handle if OS is an array
+        if (is_array($os)) {
+            $os = $os[0] ?? 'all';
+        }
+        
         return match(strtolower($os)) {
             'android' => 'android',
             'ios' => 'ios',
