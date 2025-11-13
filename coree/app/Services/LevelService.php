@@ -134,14 +134,20 @@ class LevelService
         $currentLevelRequirement = $currentLevel->required_earning ?? 0;
         $xpInCurrentLevel = $currentEarnings - $currentLevelRequirement;
         $xpNeededForNext = $nextLevel->required_earning - $currentLevelRequirement;
-        $percentage = ($xpInCurrentLevel / $xpNeededForNext) * 100;
+        
+        // Prevent division by zero if levels are misconfigured
+        if ($xpNeededForNext <= 0) {
+            $percentage = 0;
+        } else {
+            $percentage = ($xpInCurrentLevel / $xpNeededForNext) * 100;
+        }
 
         return [
             'current_xp' => $currentEarnings,
             'required_xp' => $nextLevel->required_earning,
             'xp_in_level' => $xpInCurrentLevel,
-            'xp_needed' => $xpNeededForNext,
-            'percentage' => min(100, $percentage),
+            'xp_needed' => max(0, $xpNeededForNext),
+            'percentage' => min(100, max(0, $percentage)),
             'next_level' => $nextLevel,
             'next_tier' => self::getTierForLevel($nextLevel->level),
         ];
