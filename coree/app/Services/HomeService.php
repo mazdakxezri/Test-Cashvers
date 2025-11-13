@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Network;
 use App\Services\OfferService;
 use App\Services\VPNDetectionService;
+use App\Services\MonlixService;
 use App\Models\WithdrawalHistory;
 use App\Models\Track;
 
@@ -14,12 +15,14 @@ class HomeService
 {
     protected $offerService;
     protected $vpnService;
+    protected $monlixService;
 
     // Type-hinting both services for better clarity
-    public function __construct(OfferService $offerService, VPNDetectionService $vpnService)
+    public function __construct(OfferService $offerService, VPNDetectionService $vpnService, MonlixService $monlixService)
     {
         $this->offerService = $offerService;
         $this->vpnService = $vpnService;
+        $this->monlixService = $monlixService;
     }
 
 
@@ -69,6 +72,13 @@ class HomeService
             $userCountry = getCountryCode($request->ip());
             $data['allOffers'] = $this->offerService->getOffers($userCountry, $userUid, $offerLimit);
             $data['ogadsOffers'] = $this->offerService->fetchOgadsOffers($request);
+            
+            // Add Monlix offers if API is configured
+            if ($userUid && env('MONLIX_API_KEY')) {
+                $monlixOffers = $this->monlixService->getOffers($userUid);
+                // Merge Monlix offers with ogadsOffers for display
+                $data['ogadsOffers'] = array_merge($data['ogadsOffers'], $monlixOffers);
+            }
         }
 
         return $data;

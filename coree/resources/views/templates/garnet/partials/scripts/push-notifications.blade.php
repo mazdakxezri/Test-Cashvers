@@ -3,14 +3,14 @@
 const pushNotifications = {
     init() {
         if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-            console.log('Push notifications not supported');
+            // Push notifications not supported
             return;
         }
 
         // Register service worker
         navigator.serviceWorker.register('/service-worker.js')
             .then((registration) => {
-                console.log('Service Worker registered:', registration);
+                // Service Worker registered
                 this.checkSubscription(registration);
             })
             .catch((error) => {
@@ -25,7 +25,7 @@ const pushNotifications = {
             // Show prompt to enable notifications
             this.showNotificationPrompt();
         } else {
-            console.log('Already subscribed to push notifications');
+            // Already subscribed to push notifications
         }
     },
 
@@ -92,7 +92,7 @@ const pushNotifications = {
             const data = await response.json();
             
             if (data.success) {
-                console.log('Successfully subscribed to push notifications');
+                // Successfully subscribed to push notifications
                 this.showToast('✅ Notifications enabled!', 'success');
             }
         } catch (error) {

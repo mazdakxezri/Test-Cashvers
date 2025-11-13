@@ -287,7 +287,7 @@
 
 <script>
 function claimDailyBonus() {
-    console.log('Claiming daily bonus...');
+    // Claiming daily bonus...
     
     fetch('{{ route('bonus.claim') }}', {
         method: 'POST',
@@ -299,11 +299,11 @@ function claimDailyBonus() {
         credentials: 'same-origin'
     })
     .then(response => {
-        console.log('Response status:', response.status);
+        // Response status: response.status
         return response.json();
     })
     .then(data => {
-        console.log('Response data:', data);
+        // Response data processed
         if (data.success) {
             // Show success notification
             showBonusNotification(data.amount, data.streak);
