@@ -85,9 +85,9 @@
                                     data-payout="{{ number_format($ogads['payout'], 2) }}"
                                     data-device="{{ $ogads['device'] ?? 'desktop' }}"
                                     data-requirements="{{ $ogads['description'] ?? '' }}"
-                                    data-link="{{ $ogads['link'] . (Auth::check() ? Auth::user()->uid : '') }}"
+                                    data-link="{{ $ogads['link'] }}"
                                     data-description="{{ $ogads['adcopy'] ?? '' }}"
-                                    data-event='[]'>
+                                    data-event='@json($ogads['event'] ?? [])'>
                                 <img src="{{ $ogads['picture'] }}" alt="{{ $ogads['name_short'] }}" class="offer-image-space">
                                 
                                 <div class="offer-content-space">
