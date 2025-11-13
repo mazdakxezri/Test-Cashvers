@@ -13,8 +13,15 @@ Route::middleware(['guest'])->group(function () {
     Route::get('/password/reset/{token}', [ResetPassword::class, 'ResetPasswordForm'])->name('password.reset');
     Route::post('/reset-password', [ResetPassword::class, 'ResetPassword'])->name('auth.password.reset');
 
-    Route::get('/google/redirect', [RegisterController::class, 'redirectToGoogle'])->name('auth.google.redirect');
-    Route::get('/google/callback', [RegisterController::class, 'handleGoogleCallback'])->name('auth.google.callback');
+    // OAuth Routes
+    Route::get('/google/redirect', [RegisterController::class, 'redirectToGoogle'])->name('google.redirect');
+    Route::get('/google/callback', [RegisterController::class, 'handleGoogleCallback'])->name('google.callback');
+    
+    Route::get('/discord/redirect', [RegisterController::class, 'redirectToDiscord'])->name('discord.redirect');
+    Route::get('/discord/callback', [RegisterController::class, 'handleDiscordCallback'])->name('discord.callback');
+    
+    Route::get('/steam/redirect', [RegisterController::class, 'redirectToSteam'])->name('steam.redirect');
+    Route::get('/steam/callback', [RegisterController::class, 'handleSteamCallback'])->name('steam.callback');
 });
 
 Route::middleware(['auth'])->group(function () {
