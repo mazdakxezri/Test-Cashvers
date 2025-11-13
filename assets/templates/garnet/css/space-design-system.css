@@ -234,6 +234,12 @@ p {
    LAYOUT & CONTAINERS
    ======================================== */
 
+/* Main wrapper - offset for sidebar on desktop */
+.wrapper {
+    margin-left: 280px;
+    min-height: 100vh;
+}
+
 .container-space {
     max-width: 1280px;
     margin: 0 auto;
@@ -664,6 +670,15 @@ p {
    NETWORK CARDS (Offer & Survey Partners)
    ======================================== */
 
+/* Offers grid */
+.offers-grid-space {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-lg);
+    grid-auto-rows: minmax(240px, auto);
+    align-items: start;
+}
+
 .networks-grid-space {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -897,6 +912,10 @@ p {
 
 @media (max-width: 1199px) {
     /* Remove sidebar spacing on mobile */
+    .wrapper {
+        margin-left: 0 !important;
+    }
+    
     body {
         overflow-x: hidden !important;
     }
