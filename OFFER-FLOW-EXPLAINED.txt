@@ -1,0 +1,220 @@
+═══════════════════════════════════════════════════════════════
+📊 OFFER FLOW INVESTIGATION - Where Hungeroffer/notik.me Comes From
+═══════════════════════════════════════════════════════════════
+
+🔍 THE MYSTERY: Where is notik.me API located?
+
+ANSWER: There is NO separate notik.me API integration!
+
+═══════════════════════════════════════════════════════════════
+
+📍 THE ACTUAL FLOW:
+
+1. YOUR WEBSITE
+   └─> Calls OfferService::fetchOgadsOffers()
+       └─> Location: coree/app/Services/OfferService.php (line 114-156)
+
+2. OGADS API CALL
+   └─> Endpoint: https://unlockcontent.net/api/v2
+       └─> Your API Key: Stored in settings table
+       └─> Params sent:
+           - ip: User's IP
+           - user_agent: User's browser
+           - ctype: 3 (offer type)
+
+3. OGADS RESPONSE
+   └─> Returns JSON array of 'offers'
+       └─> These offers come from MULTIPLE sources:
+           ├─> Direct OGads offers ✓
+           ├─> OfferToro network offers
+           ├─> AdGate offers  
+           ├─> CPAlead offers
+           ├─> Other partner networks
+           └─> NOTIK.ME TRACKED OFFERS ← This is where Hungeroffer comes from!
+
+═══════════════════════════════════════════════════════════════
+
+🎯 WHAT IS NOTIK.ME?
+
+notik.me is a TRACKING/REDIRECT SERVICE used by some offer networks.
+
+Think of it like:
+- bit.ly for link shortening
+- BUT for offer tracking
+
+Example Hungeroffer Link:
+https://notik.me/api-redirect?token=eyJpdiI6IllYaTY...&user_id=...
+
+This link:
+1. Goes to notik.me first (tracking server)
+2. Records the click
+3. Redirects to actual offer destination
+4. Tracks conversion
+5. Reports back to OGads
+
+═══════════════════════════════════════════════════════════════
+
+🔗 THE CHAIN:
+
+User clicks offer
+  ↓
+notik.me/api-redirect (tracking)
+  ↓
+Actual offer website
+  ↓
+User completes offer
+  ↓
+notik.me reports to OGads
+  ↓
+OGads sends postback to your site
+  ↓
+User gets credited
+
+═══════════════════════════════════════════════════════════════
+
+🏢 WHO OWNS WHAT?
+
+OGads (unlockcontent.net)
+└─> Offer Aggregator Platform
+    └─> Partners with multiple networks:
+        ├─> OfferToro (uses offertoro.com tracking)
+        ├─> NOTIK Network (uses notik.me tracking) ← Hungeroffer is here
+        ├─> CPAlead (uses cpalead.com tracking)
+        └─> Many others
+
+═══════════════════════════════════════════════════════════════
+
+📂 CODE LOCATIONS:
+
+1. OGads API Call:
+   File: coree/app/Services/OfferService.php
+   Method: fetchOgadsOffers()
+   Lines: 114-188
+
+2. API Endpoint:
+   URL: https://unlockcontent.net/api/v2
+   
+3. API Key Storage:
+   Database: settings table
+   Key name: 'ogads_api_key'
+
+4. Response Processing:
+   Line 147: $offers = $response->json('offers', []);
+   
+   Each offer contains:
+   - name_short (e.g., "Hungeroffer")
+   - link (e.g., "https://notik.me/api-redirect?...")
+   - picture (CDN URL)
+   - payout
+   - etc.
+
+5. Filtering (NEW):
+   Lines 150-184: Filter out unwanted offers
+   └─> Checks for 'notik.me' in link
+   └─> Checks for 'hungeroffer' in name
+   └─> Checks for specific image hash
+
+═══════════════════════════════════════════════════════════════
+
+❓ WHY YOU SEE NOTIK.ME OFFERS:
+
+Because OGads aggregates offers from their PARTNER NETWORKS, and one
+of those partners uses notik.me for tracking.
+
+OGads doesn't tell you which sub-network each offer comes from.
+They just bundle everything together in one API response.
+
+═══════════════════════════════════════════════════════════════
+
+🛠️ SOLUTION OPTIONS:
+
+Option 1: BLOCK notik.me offers (CURRENT APPROACH) ✓
+- Filter out any offer with notik.me in link
+- Simple and effective
+- Code already implemented
+
+Option 2: CONTACT OGADS
+- Ask them to exclude specific networks
+- Tell them you don't want notik.me offers
+- They might have API params for this
+
+Option 3: SWITCH TO DIFFERENT ctype
+- Current: ctype=3
+- Try: ctype=1, 2, 4, 5
+- Different types return different offer sets
+- Might exclude notik.me offers
+
+═══════════════════════════════════════════════════════════════
+
+🔧 CURRENT FILTER (Already Applied):
+
+Location: coree/app/Services/OfferService.php (lines 164-168)
+
+if (str_contains($link, 'notik.me') || 
+    str_contains($link, 'notik.') ||
+    str_contains($link, '//notik')) {
+    return false;  // Don't show this offer
+}
+
+This runs AFTER getting offers from OGads API.
+It filters out notik.me offers before displaying to users.
+
+═══════════════════════════════════════════════════════════════
+
+📊 API CALL SEQUENCE:
+
+You:    "Get offers for GB user"
+  ↓
+OfferService: HTTP GET to unlockcontent.net/api/v2
+  ↓
+OGads Server: Queries all partner networks
+  ↓
+OGads Response: [
+    {offer from OfferToro},
+    {offer from notik network},  ← Hungeroffer
+    {offer from CPAlead},
+    ...
+]
+  ↓
+Your Filter: Remove notik.me offers
+  ↓
+User: Sees filtered list
+
+═══════════════════════════════════════════════════════════════
+
+💡 KEY INSIGHT:
+
+There is NO separate notik.me API integration in your codebase!
+
+notik.me offers are EMBEDDED in the OGads API response.
+OGads acts as a "marketplace aggregator" pulling from multiple sources.
+
+Think of it like:
+- Amazon Marketplace (OGads)
+  └─> Sells products from different vendors
+      └─> Some vendors use FedEx (OfferToro)
+      └─> Some vendors use UPS (notik.me)
+      └─> Amazon doesn't tell you which shipping method
+
+═══════════════════════════════════════════════════════════════
+
+🎯 SUMMARY:
+
+SOURCE: OGads API (unlockcontent.net/api/v2)
+METHOD: Single API call returns mixed offers
+NOTIK: Sub-network partner of OGads, not separate API
+FILTER: Applied in OfferService.php after API response
+STATUS: Blocking is working, just needs deployment
+
+═══════════════════════════════════════════════════════════════
+
+✅ TO REMOVE HUNGEROFFER:
+
+1. Deploy latest code: git pull origin main
+2. Clear cache: php artisan cache:clear
+3. Done - filter will remove it automatically
+
+No separate API to disconnect - it's just filtered out!
+
+═══════════════════════════════════════════════════════════════
+
