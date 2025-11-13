@@ -76,8 +76,12 @@ class HomeService
             // Add Monlix offers if API is configured
             if ($userUid && env('MONLIX_API_KEY')) {
                 $monlixOffers = $this->monlixService->getOffers($userUid);
-                // Merge Monlix offers with ogadsOffers for display
-                $data['ogadsOffers'] = array_merge($data['ogadsOffers'], $monlixOffers);
+                // Merge Monlix offers with ogadsOffers for display (handle Collection)
+                if (is_array($data['ogadsOffers'])) {
+                    $data['ogadsOffers'] = array_merge($data['ogadsOffers'], $monlixOffers);
+                } else {
+                    $data['ogadsOffers'] = collect($data['ogadsOffers'])->merge($monlixOffers)->all();
+                }
             }
         }
 
