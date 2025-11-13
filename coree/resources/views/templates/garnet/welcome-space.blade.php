@@ -63,9 +63,10 @@
                     <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(0, 184, 212, 0.3) 0%, rgba(13, 71, 161, 0.2) 50%, transparent 70%); filter: blur(60px); animation: pulse 4s ease-in-out infinite; z-index: 1;"></div>
                     
                     <!-- Avatar Image -->
-                    <img src="{{ asset('assets/' . $activeTemplate . '/images/hero-avatar.png') }}?v={{ config('app.version') }}&t={{ time() }}" 
+                    <img src="{{ asset('assets/' . $activeTemplate . '/images/landing-hero.png') }}?v={{ config('app.version') }}&t={{ time() }}" 
                          alt="Crypto Warrior" 
                          class="hero-avatar"
+                         onerror="this.style.display='none'"
                          style="position: relative; width: 100%; max-width: 480px; height: auto; z-index: 3; animation: avatarGlow 3s ease-in-out infinite;">
                     
                     <!-- Energy Particles -->
