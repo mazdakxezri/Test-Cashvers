@@ -70,7 +70,7 @@ class MonlixService
     }
 
     /**
-     * Transform Monlix campaigns to match ogads format
+     * Transform Monlix campaigns to match ogads format with filtering
      *
      * @param array $campaigns
      * @param string $userId
@@ -82,15 +82,63 @@ class MonlixService
             return [];
         }
 
+        $userDevice = detectDevicePlatform(); // Get current user's device
+        $userCountry = request()->header('CF-IPCountry') ?? getCountryCode(request()->ip()); // Get user's country
+
+        $filtered = array_filter($campaigns, function($campaign) use ($userDevice, $userCountry) {
+            // Filter by device/OS
+            $campaignOs = strtolower($campaign['oss'] ?? 'all');
+            if ($campaignOs !== 'all') {
+                // Map our device types to Monlix OS types
+                $deviceMap = [
+                    'mobile' => ['android', 'ios'],
+                    'desktop' => ['all', 'desktop'],
+                    'android' => ['android'],
+                    'ios' => ['ios'],
+                ];
+                
+                $allowedOs = $deviceMap[$userDevice] ?? ['all'];
+                if (!in_array($campaignOs, $allowedOs) && $campaignOs !== 'all') {
+                    return false;
+                }
+            }
+
+            // Filter by country
+            $campaignCountries = $campaign['countries'] ?? [];
+            if (!empty($campaignCountries) && is_array($campaignCountries)) {
+                // Check if user's country is in allowed countries
+                if (!in_array($userCountry, $campaignCountries)) {
+                    return false;
+                }
+            }
+
+            return true;
+        });
+
         return array_map(function($campaign) use ($userId) {
             // Replace {{userid}} placeholder in URL
             $url = str_replace('{{userid}}', $userId, $campaign['url'] ?? '');
             
             // Calculate display payout (highest goal payout or base payout)
             $displayPayout = $campaign['payout'] ?? 0;
+            $events = [];
+            
             if (!empty($campaign['goals']) && is_array($campaign['goals'])) {
-                $maxGoalPayout = max(array_column($campaign['goals'], 'payout'));
-                $displayPayout = max($displayPayout, $maxGoalPayout);
+                // Build events array for modal display
+                foreach ($campaign['goals'] as $goal) {
+                    $goalPayout = $goal['payout'] ?? 0;
+                    if (is_array($goalPayout) && isset($goalPayout[0]['payout'])) {
+                        $goalPayout = $goalPayout[0]['payout'];
+                    }
+                    $events[] = [
+                        'name' => $goal['name'] ?? 'Goal',
+                        'payout' => floatval($goalPayout),
+                    ];
+                }
+                
+                // Use highest payout for display
+                $payouts = array_column($events, 'payout');
+                $displayPayout = !empty($payouts) ? max($payouts) : $displayPayout;
             }
 
             // Transform to ogads-like format
@@ -100,14 +148,28 @@ class MonlixService
                 'description' => $campaign['description'] ?? '',
                 'adcopy' => $campaign['description'] ?? '',
                 'picture' => $campaign['image'] ?? '',
-                'payout' => $displayPayout,
+                'payout' => floatval($displayPayout),
                 'link' => $url,
                 'countries' => $campaign['countries'] ?? [],
                 'oss' => $campaign['oss'] ?? 'all',
+                'device' => $this->mapOsToDevice($campaign['oss'] ?? 'all'),
                 'categories' => $campaign['categories'] ?? [],
-                'partner' => 'monlix', // Identify as Monlix offer
+                'partner' => 'monlix',
+                'event' => $events, // Include events for modal
             ];
-        }, $campaigns);
+        }, $filtered);
+    }
+
+    /**
+     * Map Monlix OS to our device types
+     */
+    protected function mapOsToDevice($os): string
+    {
+        return match(strtolower($os)) {
+            'android' => 'android',
+            'ios' => 'ios',
+            default => 'all',
+        };
     }
 
     /**
